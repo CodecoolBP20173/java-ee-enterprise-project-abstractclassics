@@ -13,7 +13,7 @@ public class UserDetail {
 
     @OneToOne
     @MapsId
-    private User user;
+    private UserAccount userAccount;
 
     private String firstName;
 
@@ -42,12 +42,29 @@ public class UserDetail {
         this.id = id;
     }
 
-    public User getUser() {
-        return user;
+    public UserAccount getUserAccount() {
+        return userAccount;
     }
 
-    public void setUser(User user) {
-        this.user = user;
+    public void setUserAccount(UserAccount userAccount) {
+        this.userAccount = userAccount;
+        //this.id = userAccount.getId();
+    }
+
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
     }
 
     public String getIntroductionText() {
