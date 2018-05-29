@@ -1,6 +1,9 @@
 package com.codecool.labourent.model;
 
 import javax.persistence.*;
+import java.time.LocalDate;
+import java.time.Period;
+import java.time.ZoneId;
 import java.util.Date;
 
 @Entity
@@ -24,9 +27,6 @@ public class UserDetail {
 
     @Temporal(TemporalType.DATE)
     private Date dateOfBirth;
-
-    @Transient
-    private long age;
 
     private String city;
 
@@ -66,12 +66,11 @@ public class UserDetail {
         this.dateOfBirth = dateOfBirth;
     }
 
-    public long getAge() {
-        return age;
-    }
-
-    public void setAge(long age) {
-        this.age = age;
+    public int getAge() {
+        Date currentDate = new Date();
+        LocalDate currentDateInLocalDate = currentDate.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+        LocalDate birthInLocalDate = dateOfBirth.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+        return Period.between(birthInLocalDate, currentDateInLocalDate).getYears();
     }
 
     public String getCity() {
