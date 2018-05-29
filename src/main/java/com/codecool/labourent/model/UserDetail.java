@@ -12,6 +12,13 @@ public class UserDetail {
     @MapsId
     private User user;
 
+    private String firstName;
+
+    private String lastName;
+
+    @Enumerated(EnumType.STRING)
+    private Gender gender;
+
     @Column(columnDefinition = "TEXT")
     private String introductionText;
 
@@ -90,4 +97,13 @@ public class UserDetail {
     public void setImgUrl(String imgUrl) {
         this.imgUrl = imgUrl;
     }
+
+    public Gender getGender() {
+        return gender;
+    }
+
+    public void setGender(Gender gender) {
+        this.gender = gender;
+    }
+
 }
