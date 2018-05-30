@@ -1,6 +1,7 @@
 package com.codecool.labourent.controllers;
 
 import com.codecool.labourent.config.TemplateEngineUtil;
+import com.codecool.labourent.dbConnection.ListPageQueries;
 import org.thymeleaf.TemplateEngine;
 import org.thymeleaf.context.WebContext;
 
@@ -17,6 +18,12 @@ public class ListPageController extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         TemplateEngine engine = TemplateEngineUtil.getTemplateEngine(req.getServletContext());
         WebContext context = new WebContext(req, resp, req.getServletContext());
+        context.setVariable("services", ListPageQueries.getAllRecordsFromTable());
         engine.process("listPage.html", context, resp.getWriter());
+
     }
+
+
+
+
 }
