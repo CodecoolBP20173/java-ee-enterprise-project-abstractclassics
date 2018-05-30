@@ -1,6 +1,9 @@
 package com.codecool.labourent.model;
 
 import javax.persistence.*;
+import java.time.LocalDate;
+import java.time.Period;
+import java.time.ZoneId;
 import java.util.Date;
 
 @Entity
@@ -10,7 +13,7 @@ public class UserDetail {
 
     @OneToOne
     @MapsId
-    private User user;
+    private UserAccount userAccount;
 
     private String firstName;
 
@@ -24,9 +27,6 @@ public class UserDetail {
 
     @Temporal(TemporalType.DATE)
     private Date dateOfBirth;
-
-    @Transient
-    private long age;
 
     private String city;
 
@@ -42,12 +42,29 @@ public class UserDetail {
         this.id = id;
     }
 
-    public User getUser() {
-        return user;
+    public UserAccount getUserAccount() {
+        return userAccount;
     }
 
-    public void setUser(User user) {
-        this.user = user;
+    public void setUserAccount(UserAccount userAccount) {
+        this.userAccount = userAccount;
+        //this.id = userAccount.getId();
+    }
+
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
     }
 
     public String getIntroductionText() {
@@ -66,12 +83,11 @@ public class UserDetail {
         this.dateOfBirth = dateOfBirth;
     }
 
-    public long getAge() {
-        return age;
-    }
-
-    public void setAge(long age) {
-        this.age = age;
+    public int getAge() {
+        Date currentDate = new Date();
+        LocalDate currentDateInLocalDate = currentDate.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+        LocalDate birthInLocalDate = dateOfBirth.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+        return Period.between(birthInLocalDate, currentDateInLocalDate).getYears();
     }
 
     public String getCity() {

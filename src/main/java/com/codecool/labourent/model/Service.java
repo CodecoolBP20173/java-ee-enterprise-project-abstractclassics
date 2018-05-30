@@ -13,7 +13,7 @@ public class Service {
     private String description;
 
     @ManyToOne
-    private User user;
+    private UserAccount userAccount;
 
     private Double price;
 
@@ -26,7 +26,6 @@ public class Service {
 
     @Transient
     private Double averageRating;
-
 
     private Double getAverageRating() {
         return sumOfRating / numOfRatings;
@@ -56,12 +55,12 @@ public class Service {
         this.description = description;
     }
 
-    public User getUser() {
-        return user;
+    public UserAccount getUserAccount() {
+        return userAccount;
     }
 
-    public void setUser(User user) {
-        this.user = user;
+    public void setUserAccount(UserAccount userAccount) {
+        this.userAccount = userAccount;
     }
 
     public int getNumOfRatings() {
