@@ -15,16 +15,16 @@
     <div class="second-column">
         <form action="/profile" method="post">
             <label for="firstname">First name</label>
-            <input type="text" id="firstname">
+            <input type="text" id="firstname" th:value="${userDetails.getFirstName()}">
 
             <label for="lastname">Last name</label>
-            <input type="text" id="lastname">
+            <input type="text" id="lastname"  th:value="${userDetails.getLastName()}">
 
             <label for="phonenumber">Phone</label>
-            <input type="text" id="phonenumber">
+            <input type="text" id="phonenumber"  th:value="${userDetails.getPhoneNumber()}">
 
             <label for="birthday">Birthday</label>
-            <input type="date" id="birthday">
+            <input type="date" id="birthday"  th:value="${userDetails.getDateOfBirth()}">
 
             <fieldset>
                 <legend>Genre</legend>
