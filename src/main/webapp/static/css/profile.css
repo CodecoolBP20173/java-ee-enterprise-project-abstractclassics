@@ -1,0 +1,75 @@
+
+
+.container {
+    display: grid;
+    grid-template-columns: 150px auto 150px;
+    grid-template-rows: repeat(3, 100px);
+    grid-gap: 2em;
+    /*display: grid;
+    grid-gap: 5px;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: 50px 350px 50px;*/
+    /*grid-template-areas:
+            "h h h h h h h h h h h h"
+            "c c c c c c c c c c c c"
+            "f f f f f f f f f f f f";*/
+}
+
+.first-column {
+    /* Start on Row 2 */
+    grid-row: 1;
+    /* Start on the first column line and stop at the next column line */
+    grid-column: 1 / 2;
+}
+
+.second-column {
+    /* Start on Row 2 */
+    grid-row: 1;
+    /* Start on the second column line and stop at the third column line */
+    grid-column: 2 / 3;
+}
+
+.third-column {
+    /* Start on Row 2 */
+    grid-row: 1;
+    /* Start on the third column line and stop at the last column line */
+    grid-column: 3 / 4;
+}
+
+label {
+    grid-column: 1 / 2;
+}
+
+input,
+button {
+    grid-column: 2 / 3;
+}
+
+form {
+    display: grid;
+    /*
+    grid-template-columns: 200px 1fr;
+    */
+}
+
+.second-column > fieldset {
+    grid-column: 2/4;
+    grid-column: span 2;
+}
+
+/*
+.second-column > form {
+    !*display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-gap: 20px;*!
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-auto-rows: 2em;
+    grid-gap: .5em;
+}
+
+.second-column > fieldset {
+    grid-column: span 2;
+}
+*/
+
