@@ -7,5 +7,5 @@ public enum Gender {
     TRANSFEMALE,
     GENDERQUEER,
     OTHER,
-    UNDIFINED
+    UNDEFINED
 }

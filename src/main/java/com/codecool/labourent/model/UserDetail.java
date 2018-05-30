@@ -32,7 +32,7 @@ public class UserDetail {
 
     private String phoneNumber;
 
-    private String imgUrl;
+    private String imgUrl = "/static/img/default_profile.png";
 
     public int getId() {
         return id;
