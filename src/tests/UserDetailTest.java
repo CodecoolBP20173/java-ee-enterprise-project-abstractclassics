@@ -1,3 +1,4 @@
+/*
 import com.codecool.labourent.model.UserDetail;
 
 import org.junit.jupiter.api.Test;
@@ -28,4 +29,4 @@ class UserDetailTest {
         assertEquals(expectedAge, userDetail.getAge());
     }
 
-}
+}*/
