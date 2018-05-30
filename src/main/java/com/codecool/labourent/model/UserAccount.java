@@ -15,6 +15,14 @@ public class UserAccount {
 
     private String password;
 
+    public UserAccount() {}
+
+    public UserAccount(String userName, String email, String password) {
+        this.userName = userName;
+        this.email = email;
+        this.password = password;
+    }
+
     public int getId() {
         return id;
     }

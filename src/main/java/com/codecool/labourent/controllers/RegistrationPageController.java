@@ -2,6 +2,8 @@ package com.codecool.labourent.controllers;
 
 
 import com.codecool.labourent.config.TemplateEngineUtil;
+import com.codecool.labourent.dbConnection.UserAccountQueries;
+import com.codecool.labourent.model.UserAccount;
 import org.mindrot.jbcrypt.BCrypt;
 import org.thymeleaf.TemplateEngine;
 import org.thymeleaf.context.WebContext;
@@ -28,11 +30,14 @@ public class RegistrationPageController extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse servletResponse) throws ServletException, IOException {
+        servletResponse.sendRedirect("/login");
+
         String username = request.getParameter("username");
         String email = request.getParameter("email");
         String password = hashPassword(request.getParameter("password"));
 
-        servletResponse.sendRedirect("/login");
+        UserAccount userAccount = new UserAccount(username, email, password);
+        UserAccountQueries.saveUserAccount(userAccount);
     }
 
     private String hashPassword(String password) {
