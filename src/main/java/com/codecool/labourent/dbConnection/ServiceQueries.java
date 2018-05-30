@@ -2,6 +2,7 @@ package com.codecool.labourent.dbConnection;
 
 import com.codecool.labourent.config.EntityManagerSingleton;
 import com.codecool.labourent.model.Service;
+import com.codecool.labourent.model.ServiceCategory;
 
 import javax.persistence.EntityManager;
 import java.util.List;
@@ -14,13 +15,27 @@ public class ServiceQueries {
         EntityManager em = EntityManagerSingleton.getInstance();
         assignColumnNames(em);
         List<Service> serviceList;
-        serviceList =  em.createQuery(
+        serviceList = em.createQuery(
                             "SELECT allRecords " +
                             "from Service  allRecords " +
                             "ORDER BY " + validateColumnName(column) + " " +
                             validateSortDirection(ascOrDesc)).getResultList();
         return serviceList;
     }
+
+
+    public static List<Service> getFilteredRecordsFromTable(int id){
+        EntityManager em = EntityManagerSingleton.getInstance();
+        assignColumnNames(em);
+        List<Service> serviceList;
+        serviceList = em.createQuery(
+                "SELECT allRecords " +
+                        "from Service  allRecords " +
+                        "WHERE ServiceCategory.id = :id").setParameter("id", id).getResultList();
+        return serviceList;
+    }
+
+
 
     private static String validateColumnName (String column){
         if (columnNamesArray.contains(column)) {
