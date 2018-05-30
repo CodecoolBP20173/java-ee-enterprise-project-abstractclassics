@@ -4,7 +4,9 @@ import javax.persistence.*;
 
 @Entity
 public class Service {
+
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
     private String name;
@@ -26,6 +28,9 @@ public class Service {
 
     @Transient
     private Double averageRating;
+
+    public Service() {
+    }
 
     private Double getAverageRating() {
         return sumOfRating / numOfRatings;
@@ -93,5 +98,11 @@ public class Service {
 
     public void setPrice(Double prize) {
         this.price = prize;
+    }
+
+    public Service(String name, Double price, Double averageRating) {
+        this.name = name;
+        this.price = price;
+        this.averageRating = averageRating;
     }
 }
