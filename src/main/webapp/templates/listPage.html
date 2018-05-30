@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
@@ -9,26 +9,58 @@
     <div class="header">
         <h1>This is the List Page</h1>
     </div>
-    <div class="grid_container">
-        <div class="item item-1">
-            item1
-        </div>
-        <div class="item item-2">
-            item2
-        </div>
-        <div class="item item-3">
-            item3
-        </div>
-        <div class="item item-4">
-            item4
-        </div>
-        <div class="item item-5">
-            item5
-        </div>
-        <div class="item item-6">
-            item6
+
+    <div class="serviceContainer">
+
+        <div class="row" th:each="service :${services}">
+            <div class="grid_container">
+                <div class="item item-1" th:text="${service.id}">
+                    item1
+                </div>
+                <div class="item item-2">
+                    item2
+                </div>
+                <div class="item item-3" th:text="${service.name}">
+                    item3
+                </div>
+                <div class="item item-4">
+                    item4
+                </div>
+                <div class="item item-5" th:text="${service.price}">
+                    item5
+                </div>
+                <div class="item item-6">
+                    item6
+                </div>
+            </div>
         </div>
     </div>
+
+
+
+    <!--<div class="item col-xs-4 col-lg-4" th:each="prod,iterStat : ${products}">
+        <div class="thumbnail">
+            <img class="group list-group-image" src="https://kremmania.hu/UploadedImages/7/alma-300-300.png"
+                 th:attr="src=${prod.getImgUrl()}" alt=""/>
+            <div class="caption">
+                <h4 class="group inner list-group-item-heading" th:text="${prod.name}">Product name</h4>
+                <p class="group inner list-group-item-text" th:text="${prod.description}">Product
+                    description... </p>
+                <div class="row">
+                    <div class="col-xs-12 col-md-6">
+                        <p class="lead" th:text="${prod.getDefaultPrice()}">100 USD</p>
+                    </div>
+                    <div class="col-xs-12 col-md-6">
+                        <form th:action="${#httpServletRequest.getRequestURI()}" method="post">
+                            <button type="submit" class="btn btn-success addButton" name="add-button" th:if="${session.username != null}" th:value="${prod.id}">Add to cart</button>
+                            <input hidden name="current-uri" th:value="${#httpServletRequest.getRequestURI()} +'?' + ${#httpServletRequest.getQueryString()}" th:if="${ #httpServletRequest.getQueryString() != null}">
+                            <input hidden name="current-uri" th:value="${#httpServletRequest.getRequestURI()}" th:if="${#httpServletRequest.getQueryString() eq null}">
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>-->
 
 </body>
 </html>
