@@ -82,11 +82,11 @@
             <artifactId>junit-jupiter-api</artifactId>
             <version>RELEASE</version>
         </dependency>-->
-        <dependency>
+        <!--<dependency>
             <groupId>org.eclipse.persistence</groupId>
             <artifactId>org.eclipse.persistence.jpa</artifactId>
             <version>${version.eclipselink}</version>
-        </dependency>
+        </dependency>-->
         <dependency>
             <groupId>org.hibernate</groupId>
             <artifactId>hibernate-entitymanager</artifactId>
