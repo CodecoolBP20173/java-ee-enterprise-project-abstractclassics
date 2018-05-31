@@ -24,7 +24,7 @@ import java.util.stream.Stream;
 
 @WebServlet(urlPatterns = {"/profile"})
 public class ProfilePageController extends HttpServlet{
-    private int userId = 2; //TODO: into session
+    private int userId = 23; //TODO: into session
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

@@ -20,7 +20,7 @@ public class UserDetail {
     private String lastName;
 
     @Enumerated(EnumType.STRING)
-    private Gender gender;
+    private Gender gender = Gender.UNDEFINED;
 
     @Column(columnDefinition = "TEXT")
     private String introductionText;
