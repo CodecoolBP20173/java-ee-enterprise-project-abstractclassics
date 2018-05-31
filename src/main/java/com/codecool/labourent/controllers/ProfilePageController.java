@@ -31,9 +31,9 @@ public class ProfilePageController extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        //TODO:remove it, if it connected to the login
+        /*//TODO:remove it, if it connected to the login
         HttpSession session = request.getSession();
-        session.setAttribute("userId", 4);
+        session.setAttribute("userId", 4);*/
 
         WebContext context = new WebContext(request, response, request.getServletContext());
         int userId = (Integer) request.getSession().getAttribute("userId");

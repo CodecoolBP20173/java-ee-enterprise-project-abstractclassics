@@ -38,7 +38,8 @@ public class LoginPageController extends HttpServlet{
             HttpSession session = request.getSession();
             session.setAttribute("email", email);
             session.setAttribute("userId", userAccount.getId());
-            response.sendRedirect("/list");
+            //response.sendRedirect("/list");
+            response.sendRedirect("/profile");
         } else {
             response.sendRedirect("/login?invalid=true");
         }
