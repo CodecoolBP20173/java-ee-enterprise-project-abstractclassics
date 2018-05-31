@@ -44,6 +44,10 @@ public class UserAccountQueries {
         } catch (NoResultException e) {
             return null;
         }
+    }
 
+    public static UserAccount getUserAccountById(int id) {
+        EntityManager em = EntityManagerSingleton.getInstance();
+        return em.find(UserAccount.class, id);
     }
 }
