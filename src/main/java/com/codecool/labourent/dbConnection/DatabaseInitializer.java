@@ -18,19 +18,10 @@ public class DatabaseInitializer {
 
         EntityTransaction transaction = em.getTransaction();
         transaction.begin();
-
         em.persist(service1);
-
-
         em.persist(service2);
-
-
         em.persist(service3);
-
-
         em.persist(service4);
-
-
         em.persist(service5);
         transaction.commit();
 
