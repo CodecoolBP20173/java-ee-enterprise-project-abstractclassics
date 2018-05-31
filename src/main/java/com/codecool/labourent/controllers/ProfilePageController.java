@@ -18,13 +18,14 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.stream.Stream;
 
 
 @WebServlet(urlPatterns = {"/profile"})
 public class ProfilePageController extends HttpServlet{
-    private int userId = 23; //TODO: into session
+    private int userId = 6; //TODO: into session
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -32,7 +33,12 @@ public class ProfilePageController extends HttpServlet{
         WebContext context = new WebContext(request, response, request.getServletContext());
         String[] genders = Stream.of(Gender.values()).map(Gender::name).toArray(String[]::new);
 
-        UserDetail userDetails = ProfilePageQueries.getUserDetailById(userId);
+        UserDetail userDetails = new UserDetail();
+        try {
+            userDetails = ProfilePageQueries.getUserDetailById(userId);
+        } catch (NoResultException e) {
+            System.err.println("No user's details are found by the given user id!");
+        }
 
         context.setVariable("genders", genders);
         context.setVariable("userDetails", userDetails);
@@ -56,10 +62,13 @@ public class ProfilePageController extends HttpServlet{
         String profileImg = request.getParameter("profileImage");
 
         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
-        String birthDate = request.getParameter("birthday");
-        Date parsedBirthDate= new Date();
+        //String birthDate = request.getParameter("birthday");
+        Date parsedBirthDate  = Calendar.getInstance().getTime();
+        String birthDate = "";
+
         try {
-            parsedBirthDate = format.parse(birthDate);
+            birthDate = request.getParameter("birthday");
+            if (!birthDate.equals("")) parsedBirthDate = format.parse(birthDate);
         } catch (ParseException e) {
             e.printStackTrace();
         }
@@ -67,8 +76,23 @@ public class ProfilePageController extends HttpServlet{
 
         //TODO: request a UserAccountQueries.getUserAccountById(userId);
         //TODO: create an instance from USerDetail
-        /*UserAccount userAccount = UserAccountQueries.getUserAccountById(userId);
-        ProfilePageQueries.putUserAccountInDb(firstName,lastName,phoneNumber,city,parsedBirthDate, genderEnum,
+        UserAccount userAccount = getUserAccountById(userId);//UserAccountQueries.getUserAccountById(userId);
+
+        if (ProfilePageQueries.isUserAccountExsist(userId)) {
+            System.err.println(userId + " is exsist");
+        } else System.err.println(userId + " is not exsist");
+
+        /*ProfilePageQueries.putUserAccountInDb(firstName,lastName,phoneNumber,city,parsedBirthDate, genderEnum,
                 intro,profileImg,userAccount);*/
+    }
+
+    private UserAccount getUserAccountById(int userID) {
+        UserAccount userAccount = new UserAccount();
+        userAccount.setId(userID);
+        userAccount.setEmail("sss");
+        userAccount.setPassword("sss");
+        userAccount.setUserName("sssssss");
+
+        return userAccount;
     }
 }

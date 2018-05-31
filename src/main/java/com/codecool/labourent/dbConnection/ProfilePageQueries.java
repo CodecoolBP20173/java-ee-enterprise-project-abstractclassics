@@ -21,19 +21,15 @@ public class ProfilePageQueries {
      * @param userId: int
      * @return UserDetail instance
      */
-    public static UserDetail getUserDetailById(int userId) {
+    public static UserDetail getUserDetailById(int userId) throws NoResultException{
         EntityManager entityManager = EntityManagerSingleton.getInstance();
-        UserDetail userDetails = new UserDetail();
 
-        try {
             TypedQuery<UserDetail> queryUserDetail =
                     entityManager.createQuery("SELECT c FROM UserDetail c WHERE c.id = :userId", UserDetail.class);
-            userDetails = queryUserDetail.setParameter("userId", userId).getSingleResult();
+            UserDetail userDetails = queryUserDetail.setParameter("userId", userId).getSingleResult();
 
             System.err.println(queryUserDetail);
-        } catch (NoResultException e) {
-            System.err.println("No user's details are found by the given user id!");
-        }
+
         return userDetails;
     }
 
@@ -59,6 +55,16 @@ public class ProfilePageQueries {
         entityManager.persist(userDetail);
         transaction.commit();
         System.out.println(userDetail.getLastName() + " saved.");
+    }
+
+    public static boolean isUserAccountExsist(int userId) {
+        try {
+            getUserDetailById(userId);
+        } catch (NoResultException e) {
+            System.err.println("No user's details are found by the given user id!");
+            return false;
+        }
+        return true;
     }
 
 }
