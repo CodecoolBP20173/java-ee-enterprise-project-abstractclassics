@@ -1,9 +1,11 @@
 package com.codecool.labourent.model;
 
 import javax.persistence.*;
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.Period;
 import java.time.ZoneId;
+import java.util.Calendar;
 import java.util.Date;
 
 @Entity
@@ -33,6 +35,33 @@ public class UserDetail {
     private String phoneNumber;
 
     private String imgUrl = "/static/img/default_profile.png";
+
+    public UserDetail() {
+        this.userAccount = null;
+        this.firstName = "";
+        this.lastName = "";
+        this.gender = Gender.UNDEFINED;
+        this.introductionText = "";
+
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        this.dateOfBirth = Calendar.getInstance().getTime();
+        this.city = "";
+        this.phoneNumber = "";
+    }
+
+    public UserDetail(String firstName, String lastName, String phoneNumber,
+                      String city, Date dateOfBirth, Gender gender,
+                      String introductionText, String imgUrl, UserAccount userAccount) {
+        this.userAccount = userAccount;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.gender = gender;
+        this.introductionText = introductionText;
+        this.dateOfBirth = dateOfBirth;
+        this.city = city;
+        this.phoneNumber = phoneNumber;
+        //this.imgUrl = "/static/img/default_profile.png";
+    }
 
     public int getId() {
         return id;

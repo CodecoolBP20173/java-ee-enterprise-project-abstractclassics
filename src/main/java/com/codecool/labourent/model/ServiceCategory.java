@@ -16,6 +16,13 @@ public class ServiceCategory {
 
     private String description;
 
+    public ServiceCategory(){}
+
+    public ServiceCategory(String name, String description){
+        this.name = name;
+        this.description = description;
+    }
+
 
     public int getId() {
         return id;

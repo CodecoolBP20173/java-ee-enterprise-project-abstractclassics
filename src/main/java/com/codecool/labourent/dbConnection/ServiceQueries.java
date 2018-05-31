@@ -25,14 +25,16 @@ public class ServiceQueries {
     }
 
 
-    public static List<Service> getFilteredRecordsFromTable(int id){
+    public static List<Service> getFilteredRecordsFromTable(String column, String ascOrDesc, int servicecategoryId){
         EntityManager em = EntityManagerSingleton.getInstance();
         assignColumnNames(em);
         List<Service> serviceList;
         serviceList = em.createQuery(
-                        "SELECT allRecords " +
-                        "from Service  allRecords " +
-                        "WHERE ServiceCategory.id = :id").setParameter("id", id).getResultList();
+                        "SELECT service " +
+                        "from Service  service " +
+                        "WHERE  service.serviceCategory.id = :servicecategoryId order by " +
+                        validateColumnName(column) + " " +
+                        validateSortDirection(ascOrDesc)).setParameter("servicecategoryId", servicecategoryId).getResultList();
         return serviceList;
     }
 
@@ -43,6 +45,7 @@ public class ServiceQueries {
             return column;
         } else {
             System.out.println("Illegal injection!");
+            System.out.println("Fuck you");
            return "id";
         }
 
