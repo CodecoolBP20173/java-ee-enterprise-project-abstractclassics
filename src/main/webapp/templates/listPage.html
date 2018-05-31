@@ -4,36 +4,44 @@
     <meta charset="UTF-8">
     <title>Title</title>
     <link rel="stylesheet" type="text/css" href="/static/css/listPage.css">
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 </head>
 <body>
     <div class="header">
         <h1>This is the List Page</h1>
     </div>
+    <div class="dropdown">
+        <button class="dropbtn">Categories</button>
+        <div class="dropdown-content">
+            <a th:href="@{/list(column='id', sort=${sortDirection}, categoryId='all')}">All</a>
+            <a th:href="@{/list(column='id', sort=${sortDirection}, categoryId='1')}">Private Teacher</a>
+            <a th:href="@{/list(column='id', sort=${sortDirection}, categoryId='2')}">Personal Trainer</a>
+        </div>
+    </div>
 
     <div class="serviceContainer">
         <div class="sort_row">
             <div class="sort_button button-1">
-                <a th:href="@{/list(column='id', sort=${sortDirection})}">id</a>
+                <a th:href="@{/list(column='id', sort=${sortDirection}, categoryId=${categoryId})}">id</a>
             </div>
             <div class="sort_button button-2">
                 item2
             </div>
             <div class="sort_button button-3" >
-                <a th:href="@{/list(column='name', sort=${sortDirection})}">name</a>
+                <a th:href="@{/list(column='name', sort=${sortDirection}, categoryId=${categoryId})}">name</a>
             </div>
             <div class="sort_button button-4">
                 item4
             </div>
             <div class="sort_button button-5" >
-                <a th:href="@{/list(column='price', sort=${sortDirection})}">category</a>
+                <a th:href="@{/list(column='price', sort=${sortDirection}, categoryId=${categoryId})}">category</a>
             </div>
             <div class="sort_button button-6">
                 item6
             </div>
-
         </div>
-
-
         <div class="row" th:each="service :${services}">
             <div class="grid_container">
                 <div class="item item-1" th:text="${service.id}">
