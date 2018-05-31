@@ -12,6 +12,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
 @WebServlet(urlPatterns = {"/login"})
@@ -28,7 +29,15 @@ public class LoginPageController extends HttpServlet{
         String email = request.getParameter("email");
         String password = request.getParameter("password");
 
+        handleLogin(request, response, email, password);
+    }
+
+    private void handleLogin(HttpServletRequest request, HttpServletResponse response, String email, String password) throws IOException {
         if (passwordIsCorrect(email, password)) {
+            UserAccount userAccount = UserAccountQueries.getUserAccountByEmail(email);
+            HttpSession session = request.getSession();
+            session.setAttribute("email", email);
+            session.setAttribute("userId", userAccount.getId());
             response.sendRedirect("/list");
         } else {
             response.sendRedirect("/login?invalid=true");
