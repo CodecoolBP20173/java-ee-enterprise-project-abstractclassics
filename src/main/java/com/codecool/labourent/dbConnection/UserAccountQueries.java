@@ -5,6 +5,7 @@ import com.codecool.labourent.model.UserAccount;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
+import javax.persistence.NoResultException;
 import javax.persistence.Query;
 
 public class UserAccountQueries {
@@ -31,5 +32,22 @@ public class UserAccountQueries {
         String queryString = "SELECT u, COUNT(u.id) FROM UserAccount u WHERE u." + field + "  = :userName GROUP BY u.id";
         Query userNameQuery = em.createQuery(queryString).setParameter("userName", userName);
         return userNameQuery.getResultList().size() > 0;
+    }
+
+    public static UserAccount getUserAccountByEmail(String email) {
+        EntityManager em = EntityManagerSingleton.getInstance();
+        String queryString = "SELECT u FROM UserAccount u WHERE u.email  = :email";
+        Query userNameQuery = em.createQuery(queryString).setParameter("email", email);
+
+        try {
+            return (UserAccount) userNameQuery.getSingleResult();
+        } catch (NoResultException e) {
+            return null;
+        }
+    }
+
+    public static UserAccount getUserAccountById(int id) {
+        EntityManager em = EntityManagerSingleton.getInstance();
+        return em.find(UserAccount.class, id);
     }
 }
