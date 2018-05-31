@@ -9,11 +9,21 @@ public class UserAccount {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
+    @Column(unique = true)
     private String userName;
 
+    @Column(unique = true)
     private String email;
 
     private String password;
+
+    public UserAccount() {}
+
+    public UserAccount(String userName, String email, String password) {
+        this.userName = userName;
+        this.email = email;
+        this.password = password;
+    }
 
     public int getId() {
         return id;
