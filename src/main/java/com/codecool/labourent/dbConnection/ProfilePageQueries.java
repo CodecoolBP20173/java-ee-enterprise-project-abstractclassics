@@ -5,10 +5,7 @@ import com.codecool.labourent.model.Gender;
 import com.codecool.labourent.model.UserAccount;
 import com.codecool.labourent.model.UserDetail;
 
-import javax.persistence.EntityManager;
-import javax.persistence.EntityTransaction;
-import javax.persistence.NoResultException;
-import javax.persistence.TypedQuery;
+import javax.persistence.*;
 import java.util.Date;
 
 /**
@@ -55,6 +52,38 @@ public class ProfilePageQueries {
         entityManager.persist(userDetail);
         transaction.commit();*/
         System.out.println(userDetail.getLastName() + " saved.");
+    }
+
+    public static void updateAccountById(int userId, String firstName, String lastName, String phoneNumber,
+                                         String city, Date birthDate, Gender gender,
+                                         String intro, String imgUrl) {
+
+        EntityManager entityManager = EntityManagerSingleton.getInstance();
+
+        Query queryUserDetail =
+                entityManager.createQuery("UPDATE UserDetail c SET c.firstName = :firstname, " +
+                        "c.lastName = :lastname,  c.phoneNumber = :phonenumber, c.city = :city, c.dateOfBirth = :birthdate, " +
+                        "c.gender = :gender, c.introductionText = :intro, c.imgUrl = :imgUrl " +
+                        "WHERE c.id = :userId");
+
+        queryUserDetail.setParameter("userId", userId);
+        queryUserDetail.setParameter("firstname", firstName);
+        queryUserDetail.setParameter("lastname", lastName);
+        queryUserDetail.setParameter("phonenumber", phoneNumber);
+        queryUserDetail.setParameter("birthdate", birthDate);
+        queryUserDetail.setParameter("city", city);
+        queryUserDetail.setParameter("gender", gender);
+        queryUserDetail.setParameter("intro", intro);
+        queryUserDetail.setParameter("imgUrl", imgUrl);
+
+
+        EntityTransaction transaction = entityManager.getTransaction();
+        transaction.begin();
+        queryUserDetail.executeUpdate();
+        transaction.commit();
+
+        System.err.println(queryUserDetail.toString() + " saved.");
+
     }
 
     public static boolean isUserAccountExsist(int userId) {

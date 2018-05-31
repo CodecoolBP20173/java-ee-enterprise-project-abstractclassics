@@ -25,7 +25,7 @@ import java.util.stream.Stream;
 
 @WebServlet(urlPatterns = {"/profile"})
 public class ProfilePageController extends HttpServlet{
-    private int userId = 6; //TODO: into session
+    private int userId = 2; //TODO: into session
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -62,7 +62,6 @@ public class ProfilePageController extends HttpServlet{
         String profileImg = request.getParameter("profileImage");
 
         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
-        //String birthDate = request.getParameter("birthday");
         Date parsedBirthDate  = Calendar.getInstance().getTime();
         String birthDate = "";
 
@@ -79,6 +78,8 @@ public class ProfilePageController extends HttpServlet{
         UserAccount userAccount = getUserAccountById(userId);//UserAccountQueries.getUserAccountById(userId);
 
         if (ProfilePageQueries.isUserAccountExsist(userId)) {
+            ProfilePageQueries.updateAccountById(userId,firstName,lastName,phoneNumber,city,parsedBirthDate, genderEnum,
+                    intro,profileImg);
             System.err.println(userId + " is exsist");
         } else {
             ProfilePageQueries.putUserAccountInDb(firstName,lastName,phoneNumber,city,parsedBirthDate, genderEnum,
