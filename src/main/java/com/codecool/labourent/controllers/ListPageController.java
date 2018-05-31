@@ -18,7 +18,7 @@ public class ListPageController extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         TemplateEngine engine = TemplateEngineUtil.getTemplateEngine(req.getServletContext());
         WebContext context = new WebContext(req, resp, req.getServletContext());
-        context.setVariable("services", ServiceQueries.getAllRecordsFromTable("id", "desc"));
+        context.setVariable("services", ServiceQueries.getAllRecordsFromTable("PRicE", "desc"));
         engine.process("listPage.html", context, resp.getWriter());
 
     }

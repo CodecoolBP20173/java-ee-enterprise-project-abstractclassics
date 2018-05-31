@@ -29,7 +29,7 @@ public class ServiceQueries {
         assignColumnNames(em);
         List<Service> serviceList;
         serviceList = em.createQuery(
-                "SELECT allRecords " +
+                        "SELECT allRecords " +
                         "from Service  allRecords " +
                         "WHERE ServiceCategory.id = :id").setParameter("id", id).getResultList();
         return serviceList;
@@ -38,7 +38,7 @@ public class ServiceQueries {
 
 
     private static String validateColumnName (String column){
-        if (columnNamesArray.contains(column)) {
+        if (columnNamesArray.contains(column.toLowerCase())) {
             return column;
         } else {
             System.out.println("Illegal injection!");
