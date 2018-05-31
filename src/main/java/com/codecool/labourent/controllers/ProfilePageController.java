@@ -1,6 +1,7 @@
 package com.codecool.labourent.controllers;
 
 
+import com.codecool.labourent.config.EntityManagerSingleton;
 import com.codecool.labourent.config.TemplateEngineUtil;
 import com.codecool.labourent.model.Gender;
 import com.codecool.labourent.model.UserDetail;
@@ -27,10 +28,7 @@ public class ProfilePageController extends HttpServlet{
         int userId = 1;
         UserDetail details = new UserDetail();
 
-
-        EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("labourentPU");
-        EntityManager entityManager = entityManagerFactory.createEntityManager();
-
+        EntityManager entityManager = EntityManagerSingleton.getInstance();
 
         try {
             TypedQuery<UserDetail> queryUserDetail =
@@ -42,32 +40,11 @@ public class ProfilePageController extends HttpServlet{
 
         }
 
-
-
-
-        //queryUserDetail.setParameter("userId", userId).getSingleResult();
-
-        /*EntityTransaction transaction = entityManager.getTransaction();
-        transaction.begin();
-        entityManager.persist(address);
-        transaction.commit();*/
-        /*TypedQuery<Country> query = em.createQuery(
-                "SELECT c FROM Country c WHERE c.name = :name", Country.class);
-        return query.setParameter("name", name).getSingleResult();*/
-
-        entityManager.close();
-        entityManagerFactory.close();
-
-
-
         context.setVariable("genders", genders);
         context.setVariable("userDetails", details);
 
-
         TemplateEngine engine = TemplateEngineUtil.getTemplateEngine(req.getServletContext());
         engine.process("profile.html", context, resp.getWriter());
-
-
     }
 
     @Override
