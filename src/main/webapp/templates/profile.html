@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>User's details</title>
+    <link rel="stylesheet" type="text/css" href="/static/css/profile.css" media="screen" />
+</head>
+<body>
+<h1>Profile</h1>
+<div class="container">
+    <div class="first-column">
+        <img src="/static/img/default_profile.png" height="100">
+    </div>
+
+    <div class="second-column">
+        <form action="/profile" method="post">
+            <label for="firstname">First name</label>
+            <input type="text" id="firstname" th:value="${userDetails.getFirstName()}">
+
+            <label for="lastname">Last name</label>
+            <input type="text" id="lastname"  th:value="${userDetails.getLastName()}">
+
+            <label for="phonenumber">Phone</label>
+            <input type="text" id="phonenumber"  th:value="${userDetails.getPhoneNumber()}">
+
+            <label for="birthday">Birthday</label>
+            <input type="date" id="birthday"  th:value="${userDetails.getDateOfBirth()}">
+
+            <fieldset>
+                <legend>Genre</legend>
+                <!--<label> <input type="radio" name="male" id="male" required="" value="male"> Car </label>
+                <label> <input type="radio" name="female" id="female" required="" value="female"> Car </label>-->
+                <label> <input type="radio" th:each="gender : ${genders}"
+                           th:name="${{gender}}" th:id="${gender}" th:value="${gender}" th:text="${gender}"></label>
+            </fieldset>
+
+            <button onclick="location.href='/services';return false;">Services</button>
+
+            <button type="submit">Send</button>
+        </form>
+
+
+    </div>
+
+    <div class="third-column">
+        <img src="/static/img/logo.png" height="100">
+    </div>
+</div>
+</body>
+</html>
