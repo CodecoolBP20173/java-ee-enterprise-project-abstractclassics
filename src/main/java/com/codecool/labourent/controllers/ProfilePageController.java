@@ -2,80 +2,92 @@ package com.codecool.labourent.controllers;
 
 
 import com.codecool.labourent.config.TemplateEngineUtil;
+import com.codecool.labourent.dbConnection.ProfilePageQueries;
+import com.codecool.labourent.dbConnection.UserAccountQueries;
 import com.codecool.labourent.model.Gender;
+import com.codecool.labourent.model.UserAccount;
 import com.codecool.labourent.model.UserDetail;
 import org.thymeleaf.TemplateEngine;
 import org.thymeleaf.context.WebContext;
 
-import javax.persistence.*;
+import javax.persistence.NoResultException;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
-import java.util.List;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.stream.Stream;
 
+
 @WebServlet(urlPatterns = {"/profile"})
-public class ProfilePageController extends HttpServlet{
+public class ProfilePageController extends HttpServlet {
+    String profileImg = "/static/img/default_profile.png";
+
     @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        //TODO:remove it, if it connected to the login
+        HttpSession session = request.getSession();
+        session.setAttribute("userId", 4);
 
-        WebContext context = new WebContext(req, resp, req.getServletContext());
+        WebContext context = new WebContext(request, response, request.getServletContext());
+        int userId = (Integer) request.getSession().getAttribute("userId");
+
         String[] genders = Stream.of(Gender.values()).map(Gender::name).toArray(String[]::new);
-        int userId = 1;
-        UserDetail details = new UserDetail();
-
-
-        EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("labourentPU");
-        EntityManager entityManager = entityManagerFactory.createEntityManager();
-
+        UserDetail userDetails;
 
         try {
-            TypedQuery<UserDetail> queryUserDetail =
-                    entityManager.createQuery("SELECT c FROM UserDetail c WHERE c.id = :userId", UserDetail.class);
-            details = queryUserDetail.setParameter("userId", userId).getSingleResult();
-
-            System.err.println(queryUserDetail);
+            userDetails = ProfilePageQueries.getUserDetailById(userId);
         } catch (NoResultException e) {
-
+            userDetails = new UserDetail();
+            System.err.println("No user's details are found by the given user id!");
         }
 
-
-
-
-        //queryUserDetail.setParameter("userId", userId).getSingleResult();
-
-        /*EntityTransaction transaction = entityManager.getTransaction();
-        transaction.begin();
-        entityManager.persist(address);
-        transaction.commit();*/
-        /*TypedQuery<Country> query = em.createQuery(
-                "SELECT c FROM Country c WHERE c.name = :name", Country.class);
-        return query.setParameter("name", name).getSingleResult();*/
-
-        entityManager.close();
-        entityManagerFactory.close();
-
-
-
         context.setVariable("genders", genders);
-        context.setVariable("userDetails", details);
+        context.setVariable("userDetails", userDetails);
 
 
-        TemplateEngine engine = TemplateEngineUtil.getTemplateEngine(req.getServletContext());
-        engine.process("profile.html", context, resp.getWriter());
-
-
+        TemplateEngine engine = TemplateEngineUtil.getTemplateEngine(request.getServletContext());
+        engine.process("profilePage.html", context, response.getWriter());
     }
 
     @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("jpaexamplePU");
-        EntityManager entityManager = entityManagerFactory.createEntityManager();
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        int userId = (Integer) request.getSession().getAttribute("userId");
+        String firstName = request.getParameter("firstname");
+        String lastName = request.getParameter("lastname");
+        String phoneNumber = request.getParameter("phonenumber");
+        String city = request.getParameter("city");
+        String gender = request.getParameter("radioGender");
+        Gender genderEnum = Gender.valueOf(gender);
 
-        entityManager.close();
-        entityManagerFactory.close();
+        String intro = request.getParameter("introTextarea");
+        //String profileImg = request.getParameter("profileImage");
+
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+        Date parsedBirthDate = Calendar.getInstance().getTime();
+        String birthDate = "";
+
+        try {
+            birthDate = request.getParameter("birthday");
+            if (!birthDate.equals("")) parsedBirthDate = format.parse(birthDate);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+        UserAccount userAccount = UserAccountQueries.getUserAccountById(userId);
+
+        if (ProfilePageQueries.isUserAccountExsist(userId)) {
+            ProfilePageQueries.updateAccountById(userId, firstName, lastName, phoneNumber, city, parsedBirthDate, genderEnum,
+                    intro, profileImg);
+        } else {
+            ProfilePageQueries.putUserAccountInDb(firstName, lastName, phoneNumber, city, parsedBirthDate, genderEnum,
+                    intro, profileImg, userAccount);
+        }
     }
 }
