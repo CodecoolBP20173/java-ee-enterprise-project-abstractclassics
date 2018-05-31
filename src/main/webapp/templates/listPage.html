@@ -11,6 +11,28 @@
     </div>
 
     <div class="serviceContainer">
+        <div class="sort_row">
+            <div class="sort_button button-1">
+                <a th:href="@{/list(column='id', sort=${sortDirection})}">id</a>
+            </div>
+            <div class="sort_button button-2">
+                item2
+            </div>
+            <div class="sort_button button-3" >
+                <a th:href="@{/list(column='name', sort=${sortDirection})}">name</a>
+            </div>
+            <div class="sort_button button-4">
+                item4
+            </div>
+            <div class="sort_button button-5" >
+                <a th:href="@{/list(column='price', sort=${sortDirection})}">category</a>
+            </div>
+            <div class="sort_button button-6">
+                item6
+            </div>
+
+        </div>
+
 
         <div class="row" th:each="service :${services}">
             <div class="grid_container">
