@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>User's details</title>
-    <link rel="stylesheet" type="text/css" href="/static/css/profile.css" media="screen" />
+    <link rel="stylesheet" type="text/css" href="/static/css/profile.css" media="screen"/>
 </head>
 <body>
 <h1>Profile</h1>
@@ -14,13 +14,16 @@
 
     <div class="second-column">
         <form action="/profile" method="post">
-            <img id="profileImage" name="profileImage" th:value="${userDetails.getImgUrl()}" th:src="${userDetails.getImgUrl()}" height="100">
+            <img id="profileImage" name="profileImage" th:value="${userDetails.getImgUrl()}"
+                 th:src="${userDetails.getImgUrl()}" height="100">
 
             <label for="firstname">First name</label>
-            <input type="text" id="firstname" name="firstname" th:value="${userDetails.getFirstName()}" required="required">
+            <input type="text" id="firstname" name="firstname" th:value="${userDetails.getFirstName()}"
+                   required="required">
 
             <label for="lastname">Last name</label>
-            <input type="text" id="lastname" name="lastname" th:value="${userDetails.getLastName()}" required="required">
+            <input type="text" id="lastname" name="lastname" th:value="${userDetails.getLastName()}"
+                   required="required">
 
             <label for="city">City</label>
             <input type="text" id="city" name="city" th:value="${userDetails.getCity()}" required="required">
@@ -32,20 +35,22 @@
                    pattern="\d*" maxlength="15">
 
             <label for="birthday">Birthday</label>
-            <input type="date" id="birthday" name="birthday" th:value="${userDetails.getDateOfBirth()}" required="required">
+            <input type="date" id="birthday" name="birthday" th:value="${userDetails.getDateOfBirth()}"
+                   required="required">
 
             <fieldset>
                 <legend>Introduction</legend>
-                <textarea id="introTextarea" name="introTextarea" th:text="${userDetails.getIntroductionText()}" required="required">Hello</textarea>
+                <textarea id="introTextarea" name="introTextarea" th:text="${userDetails.getIntroductionText()}"
+                          required="required">Hello</textarea>
             </fieldset>
 
             <fieldset>
                 <legend>Genre</legend>
                 <label>
                     <input type="radio"
-                               th:each="gender : ${genders}"
-                               th:checked="${gender == userDetails.getGender().name()}"
-                               th:name="radioGender" th:id="${gender}" th:value="${gender}" th:text="${gender}"
+                           th:each="gender : ${genders}"
+                           th:checked="${gender == userDetails.getGender().name()}"
+                           th:name="radioGender" th:id="${gender}" th:value="${gender}" th:text="${gender}"
                            required="required">
                 </label>
             </fieldset>

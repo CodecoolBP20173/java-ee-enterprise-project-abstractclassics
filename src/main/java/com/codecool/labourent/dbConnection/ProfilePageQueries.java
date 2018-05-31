@@ -5,7 +5,10 @@ import com.codecool.labourent.model.Gender;
 import com.codecool.labourent.model.UserAccount;
 import com.codecool.labourent.model.UserDetail;
 
-import javax.persistence.*;
+import javax.persistence.EntityManager;
+import javax.persistence.EntityTransaction;
+import javax.persistence.NoResultException;
+import javax.persistence.Query;
 import java.util.Date;
 
 /**
@@ -15,21 +18,15 @@ public class ProfilePageQueries {
 
     /**
      * It gives back a UserDetail instance, if the user has already created a profile. If not, it returns a default instance.
+     *
      * @param userId: int
      * @return UserDetail instance
      */
-    public static UserDetail getUserDetailById(int userId) throws NoResultException{
+    public static UserDetail getUserDetailById(int userId) throws NoResultException {
         EntityManager entityManager = EntityManagerSingleton.getInstance();
+        UserDetail userDetail = entityManager.find(UserDetail.class, userId);
 
-            /*TypedQuery<UserDetail> queryUserDetail =
-                    entityManager.createQuery("SELECT c FROM UserDetail c WHERE c.id = :userId", UserDetail.class);
-            UserDetail userDetails = queryUserDetail.setParameter("userId", userId).getSingleResult();
-
-            System.err.println(queryUserDetail);
-
-        return userDetails;*/
-            UserDetail userDetail = entityManager.find(UserDetail.class, userId);
-            if (userDetail == null) throw new NoResultException();
+        if (userDetail == null) throw new NoResultException();
         return userDetail;
     }
 
@@ -54,7 +51,6 @@ public class ProfilePageQueries {
         transaction.begin();
         entityManager.persist(userDetail);
         transaction.commit();
-        System.out.println(userDetail.getLastName() + " saved.");
     }
 
     public static void updateAccountById(int userId, String firstName, String lastName, String phoneNumber,
@@ -83,9 +79,6 @@ public class ProfilePageQueries {
         transaction.begin();
         queryUserDetail.executeUpdate();
         transaction.commit();
-
-        System.err.println(queryUserDetail.toString() + " saved.");
-
     }
 
     public static boolean isUserAccountExsist(int userId) {

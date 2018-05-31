@@ -10,7 +10,7 @@ import com.codecool.labourent.model.UserDetail;
 import org.thymeleaf.TemplateEngine;
 import org.thymeleaf.context.WebContext;
 
-import javax.persistence.*;
+import javax.persistence.NoResultException;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -26,11 +26,11 @@ import java.util.stream.Stream;
 
 
 @WebServlet(urlPatterns = {"/profile"})
-public class ProfilePageController extends HttpServlet{
+public class ProfilePageController extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        //TODO:remove it
+        //TODO:remove it, if it connected to the login
         HttpSession session = request.getSession();
         session.setAttribute("userId", 2);
 
@@ -69,7 +69,7 @@ public class ProfilePageController extends HttpServlet{
         String profileImg = request.getParameter("profileImage");
 
         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
-        Date parsedBirthDate  = Calendar.getInstance().getTime();
+        Date parsedBirthDate = Calendar.getInstance().getTime();
         String birthDate = "";
 
         try {
@@ -79,17 +79,14 @@ public class ProfilePageController extends HttpServlet{
             e.printStackTrace();
         }
 
-
         UserAccount userAccount = UserAccountQueries.getUserAccountById(userId);
 
         if (ProfilePageQueries.isUserAccountExsist(userId)) {
-            ProfilePageQueries.updateAccountById(userId,firstName,lastName,phoneNumber,city,parsedBirthDate, genderEnum,
-                    intro,profileImg);
-            System.err.println(userId + " is exsist");
+            ProfilePageQueries.updateAccountById(userId, firstName, lastName, phoneNumber, city, parsedBirthDate, genderEnum,
+                    intro, profileImg);
         } else {
-            ProfilePageQueries.putUserAccountInDb(firstName,lastName,phoneNumber,city,parsedBirthDate, genderEnum,
-                    intro,profileImg,userAccount);
-            System.err.println(userId + " is not exsist");
+            ProfilePageQueries.putUserAccountInDb(firstName, lastName, phoneNumber, city, parsedBirthDate, genderEnum,
+                    intro, profileImg, userAccount);
         }
     }
 }
