@@ -4,24 +4,33 @@
     <meta charset="UTF-8">
     <title>Title</title>
     <link rel="stylesheet" type="text/css" href="/static/css/listPage.css">
+    <link rel="stylesheet" type="text/css" href="/static/css/navbar.css">
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 </head>
 <body>
-    <div class="header">
-        <h1>This is the List Page</h1>
+    <div class="topnav">
+        <a class="active" href="/list">Services</a>
+        <a href="/introduction">Introduction</a>
+        <a href="/profile">Profile</a>
+        <a href="/registration">Registration</a>
+        <a href="/login">Login</a>
+        <a href="/logout">Logout</a>
     </div>
     <div class="dropdown">
         <button class="dropbtn">Categories</button>
         <div class="dropdown-content" >
             <a th:href="@{/list(column='id', sort=${sortDirection}, categoryId='all')}">All</a>
-                <div th:each="serviceCategory :${serviceCategories}">
-                    <a th:href="@{/list(column='id', sort=${sortDirection}, categoryId=${serviceCategory.id})}" th:text="${serviceCategory.name}">Category Name</a>
-                </div>
+            <div th:each="serviceCategory :${serviceCategories}">
+                <a th:href="@{/list(column='id', sort=${sortDirection}, categoryId=${serviceCategory.id})}" th:text="${serviceCategory.name}">Category Name</a>
+            </div>
         </div>
     </div>
 
+    <div style="padding-left:16px">
+        <h1>This is the List Page</h1>
+    </div>
     <div class="serviceContainer">
         <div class="sort_row">
             <div class="sort_button button-1">
