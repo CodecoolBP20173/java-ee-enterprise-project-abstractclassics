@@ -30,12 +30,14 @@ public class RegistrationPageController extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse servletResponse) throws ServletException, IOException {
-
-
         String userName = request.getParameter("username");
         String email = request.getParameter("email");
         String password = hashPassword(request.getParameter("password"));
 
+        handleRegistration(servletResponse, userName, email, password);
+    }
+
+    private void handleRegistration(HttpServletResponse servletResponse, String userName, String email, String password) throws IOException {
         if (UserAccountQueries.emailIsTaken(email)) {
             servletResponse.sendRedirect("/registration?taken=email");
         } else if (UserAccountQueries.userNameIsTaken(userName)) {
