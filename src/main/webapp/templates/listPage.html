@@ -14,10 +14,11 @@
     </div>
     <div class="dropdown">
         <button class="dropbtn">Categories</button>
-        <div class="dropdown-content">
+        <div class="dropdown-content" >
             <a th:href="@{/list(column='id', sort=${sortDirection}, categoryId='all')}">All</a>
-            <a th:href="@{/list(column='id', sort=${sortDirection}, categoryId='1')}">Private Teacher</a>
-            <a th:href="@{/list(column='id', sort=${sortDirection}, categoryId='2')}">Personal Trainer</a>
+                <div th:each="serviceCategory :${serviceCategories}">
+                    <a th:href="@{/list(column='id', sort=${sortDirection}, categoryId=${serviceCategory.id})}" th:text="${serviceCategory.name}">Category Name</a>
+                </div>
         </div>
     </div>
 
@@ -36,7 +37,7 @@
                 item4
             </div>
             <div class="sort_button button-5" >
-                <a th:href="@{/list(column='price', sort=${sortDirection}, categoryId=${categoryId})}">category</a>
+                <a th:href="@{/list(column='price', sort=${sortDirection}, categoryId=${categoryId})}">price</a>
             </div>
             <div class="sort_button button-6">
                 item6
