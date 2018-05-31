@@ -3,6 +3,7 @@ package com.codecool.labourent.controllers;
 
 import com.codecool.labourent.config.TemplateEngineUtil;
 import com.codecool.labourent.dbConnection.ProfilePageQueries;
+import com.codecool.labourent.dbConnection.UserAccountQueries;
 import com.codecool.labourent.model.Gender;
 import com.codecool.labourent.model.UserAccount;
 import com.codecool.labourent.model.UserDetail;
@@ -31,7 +32,7 @@ public class ProfilePageController extends HttpServlet{
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         //TODO:remove it
         HttpSession session = request.getSession();
-        session.setAttribute("userId", 6);
+        session.setAttribute("userId", 2);
 
 
         WebContext context = new WebContext(request, response, request.getServletContext());
@@ -61,7 +62,6 @@ public class ProfilePageController extends HttpServlet{
         String lastName = request.getParameter("lastname");
         String phoneNumber = request.getParameter("phonenumber");
         String city = request.getParameter("city");
-        String[] birthdayDate = request.getParameterValues("birthday");
         String gender = request.getParameter("radioGender");
         Gender genderEnum = Gender.valueOf(gender);
 
@@ -80,9 +80,7 @@ public class ProfilePageController extends HttpServlet{
         }
 
 
-        //TODO: request a UserAccountQueries.getUserAccountById(userId);
-        //TODO: create an instance from USerDetail
-        UserAccount userAccount = getUserAccountById(userId);//UserAccountQueries.getUserAccountById(userId);
+        UserAccount userAccount = UserAccountQueries.getUserAccountById(userId);
 
         if (ProfilePageQueries.isUserAccountExsist(userId)) {
             ProfilePageQueries.updateAccountById(userId,firstName,lastName,phoneNumber,city,parsedBirthDate, genderEnum,
@@ -93,18 +91,5 @@ public class ProfilePageController extends HttpServlet{
                     intro,profileImg,userAccount);
             System.err.println(userId + " is not exsist");
         }
-
-        /*ProfilePageQueries.putUserAccountInDb(firstName,lastName,phoneNumber,city,parsedBirthDate, genderEnum,
-                intro,profileImg,userAccount);*/
-    }
-
-    private UserAccount getUserAccountById(int userID) {
-        UserAccount userAccount = new UserAccount();
-        userAccount.setId(userID);
-        userAccount.setEmail("sss");
-        userAccount.setPassword("sss");
-        userAccount.setUserName("sssssss");
-
-        return userAccount;
     }
 }

@@ -21,13 +21,16 @@ public class ProfilePageQueries {
     public static UserDetail getUserDetailById(int userId) throws NoResultException{
         EntityManager entityManager = EntityManagerSingleton.getInstance();
 
-            TypedQuery<UserDetail> queryUserDetail =
+            /*TypedQuery<UserDetail> queryUserDetail =
                     entityManager.createQuery("SELECT c FROM UserDetail c WHERE c.id = :userId", UserDetail.class);
             UserDetail userDetails = queryUserDetail.setParameter("userId", userId).getSingleResult();
 
             System.err.println(queryUserDetail);
 
-        return userDetails;
+        return userDetails;*/
+            UserDetail userDetail = entityManager.find(UserDetail.class, userId);
+            if (userDetail == null) throw new NoResultException();
+        return userDetail;
     }
 
 
