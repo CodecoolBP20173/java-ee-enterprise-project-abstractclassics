@@ -27,23 +27,24 @@ import java.util.stream.Stream;
 
 @WebServlet(urlPatterns = {"/profile"})
 public class ProfilePageController extends HttpServlet {
+    String profileImg = "/static/img/default_profile.png";
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         //TODO:remove it, if it connected to the login
         HttpSession session = request.getSession();
-        session.setAttribute("userId", 2);
-
+        session.setAttribute("userId", 4);
 
         WebContext context = new WebContext(request, response, request.getServletContext());
         int userId = (Integer) request.getSession().getAttribute("userId");
 
         String[] genders = Stream.of(Gender.values()).map(Gender::name).toArray(String[]::new);
-        UserDetail userDetails = new UserDetail();
+        UserDetail userDetails;
 
         try {
             userDetails = ProfilePageQueries.getUserDetailById(userId);
         } catch (NoResultException e) {
+            userDetails = new UserDetail();
             System.err.println("No user's details are found by the given user id!");
         }
 
@@ -66,7 +67,7 @@ public class ProfilePageController extends HttpServlet {
         Gender genderEnum = Gender.valueOf(gender);
 
         String intro = request.getParameter("introTextarea");
-        String profileImg = request.getParameter("profileImage");
+        //String profileImg = request.getParameter("profileImage");
 
         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
         Date parsedBirthDate = Calendar.getInstance().getTime();

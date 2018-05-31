@@ -7,16 +7,15 @@
 </head>
 <body>
 <h1>Profile</h1>
-<div class="container">
-    <div class="first-column">
+<div></div>
 
-    </div>
-
-    <div class="second-column">
         <form action="/profile" method="post">
+            <div class="container">
+
             <img id="profileImage" name="profileImage" th:value="${userDetails.getImgUrl()}"
                  th:src="${userDetails.getImgUrl()}" height="100">
 
+                <div class="secondColumn">
             <label for="firstname">First name</label>
             <input type="text" id="firstname" name="firstname" th:value="${userDetails.getFirstName()}"
                    required="required">
@@ -40,8 +39,8 @@
 
             <fieldset>
                 <legend>Introduction</legend>
-                <textarea id="introTextarea" name="introTextarea" th:text="${userDetails.getIntroductionText()}"
-                          required="required">Hello</textarea>
+                <textarea id="introTextarea" name="introTextarea" th:value="${userDetails.getIntroductionText()}"
+                          required="required" th:text="${userDetails.getIntroductionText()}">Hello</textarea>
             </fieldset>
 
             <fieldset>
@@ -56,16 +55,14 @@
             </fieldset>
 
             <button onclick="location.href='/services';return false;">Services</button>
-
             <button type="submit">Save</button>
+                </div>
+                <div class="thirdColumn">
+                    <img src="/static/img/logo.png" height="100">
+                </div>
+            </div>
         </form>
 
-
-    </div>
-
-    <div class="third-column">
-        <img src="/static/img/logo.png" height="100">
-    </div>
-</div>
+<div></div>
 </body>
 </html>

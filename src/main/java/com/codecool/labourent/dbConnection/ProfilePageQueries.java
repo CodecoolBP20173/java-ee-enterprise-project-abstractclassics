@@ -35,16 +35,8 @@ public class ProfilePageQueries {
                                           String city, Date birthDate, Gender gender,
                                           String intro, String imgUrl, UserAccount userAccount) {
 
-        UserDetail userDetail = new UserDetail();
-        userDetail.setFirstName(firstname);
-        userDetail.setLastName(lastname);
-        userDetail.setDateOfBirth(birthDate);
-        userDetail.setIntroductionText(intro);
-        userDetail.setGender(gender);
-        userDetail.setCity(city);
-        userDetail.setPhoneNumber(phoneNumber);
-        userDetail.setImgUrl(imgUrl);
-        userDetail.setUserAccount(userAccount);
+        UserDetail userDetail = new UserDetail(firstname, lastname, phoneNumber, city, birthDate,
+                gender, intro, imgUrl, userAccount);
 
         EntityManager entityManager = EntityManagerSingleton.getInstance();
         EntityTransaction transaction = entityManager.getTransaction();

@@ -34,7 +34,7 @@ public class UserDetail {
 
     private String phoneNumber;
 
-    private String imgUrl;
+    private String imgUrl = "/static/img/default_profile.png";
 
     public UserDetail() {
         this.userAccount = null;
@@ -47,7 +47,20 @@ public class UserDetail {
         this.dateOfBirth = Calendar.getInstance().getTime();
         this.city = "";
         this.phoneNumber = "";
-        this.imgUrl = "/static/img/default_profile.png";
+    }
+
+    public UserDetail(String firstName, String lastName, String phoneNumber,
+                      String city, Date dateOfBirth, Gender gender,
+                      String introductionText, String imgUrl, UserAccount userAccount) {
+        this.userAccount = userAccount;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.gender = gender;
+        this.introductionText = introductionText;
+        this.dateOfBirth = dateOfBirth;
+        this.city = city;
+        this.phoneNumber = phoneNumber;
+        //this.imgUrl = "/static/img/default_profile.png";
     }
 
     public int getId() {
