@@ -74,7 +74,7 @@ public class ProfilePageQueries {
 
         EntityManager entityManager = EntityManagerSingleton.getInstance();
 
-        Query queryUserDetail =
+        /*Query queryUserDetail =
                 entityManager.createQuery("UPDATE UserDetail c SET c.firstName = :firstname, " +
                         "c.lastName = :lastname,  c.phoneNumber = :phonenumber, c.city = :city, c.dateOfBirth = :birthdate, " +
                         "c.gender = :gender, c.introductionText = :intro, c.imgUrl = :imgUrl " +
@@ -88,11 +88,20 @@ public class ProfilePageQueries {
         queryUserDetail.setParameter("city", city);
         queryUserDetail.setParameter("gender", gender);
         queryUserDetail.setParameter("intro", intro);
-        queryUserDetail.setParameter("imgUrl", imgUrl);
+        queryUserDetail.setParameter("imgUrl", imgUrl);*/
 
         EntityTransaction transaction = entityManager.getTransaction();
         transaction.begin();
-        queryUserDetail.executeUpdate();
+        UserDetail userDetail = getUserDetailById(userId);
+        userDetail.setFirstName(firstName);
+        userDetail.setLastName(lastName);
+        userDetail.setPhoneNumber(phoneNumber);
+        userDetail.setDateOfBirth(birthDate);
+        userDetail.setCity(city);
+        userDetail.setGender(gender);
+        userDetail.setIntroductionText(intro);
+        userDetail.setImgUrl(imgUrl);
+        //queryUserDetail.executeUpdate();
         transaction.commit();
     }
 

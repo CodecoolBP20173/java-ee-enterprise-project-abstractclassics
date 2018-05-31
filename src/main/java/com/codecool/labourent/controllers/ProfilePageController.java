@@ -89,5 +89,7 @@ public class ProfilePageController extends HttpServlet {
             ProfilePageQueries.putUserAccountInDb(firstName, lastName, phoneNumber, city, parsedBirthDate, genderEnum,
                     intro, profileImg, userAccount);
         }
+
+        response.sendRedirect("/profile");
     }
 }
