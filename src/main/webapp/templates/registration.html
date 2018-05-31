@@ -23,6 +23,14 @@
         <input type="password" placeholder="Confirm Password" id="password_confirm" name="password_confirm" required>
 
         <button type="submit">Register</button>
+
+        <p th:if="${#request.getParameter('taken') != null && #request.getParameter('taken').equals('email')}">
+            Your email is already taken. Please use a different email for the registration.
+        </p>
+
+        <p th:if="${#request.getParameter('taken') != null && #request.getParameter('taken').equals('username')}">
+            Your username is already taken. Please use a different username for the registration.
+        </p>
     </form>
 </body>
 </html>

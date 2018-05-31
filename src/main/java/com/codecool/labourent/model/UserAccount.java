@@ -9,8 +9,10 @@ public class UserAccount {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
+    @Column(unique = true)
     private String userName;
 
+    @Column(unique = true)
     private String email;
 
     private String password;
