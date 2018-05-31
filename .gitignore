@@ -1,6 +1,7 @@
-*.iml
 .idea/*
 src/main/resources/META-INF/persistence.xml
+src/main/webapp/WEB-INF/web.xml
+.idea/.name
 
 # Created by https://www.gitignore.io/api/java,maven,intellij
 
@@ -21,6 +22,7 @@ src/main/resources/META-INF/persistence.xml
 .idea/**/sqlDataSources.xml
 .idea/**/dynamic.xml
 .idea/**/uiDesigner.xml
+.idea/**/workspace.xml
 
 # Gradle:
 .idea/**/gradle.xml
@@ -61,7 +63,7 @@ fabric.properties
 ### Intellij Patch ###
 # Comment Reason: https://github.com/joeblau/gitignore.io/issues/186#issuecomment-215987721
 
-# *.iml
+*.iml
 # modules.xml
 # .idea/misc.xml
 # *.ipr

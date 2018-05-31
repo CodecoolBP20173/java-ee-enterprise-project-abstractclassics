@@ -32,6 +32,12 @@ public class Service {
     public Service() {
     }
 
+    public Service(String name, String description, Double price) {
+        this.name = name;
+        this.description = description;
+        this.price = price;
+    }
+
     private Double getAverageRating() {
         return sumOfRating / numOfRatings;
     }

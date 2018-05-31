@@ -35,61 +35,73 @@ public class ProfilePageController extends HttpServlet {
         HttpSession session = request.getSession();
         session.setAttribute("userId", 4);*/
 
-        WebContext context = new WebContext(request, response, request.getServletContext());
-        int userId = (Integer) request.getSession().getAttribute("userId");
+        if (session.getAttribute("userId") == null) {
+            response.sendRedirect("/login");
 
-        String[] genders = Stream.of(Gender.values()).map(Gender::name).toArray(String[]::new);
-        UserDetail userDetails;
+        } else {
+            WebContext context = new WebContext(request, response, request.getServletContext());
+            int userId = (Integer) request.getSession().getAttribute("userId");
 
-        try {
-            userDetails = ProfilePageQueries.getUserDetailById(userId);
-        } catch (NoResultException e) {
-            userDetails = new UserDetail();
-            System.err.println("No user's details are found by the given user id!");
+            String[] genders = Stream.of(Gender.values()).map(Gender::name).toArray(String[]::new);
+            UserDetail userDetails;
+
+            try {
+                userDetails = ProfilePageQueries.getUserDetailById(userId);
+            } catch (NoResultException e) {
+                userDetails = new UserDetail();
+                System.err.println("No user's details are found by the given user id!");
+            }
+
+            context.setVariable("genders", genders);
+            context.setVariable("userDetails", userDetails);
+
+
+            TemplateEngine engine = TemplateEngineUtil.getTemplateEngine(request.getServletContext());
+            engine.process("profilePage.html", context, response.getWriter());
         }
-
-        context.setVariable("genders", genders);
-        context.setVariable("userDetails", userDetails);
-
-
-        TemplateEngine engine = TemplateEngineUtil.getTemplateEngine(request.getServletContext());
-        engine.process("profilePage.html", context, response.getWriter());
     }
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        int userId = (Integer) request.getSession().getAttribute("userId");
-        String firstName = request.getParameter("firstname");
-        String lastName = request.getParameter("lastname");
-        String phoneNumber = request.getParameter("phonenumber");
-        String city = request.getParameter("city");
-        String gender = request.getParameter("radioGender");
-        Gender genderEnum = Gender.valueOf(gender);
+        HttpSession session = request.getSession();
 
-        String intro = request.getParameter("introTextarea");
-        //String profileImg = request.getParameter("profileImage");
+        if (session.getAttribute("userId") == null) {
+            response.sendRedirect("/login");
 
-        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
-        Date parsedBirthDate = Calendar.getInstance().getTime();
-        String birthDate = "";
-
-        try {
-            birthDate = request.getParameter("birthday");
-            if (!birthDate.equals("")) parsedBirthDate = format.parse(birthDate);
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-
-        UserAccount userAccount = UserAccountQueries.getUserAccountById(userId);
-
-        if (ProfilePageQueries.isUserAccountExsist(userId)) {
-            ProfilePageQueries.updateAccountById(userId, firstName, lastName, phoneNumber, city, parsedBirthDate, genderEnum,
-                    intro, profileImg);
         } else {
-            ProfilePageQueries.putUserAccountInDb(firstName, lastName, phoneNumber, city, parsedBirthDate, genderEnum,
-                    intro, profileImg, userAccount);
-        }
+            int userId = (Integer) session.getAttribute("userId");
+            String firstName = request.getParameter("firstname");
+            String lastName = request.getParameter("lastname");
+            String phoneNumber = request.getParameter("phonenumber");
+            String city = request.getParameter("city");
+            String gender = request.getParameter("radioGender");
+            Gender genderEnum = Gender.valueOf(gender);
 
-        response.sendRedirect("/profile");
+            String intro = request.getParameter("introTextarea");
+            //String profileImg = request.getParameter("profileImage");
+
+            SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+            Date parsedBirthDate = Calendar.getInstance().getTime();
+            String birthDate = "";
+
+            try {
+                birthDate = request.getParameter("birthday");
+                if (!birthDate.equals("")) parsedBirthDate = format.parse(birthDate);
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+
+            UserAccount userAccount = UserAccountQueries.getUserAccountById(userId);
+
+            if (ProfilePageQueries.isUserAccountExsist(userId)) {
+                ProfilePageQueries.updateAccountById(userId, firstName, lastName, phoneNumber, city, parsedBirthDate, genderEnum,
+                        intro, profileImg);
+            } else {
+                ProfilePageQueries.putUserAccountInDb(firstName, lastName, phoneNumber, city, parsedBirthDate, genderEnum,
+                        intro, profileImg, userAccount);
+            }
+
+            response.sendRedirect("/profile");
+        }
     }
 }
