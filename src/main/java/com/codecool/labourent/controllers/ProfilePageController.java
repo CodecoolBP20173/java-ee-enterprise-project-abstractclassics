@@ -35,6 +35,8 @@ public class ProfilePageController extends HttpServlet {
         HttpSession session = request.getSession();
         session.setAttribute("userId", 4);*/
 
+        HttpSession session = request.getSession();
+
         if (session.getAttribute("userId") == null) {
             response.sendRedirect("/login");
 
