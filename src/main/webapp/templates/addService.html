@@ -5,7 +5,6 @@
     <title>Add a new service</title>
 
     <script src="https://maps.googleapis.com/maps/api/js?sensor=false&libraries=places&language=en" defer></script>
-    <script src="/static/script/serviceLocationAutoComplete.js" defer></script>
 </head>
 <body>
 <form method="post">
@@ -13,13 +12,17 @@
     <input type="text" placeholder="Enter Service Name" id="name" name="name" required>
 
     <label for="description"><b>Description</b></label>
-    <textarea type="text" placeholder="Enter Description" id="description" name="description" required></textarea>
-
-    <label for="city"><b>City</b></label>
-    <input type="text" placeholder="Enter Location" id="city" name="city" required>
+    <textarea placeholder="Enter Description" id="description" name="description" required></textarea>
 
     <label for="price"><b>Price</b></label>
     <input type="number" placeholder="Enter Price" id="price" name="price" required>
+
+    <select>
+        <option value=""> -- </option>
+        <option th:each="category : ${serviceCategories}"
+                th:value="${category.id}"
+                th:utext="${category.name}"/>
+    </select>
 
     <button type="submit">Add service</button>
 </form>

@@ -5,6 +5,7 @@ import com.codecool.labourent.model.Service;
 import com.codecool.labourent.model.ServiceCategory;
 
 import javax.persistence.EntityManager;
+import javax.persistence.EntityTransaction;
 import java.util.List;
 
 public class ServiceQueries {
@@ -68,5 +69,14 @@ public class ServiceQueries {
         } else {
             return columnNamesArray;
         }
+    }
+
+    public static void saveService(Service service) {
+        EntityManager em = EntityManagerSingleton.getInstance();
+        EntityTransaction transaction = em.getTransaction();
+
+        transaction.begin();
+        em.persist(service);
+        transaction.commit();
     }
 }
