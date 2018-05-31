@@ -1,7 +1,9 @@
 package com.codecool.labourent.controllers;
 
 import com.codecool.labourent.config.TemplateEngineUtil;
+import com.codecool.labourent.dbConnection.ServiceCategoryQueries;
 import com.codecool.labourent.dbConnection.ServiceQueries;
+import com.codecool.labourent.model.ServiceCategory;
 import org.thymeleaf.TemplateEngine;
 import org.thymeleaf.context.WebContext;
 
@@ -11,6 +13,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.List;
 
 @WebServlet(urlPatterns = {"/list"})
 public class ListPageController extends HttpServlet {
@@ -18,6 +21,10 @@ public class ListPageController extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         TemplateEngine engine = TemplateEngineUtil.getTemplateEngine(req.getServletContext());
         WebContext context = new WebContext(req, resp, req.getServletContext());
+
+        List<ServiceCategory> serviceCategories = ServiceCategoryQueries.getServiceCategories();
+        context.setVariable("serviceCategories", serviceCategories);
+
         origanizeTable(req, context);
         /*filterTable(req, context);*/
         engine.process("listPage.html", context, resp.getWriter());
