@@ -39,12 +39,16 @@ public class AddServicePageController extends HttpServlet {
         String serviceName = request.getParameter("name");
         String description = request.getParameter("description");
         double price = Integer.valueOf(request.getParameter("price"));
-        int userId =  (Integer) session.getAttribute("userId");
+        int userId = (Integer) session.getAttribute("userId");
+        int serviceCategoryId = Integer.valueOf(request.getParameter("serviceCategoryId"));
+
         UserAccount userAccount = UserAccountQueries.getUserAccountById(userId);
+        ServiceCategory serviceCategory = ServiceCategoryQueries.getServiceCategoryById(serviceCategoryId);
 
         response.sendRedirect("/profile");
         Service service = new Service(serviceName, description, price);
         service.setUserAccount(userAccount);
+        service.setServiceCategory(serviceCategory);
         ServiceQueries.saveService(service);
     }
 }

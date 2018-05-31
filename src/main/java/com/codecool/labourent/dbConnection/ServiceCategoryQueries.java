@@ -10,19 +10,23 @@ import java.util.List;
 
 public class ServiceCategoryQueries {
 
-    public static void saveService(ServiceCategory serviceCategory) {
-        EntityManager em = EntityManagerSingleton.getInstance();
-        EntityTransaction transaction = em.getTransaction();
+    private static EntityManager entityManager = EntityManagerSingleton.getInstance();
+
+    public static void saveServiceCategory(ServiceCategory serviceCategory) {
+        EntityTransaction transaction = entityManager.getTransaction();
 
         transaction.begin();
-        em.persist(serviceCategory);
+        entityManager.persist(serviceCategory);
         transaction.commit();
     }
 
     public static List<ServiceCategory> getServiceCategories() {
-        EntityManager em = EntityManagerSingleton.getInstance();
         String queryString = "SELECT s FROM ServiceCategory s";
-        Query serviceCategoryQuery = em.createQuery(queryString);
+        Query serviceCategoryQuery = entityManager.createQuery(queryString);
         return serviceCategoryQuery.getResultList();
+    }
+
+    public static ServiceCategory getServiceCategoryById(int id) {
+        return entityManager.find(ServiceCategory.class, id);
     }
 }
