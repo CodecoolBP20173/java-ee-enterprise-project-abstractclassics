@@ -36,8 +36,12 @@
 
             <fieldset>
                 <legend>Genre</legend>
-                <label> <input type="radio" th:each="gender : ${genders}"
-                           th:name="radioGender" th:id="${gender}" th:value="${gender}" th:text="${gender}"></label>
+                <label>
+                    <input type="radio"
+                               th:each="gender : ${genders}"
+                               th:checked="${gender == userDetails.getGender().name()}"
+                               th:name="radioGender" th:id="${gender}" th:value="${gender}" th:text="${gender}">
+                </label>
             </fieldset>
 
             <button onclick="location.href='/services';return false;">Services</button>

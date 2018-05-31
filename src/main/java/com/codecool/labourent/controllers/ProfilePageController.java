@@ -24,7 +24,7 @@ import java.util.stream.Stream;
 
 @WebServlet(urlPatterns = {"/profile"})
 public class ProfilePageController extends HttpServlet{
-    private int userId = 1; //TODO: into session
+    private int userId = 2; //TODO: into session
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -36,6 +36,7 @@ public class ProfilePageController extends HttpServlet{
 
         context.setVariable("genders", genders);
         context.setVariable("userDetails", userDetails);
+
 
         TemplateEngine engine = TemplateEngineUtil.getTemplateEngine(request.getServletContext());
         engine.process("profilePage.html", context, response.getWriter());
@@ -64,8 +65,10 @@ public class ProfilePageController extends HttpServlet{
         }
 
 
-
-        /*ProfilePageQueries.putUserAccountInDb(firstName,lastName,phoneNumber,city,parsedBirthDate, genderEnum,
+        //TODO: request a UserAccountQueries.getUserAccountById(userId);
+        //TODO: create an instance from USerDetail
+        /*UserAccount userAccount = UserAccountQueries.getUserAccountById(userId);
+        ProfilePageQueries.putUserAccountInDb(firstName,lastName,phoneNumber,city,parsedBirthDate, genderEnum,
                 intro,profileImg,userAccount);*/
     }
 }
