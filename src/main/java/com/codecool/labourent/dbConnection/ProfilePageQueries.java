@@ -49,11 +49,11 @@ public class ProfilePageQueries {
         userDetail.setImgUrl(imgUrl);
         userDetail.setUserAccount(userAccount);
 
-        EntityManager entityManager = EntityManagerSingleton.getInstance();
+        /*EntityManager entityManager = EntityManagerSingleton.getInstance();
         EntityTransaction transaction = entityManager.getTransaction();
         transaction.begin();
         entityManager.persist(userDetail);
-        transaction.commit();
+        transaction.commit();*/
         System.out.println(userDetail.getLastName() + " saved.");
     }
 

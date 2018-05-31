@@ -9,29 +9,29 @@
 <h1>Profile</h1>
 <div class="container">
     <div class="first-column">
-        <img id="profileImage" th:src="${userDetails.getImgUrl()}" height="100">
+        <img id="profileImage" name="profileImage" th:src="${userDetails.getImgUrl()}" height="100">
     </div>
 
     <div class="second-column">
         <form action="/profile" method="post">
             <label for="firstname">First name</label>
-            <input type="text" id="firstname" th:value="${userDetails.getFirstName()}">
+            <input type="text" id="firstname" name="firstname" th:value="${userDetails.getFirstName()}" required="required">
 
             <label for="lastname">Last name</label>
-            <input type="text" id="lastname"  th:value="${userDetails.getLastName()}">
+            <input type="text" id="lastname" name="lastname" th:value="${userDetails.getLastName()}" required="required">
 
-            <label for="city">Phone</label>
-            <input type="text" id="city"  th:value="${userDetails.getCity()}">
+            <label for="city">City</label>
+            <input type="text" id="city" name="city" th:value="${userDetails.getCity()}" required="required">
 
             <label for="phonenumber">Phone</label>
-            <input type="text" id="phonenumber"  th:value="${userDetails.getPhoneNumber()}">
+            <input type="text" id="phonenumber" name="phonenumber" th:value="${userDetails.getPhoneNumber()}" required="required">
 
             <label for="birthday">Birthday</label>
-            <input type="date" id="birthday" name="birthday" th:value="${userDetails.getDateOfBirth()}">
+            <input type="date" id="birthday" name="birthday" th:value="${userDetails.getDateOfBirth()}" required="required">
 
             <fieldset>
                 <legend>Introduction</legend>
-                <textarea id="introTextarea" th:text="${userDetails.getIntroductionText()}">Hello</textarea>
+                <textarea id="introTextarea" name="introTextarea" th:text="${userDetails.getIntroductionText()}" required="required">Hello</textarea>
             </fieldset>
 
             <fieldset>
@@ -40,7 +40,8 @@
                     <input type="radio"
                                th:each="gender : ${genders}"
                                th:checked="${gender == userDetails.getGender().name()}"
-                               th:name="radioGender" th:id="${gender}" th:value="${gender}" th:text="${gender}">
+                               th:name="radioGender" th:id="${gender}" th:value="${gender}" th:text="${gender}"
+                           required="required">
                 </label>
             </fieldset>
 

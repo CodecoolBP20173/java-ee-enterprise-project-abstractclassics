@@ -80,7 +80,11 @@ public class ProfilePageController extends HttpServlet{
 
         if (ProfilePageQueries.isUserAccountExsist(userId)) {
             System.err.println(userId + " is exsist");
-        } else System.err.println(userId + " is not exsist");
+        } else {
+            ProfilePageQueries.putUserAccountInDb(firstName,lastName,phoneNumber,city,parsedBirthDate, genderEnum,
+                    intro,profileImg,userAccount);
+            System.err.println(userId + " is not exsist");
+        }
 
         /*ProfilePageQueries.putUserAccountInDb(firstName,lastName,phoneNumber,city,parsedBirthDate, genderEnum,
                 intro,profileImg,userAccount);*/
