@@ -30,7 +30,18 @@ public class ProfilePageQueries {
         return userDetail;
     }
 
-
+    /**
+     * It puts the new user profile in the userdetail table.
+     * @param firstname
+     * @param lastname
+     * @param phoneNumber
+     * @param city
+     * @param birthDate
+     * @param gender
+     * @param intro
+     * @param imgUrl
+     * @param userAccount
+     */
     public static void putUserAccountInDb(String firstname, String lastname, String phoneNumber,
                                           String city, Date birthDate, Gender gender,
                                           String intro, String imgUrl, UserAccount userAccount) {
@@ -45,6 +56,18 @@ public class ProfilePageQueries {
         transaction.commit();
     }
 
+    /**
+     * It updates the user profile in the user detail table.
+     * @param userId
+     * @param firstName
+     * @param lastName
+     * @param phoneNumber
+     * @param city
+     * @param birthDate
+     * @param gender
+     * @param intro
+     * @param imgUrl
+     */
     public static void updateAccountById(int userId, String firstName, String lastName, String phoneNumber,
                                          String city, Date birthDate, Gender gender,
                                          String intro, String imgUrl) {
@@ -73,6 +96,11 @@ public class ProfilePageQueries {
         transaction.commit();
     }
 
+    /**
+     * It checks if the user profile exsists.
+     * @param userId
+     * @return
+     */
     public static boolean isUserAccountExsist(int userId) {
         try {
             getUserDetailById(userId);
