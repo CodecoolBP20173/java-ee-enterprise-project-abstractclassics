@@ -33,7 +33,7 @@
 
 .dropbtn {
     color: black;
-    padding: 16px;
+    padding: 13px;
     font-size: 16px;
     border: 2px solid black;
 }
@@ -41,7 +41,7 @@
 .dropdown {
     position: absolute;
     right: 50px;
-    top: 10px;
+    top: 8px;
 
 }
 
