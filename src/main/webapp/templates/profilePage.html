@@ -9,7 +9,7 @@
 <h1>Profile</h1>
 <div class="container">
     <div class="first-column">
-        <img src="/static/img/default_profile.png" height="100">
+        <img id="profileImage" th:src="${userDetails.getImgUrl()}" height="100">
     </div>
 
     <div class="second-column">
@@ -20,18 +20,24 @@
             <label for="lastname">Last name</label>
             <input type="text" id="lastname"  th:value="${userDetails.getLastName()}">
 
+            <label for="city">Phone</label>
+            <input type="text" id="city"  th:value="${userDetails.getCity()}">
+
             <label for="phonenumber">Phone</label>
             <input type="text" id="phonenumber"  th:value="${userDetails.getPhoneNumber()}">
 
             <label for="birthday">Birthday</label>
-            <input type="date" id="birthday"  th:value="${userDetails.getDateOfBirth()}">
+            <input type="date" id="birthday" name="birthday" th:value="${userDetails.getDateOfBirth()}">
+
+            <fieldset>
+                <legend>Introduction</legend>
+                <textarea id="introTextarea" th:text="${userDetails.getIntroductionText()}">Hello</textarea>
+            </fieldset>
 
             <fieldset>
                 <legend>Genre</legend>
-                <!--<label> <input type="radio" name="male" id="male" required="" value="male"> Car </label>
-                <label> <input type="radio" name="female" id="female" required="" value="female"> Car </label>-->
                 <label> <input type="radio" th:each="gender : ${genders}"
-                           th:name="${{gender}}" th:id="${gender}" th:value="${gender}" th:text="${gender}"></label>
+                           th:name="radioGender" th:id="${gender}" th:value="${gender}" th:text="${gender}"></label>
             </fieldset>
 
             <button onclick="location.href='/services';return false;">Services</button>

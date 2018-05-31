@@ -1,11 +1,15 @@
 package com.codecool.labourent.dbConnection;
 
 import com.codecool.labourent.config.EntityManagerSingleton;
+import com.codecool.labourent.model.Gender;
+import com.codecool.labourent.model.UserAccount;
 import com.codecool.labourent.model.UserDetail;
 
 import javax.persistence.EntityManager;
+import javax.persistence.EntityTransaction;
 import javax.persistence.NoResultException;
 import javax.persistence.TypedQuery;
+import java.util.Date;
 
 /**
  * This class contains the querries which work on the userdetail relation.
@@ -33,5 +37,28 @@ public class ProfilePageQueries {
         return userDetails;
     }
 
+
+    public static void putUserAccountInDb(String firstname, String lastname, String phoneNumber,
+                                          String city, Date birthDate, Gender gender,
+                                          String intro, String imgUrl, UserAccount userAccount) {
+
+        UserDetail userDetail = new UserDetail();
+        userDetail.setFirstName(firstname);
+        userDetail.setLastName(lastname);
+        userDetail.setDateOfBirth(birthDate);
+        userDetail.setIntroductionText(intro);
+        userDetail.setGender(gender);
+        userDetail.setCity(city);
+        userDetail.setPhoneNumber(phoneNumber);
+        userDetail.setImgUrl(imgUrl);
+        userDetail.setUserAccount(userAccount);
+
+        EntityManager entityManager = EntityManagerSingleton.getInstance();
+        EntityTransaction transaction = entityManager.getTransaction();
+        transaction.begin();
+        entityManager.persist(userDetail);
+        transaction.commit();
+        System.out.println(userDetail.getLastName() + " saved.");
+    }
 
 }
