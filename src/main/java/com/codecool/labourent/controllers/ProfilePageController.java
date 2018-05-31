@@ -15,6 +15,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -25,15 +26,20 @@ import java.util.stream.Stream;
 
 @WebServlet(urlPatterns = {"/profile"})
 public class ProfilePageController extends HttpServlet{
-    private int userId = 2; //TODO: into session
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        //TODO:remove it
+        HttpSession session = request.getSession();
+        session.setAttribute("userId", 6);
+
 
         WebContext context = new WebContext(request, response, request.getServletContext());
-        String[] genders = Stream.of(Gender.values()).map(Gender::name).toArray(String[]::new);
+        int userId = (Integer) request.getSession().getAttribute("userId");
 
+        String[] genders = Stream.of(Gender.values()).map(Gender::name).toArray(String[]::new);
         UserDetail userDetails = new UserDetail();
+
         try {
             userDetails = ProfilePageQueries.getUserDetailById(userId);
         } catch (NoResultException e) {
@@ -50,6 +56,7 @@ public class ProfilePageController extends HttpServlet{
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        int userId = (Integer) request.getSession().getAttribute("userId");
         String firstName = request.getParameter("firstname");
         String lastName = request.getParameter("lastname");
         String phoneNumber = request.getParameter("phonenumber");

@@ -42,6 +42,7 @@ public class UserDetail {
         this.lastName = "";
         this.gender = Gender.UNDEFINED;
         this.introductionText = "";
+
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
         this.dateOfBirth = Calendar.getInstance().getTime();
         this.city = "";

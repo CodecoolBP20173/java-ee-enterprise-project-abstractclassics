@@ -1,28 +1,29 @@
 .container {
     display: grid;
-    grid-template-columns: 150px auto 100px;
+    grid-template-columns: 100px auto 100px;
     grid-template-rows: repeat(3, 100px);
     grid-gap: 2em;
 }
 
+/*
 .first-column {
-    /* Start on Row 2 */
+    !* Start on Row 2 *!
     grid-row: 1;
-    /* Start on the first column line and stop at the next column line */
+    !* Start on the first column line and stop at the next column line *!
     grid-column: 1 / 2;
 }
 
 .second-column {
-    /* Start on Row 2 */
+    !* Start on Row 2 *!
     grid-row: 1;
-    /* Start on the second column line and stop at the third column line */
+    !* Start on the second column line and stop at the third column line *!
     grid-column: 2 / 3;
 }
 
 .third-column {
-    /* Start on Row 2 */
+    !* Start on Row 2 *!
     grid-row: 1;
-    /* Start on the third column line and stop at the last column line */
+    !* Start on the third column line and stop at the last column line *!
     grid-column: 3 / 4;
 }
 
@@ -42,14 +43,14 @@ form {
     grid-gap: 2em;
 }
 
-/*fieldset textarea {
+!*fieldset textarea {
     width:100%;
     height:100%;
     box-sizing: border-box;         !* For IE and modern versions of Chrome *!
     -moz-box-sizing: border-box;    !* For Firefox                          *!
     -webkit-box-sizing: border-box; !* For Safari                           *!
 
-}*/
+}*!
 
 .second-column > fieldset {
     grid-column: 2/4;
@@ -57,3 +58,7 @@ form {
 }
 
 
+*/
+body {
+
+}
