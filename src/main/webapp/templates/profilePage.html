@@ -3,12 +3,41 @@
 <head>
     <meta charset="UTF-8">
     <title>User's details</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="/static/css/profile.css" media="screen"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>
 </head>
 <body>
-<h1>Profile</h1>
-<div></div>
+<div>
 
+    <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
+        <!-- Brand/logo -->
+        <a class="navbar-brand" href="#">
+            <img src="/static/img/logo_2.png" alt="logo" style="width:40px;">
+        </a>
+
+        <!-- Links -->
+        <ul class="navbar-nav">
+            <li class="nav-item">
+                <a class="nav-link disabled" href="#">Index</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link disabled" href="#">Registration</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link disabled" href="#">Login</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link active" href="/profile">Profile</a>
+            </li>
+        </ul>
+    </nav>
+    <h1>Profile</h1>
+</div>
 <form action="/profile" method="post">
     <div class="container">
 
