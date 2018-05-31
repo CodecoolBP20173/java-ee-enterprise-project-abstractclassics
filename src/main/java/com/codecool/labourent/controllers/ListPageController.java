@@ -18,21 +18,25 @@ public class ListPageController extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         TemplateEngine engine = TemplateEngineUtil.getTemplateEngine(req.getServletContext());
         WebContext context = new WebContext(req, resp, req.getServletContext());
-        sortTable(req, context);
+        origanizeTable(req, context);
+        /*filterTable(req, context);*/
         engine.process("listPage.html", context, resp.getWriter());
     }
 
-    private void sortTable(HttpServletRequest req, WebContext context) {
+    private void origanizeTable(HttpServletRequest req, WebContext context) {
         String queryString = req.getQueryString();
         if (queryString != null){
             String columnName = req.getParameter("column");
             String sortDirection = req.getParameter("sort");
+            String categoryId = req.getParameter("categoryId");
             switchSortDirection(sortDirection, context);
-            context.setVariable("services", ServiceQueries.getAllRecordsFromTable(columnName, sortDirection));
+            context.setVariable("categoryId", categoryId);
+            filterTable(req, context, columnName, sortDirection, categoryId);
 
         } else {
             context.setVariable("services", ServiceQueries.getAllRecordsFromTable("id", "asc"));
             context.setVariable("sortDirection", "asc");
+            context.setVariable("categoryId", "all");
         }
     }
 
@@ -42,6 +46,16 @@ public class ListPageController extends HttpServlet {
             context.setVariable("sortDirection", "desc");
         } else {
             context.setVariable("sortDirection", "asc");
+        }
+    }
+
+    private void filterTable(HttpServletRequest req, WebContext context, String columnName, String sortDirection , String ascOrDesc) {
+        if (!req.getParameter("categoryId").equals("all")) {
+            int categoryId = Integer.parseInt(req.getParameter("categoryId"));
+            context.setVariable("services", ServiceQueries.getFilteredRecordsFromTable(columnName, ascOrDesc, categoryId));
+        }
+        else {
+            context.setVariable("services", ServiceQueries.getAllRecordsFromTable(columnName, sortDirection));
         }
     }
 
