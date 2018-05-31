@@ -9,11 +9,13 @@
 <h1>Profile</h1>
 <div class="container">
     <div class="first-column">
-        <img id="profileImage" name="profileImage" th:src="${userDetails.getImgUrl()}" height="100">
+
     </div>
 
     <div class="second-column">
         <form action="/profile" method="post">
+            <img id="profileImage" name="profileImage" th:value="${userDetails.getImgUrl()}" th:src="${userDetails.getImgUrl()}" height="100">
+
             <label for="firstname">First name</label>
             <input type="text" id="firstname" name="firstname" th:value="${userDetails.getFirstName()}" required="required">
 
@@ -24,7 +26,10 @@
             <input type="text" id="city" name="city" th:value="${userDetails.getCity()}" required="required">
 
             <label for="phonenumber">Phone</label>
-            <input type="text" id="phonenumber" name="phonenumber" th:value="${userDetails.getPhoneNumber()}" required="required">
+            <input type="text" id="phonenumber" name="phonenumber"
+                   th:value="${userDetails.getPhoneNumber()}" required="required"
+                   placeholder="Enter your phone number (3620456123)"
+                   pattern="\d*" maxlength="15">
 
             <label for="birthday">Birthday</label>
             <input type="date" id="birthday" name="birthday" th:value="${userDetails.getDateOfBirth()}" required="required">
@@ -47,7 +52,7 @@
 
             <button onclick="location.href='/services';return false;">Services</button>
 
-            <button type="submit">Send</button>
+            <button type="submit">Save</button>
         </form>
 
 
