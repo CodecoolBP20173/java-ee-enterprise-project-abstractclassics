@@ -29,9 +29,9 @@ public class ListPageController extends HttpServlet {
             String columnName = req.getParameter("column");
             String sortDirection = req.getParameter("sort");
             String categoryId = req.getParameter("categoryId");
-            switchSortDirection(sortDirection, context);
             context.setVariable("categoryId", categoryId);
             filterTable(req, context, columnName, sortDirection, categoryId);
+            switchSortDirection(sortDirection, context);
 
         } else {
             context.setVariable("services", ServiceQueries.getAllRecordsFromTable("id", "asc"));
@@ -52,7 +52,7 @@ public class ListPageController extends HttpServlet {
     private void filterTable(HttpServletRequest req, WebContext context, String columnName, String sortDirection , String ascOrDesc) {
         if (!req.getParameter("categoryId").equals("all")) {
             int categoryId = Integer.parseInt(req.getParameter("categoryId"));
-            context.setVariable("services", ServiceQueries.getFilteredRecordsFromTable(columnName, ascOrDesc, categoryId));
+            context.setVariable("services", ServiceQueries.getFilteredRecordsFromTable(columnName, sortDirection, categoryId));
         }
         else {
             context.setVariable("services", ServiceQueries.getAllRecordsFromTable(columnName, sortDirection));
