@@ -9,13 +9,13 @@
 <h1>Profile</h1>
 <div></div>
 
-        <form action="/profile" method="post">
-            <div class="container">
+<form action="/profile" method="post">
+    <div class="container">
 
-            <img id="profileImage" name="profileImage" th:value="${userDetails.getImgUrl()}"
-                 th:src="${userDetails.getImgUrl()}" height="100">
+        <img id="profileImage" name="profileImage" th:value="${userDetails.getImgUrl()}"
+             th:src="${userDetails.getImgUrl()}" height="100">
 
-                <div class="secondColumn">
+        <div class="secondColumn">
             <label for="firstname">First name</label>
             <input type="text" id="firstname" name="firstname" th:value="${userDetails.getFirstName()}"
                    required="required">
@@ -56,12 +56,12 @@
 
             <button onclick="location.href='/services';return false;">Services</button>
             <button type="submit">Save</button>
-                </div>
-                <div class="thirdColumn">
-                    <img src="/static/img/logo.png" height="100">
-                </div>
-            </div>
-        </form>
+        </div>
+        <div class="thirdColumn">
+            <img src="/static/img/logo.png" height="100">
+        </div>
+    </div>
+</form>
 
 <div></div>
 </body>
