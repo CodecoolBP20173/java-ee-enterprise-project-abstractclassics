@@ -4,8 +4,17 @@
     <meta charset="UTF-8">
     <title>User's details</title>
     <link rel="stylesheet" type="text/css" href="/static/css/profile.css" media="screen"/>
+    <link rel="stylesheet" type="text/css" href="/static/css/navbar.css">
 </head>
 <body>
+<div class="topnav">
+    <a class="active" href="/list">Services</a>
+    <a href="/introduction">Introduction</a>
+    <a href="/profile">Profile</a>
+    <a href="/registration">Registration</a>
+    <a href="/login">Login</a>
+    <a href="/logout">Logout</a>
+</div>
 <h1>Profile</h1>
 <div></div>
 
@@ -54,8 +63,9 @@
                 </label>
             </fieldset>
 
-            <button onclick="location.href='/services';return false;">Services</button>
+            <button onclick="location.href='/services';return false;" disabled >Services</button>
             <button type="submit">Save</button>
+            <button class="addService" onclick="location.href='/add-service';return false;"  >Add New Service</button>
         </div>
         <div class="thirdColumn">
             <img src="/static/img/logo.png" height="100">
