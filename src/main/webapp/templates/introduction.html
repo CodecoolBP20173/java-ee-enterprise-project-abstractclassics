@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
@@ -10,9 +10,9 @@
     <a class="active" href="/list">Services</a>
     <a href="/introduction">Introduction</a>
     <a href="/profile">Profile</a>
-    <a href="/registration">Registration</a>
-    <a href="/login">Login</a>
-    <a href="/logout">Logout</a>
+    <a href="/registration" th:if="${session.userId == null}">Registration</a>
+    <a href="/login"  th:if="${session.userId == null}">Login</a>
+    <a href="/logout" th:if="${session.userId != null}">Logout</a>
 </div>
 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus libero ex, congue id vehicula et, commodo quis orci. Sed sagittis maximus scelerisque. Quisque convallis molestie pulvinar. Integer nec congue dolor, nec condimentum felis. Maecenas id porttitor ex, at ullamcorper turpis. Donec consequat nunc quis massa egestas, sed interdum felis maximus. Sed nec sapien ullamcorper, euismod tortor eu, tincidunt urna.
 
