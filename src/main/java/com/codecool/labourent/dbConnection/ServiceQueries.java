@@ -44,7 +44,6 @@ public class ServiceQueries {
             return column;
         } else {
             System.out.println("Illegal injection!");
-            System.out.println("Fuck you");
            return "id";
         }
 
