@@ -53,8 +53,8 @@ public class ProfilePageController extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         HttpSession session = request.getSession();
         int userId = (Integer) session.getAttribute("userId");
-        UserDetail userDetail = createUserDetail(request, userId);
 
+        UserDetail userDetail = createUserDetail(request, userId);
 
         if (profilePageQueries.isUserAccountExist(userId)) {
             profilePageQueries.updateAccountById(userId, userDetail);
@@ -62,7 +62,7 @@ public class ProfilePageController extends HttpServlet {
             profilePageQueries.putUserAccountInDb(userDetail);
         }
 
-            response.sendRedirect("/profile");
+        response.sendRedirect("/profile");
     }
 
     private UserDetail createUserDetail(HttpServletRequest request, int userId) {
