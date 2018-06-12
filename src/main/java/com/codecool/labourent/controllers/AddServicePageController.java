@@ -33,43 +33,32 @@ public class AddServicePageController extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        HttpSession session = request.getSession();
+        TemplateEngine engine = TemplateEngineUtil.getTemplateEngine(request.getServletContext());
+        WebContext context = new WebContext(request, response, request.getServletContext());
 
-        if (session.getAttribute("userId") == null) {
-            response.sendRedirect("/login");
-
-        } else {
-            TemplateEngine engine = TemplateEngineUtil.getTemplateEngine(request.getServletContext());
-            WebContext context = new WebContext(request, response, request.getServletContext());
-
-            List<ServiceCategory> serviceCategories = serviceCategoryQueries.getServiceCategories();
-            context.setVariable("serviceCategories", serviceCategories);
-            engine.process("addService.html", context, response.getWriter());
-        }
+        List<ServiceCategory> serviceCategories = serviceCategoryQueries.getServiceCategories();
+        context.setVariable("serviceCategories", serviceCategories);
+        engine.process("addService.html", context, response.getWriter());
     }
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         HttpSession session = request.getSession();
 
-        if (session.getAttribute("userId") == null) {
-            response.sendRedirect("/login");
+        String serviceName = request.getParameter("name");
+        String description = request.getParameter("description");
+        double price = Integer.valueOf(request.getParameter("price"));
+        int userId = (Integer) session.getAttribute("userId");
+        int serviceCategoryId = Integer.valueOf(request.getParameter("serviceCategoryId"));
 
-        } else {
-            String serviceName = request.getParameter("name");
-            String description = request.getParameter("description");
-            double price = Integer.valueOf(request.getParameter("price"));
-            int userId = (Integer) session.getAttribute("userId");
-            int serviceCategoryId = Integer.valueOf(request.getParameter("serviceCategoryId"));
+        UserAccount userAccount = userAccountQueries.getUserAccountById(userId);
+        ServiceCategory serviceCategory = serviceCategoryQueries.getServiceCategoryById(serviceCategoryId);
 
-            UserAccount userAccount = userAccountQueries.getUserAccountById(userId);
-            ServiceCategory serviceCategory = serviceCategoryQueries.getServiceCategoryById(serviceCategoryId);
+        response.sendRedirect("/profile");
 
-            response.sendRedirect("/profile");
-            Service service = new Service(serviceName, description, price);
-            service.setUserAccount(userAccount);
-            service.setServiceCategory(serviceCategory);
-            serviceQueries.saveService(service);
-        }
+        Service service = new Service(serviceName, description, price);
+        service.setUserAccount(userAccount);
+        service.setServiceCategory(serviceCategory);
+        serviceQueries.saveService(service);
     }
 }

@@ -37,45 +37,33 @@ public class ProfilePageController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         HttpSession session = request.getSession();
+        WebContext context = new WebContext(request, response, request.getServletContext());
+        int userId = (Integer) session.getAttribute("userId");
 
-        if (session.getAttribute("userId") == null) {
-            response.sendRedirect("/login");
+        String[] genders = Stream.of(Gender.values()).map(Gender::name).toArray(String[]::new);
+        UserDetail userDetails = requestUserDetails(userId);
 
-        } else {
-            WebContext context = new WebContext(request, response, request.getServletContext());
-            int userId = (Integer) request.getSession().getAttribute("userId");
+        context.setVariable("genders", genders);
+        context.setVariable("userDetails", userDetails);
 
-            String[] genders = Stream.of(Gender.values()).map(Gender::name).toArray(String[]::new);
-
-            UserDetail userDetails = requestUserDetails(userId);
-
-            context.setVariable("genders", genders);
-            context.setVariable("userDetails", userDetails);
-
-            TemplateEngine engine = TemplateEngineUtil.getTemplateEngine(request.getServletContext());
-            engine.process("profilePage.html", context, response.getWriter());
-        }
+        TemplateEngine engine = TemplateEngineUtil.getTemplateEngine(request.getServletContext());
+        engine.process("profilePage.html", context, response.getWriter());
     }
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         HttpSession session = request.getSession();
+        int userId = (Integer) session.getAttribute("userId");
+        UserDetail userDetail = createUserDetail(request, userId);
 
-        if (session.getAttribute("userId") == null) {
-            response.sendRedirect("/login");
 
+        if (profilePageQueries.isUserAccountExist(userId)) {
+            profilePageQueries.updateAccountById(userId, userDetail);
         } else {
-            int userId = (Integer) session.getAttribute("userId");
-            UserDetail userDetail = createUserDetail(request, userId);
-
-            if (profilePageQueries.isUserAccountExist(userId)) {
-                profilePageQueries.updateAccountById(userId, userDetail);
-            } else {
-                profilePageQueries.putUserAccountInDb(userDetail);
-            }
+            profilePageQueries.putUserAccountInDb(userDetail);
+        }
 
             response.sendRedirect("/profile");
-        }
     }
 
     private UserDetail createUserDetail(HttpServletRequest request, int userId) {
