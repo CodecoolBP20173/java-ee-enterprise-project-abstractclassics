@@ -35,22 +35,9 @@ public class ProfilePageQueries {
 
     /**
      * It puts the new user profile in the userdetail table.
-     * @param firstname
-     * @param lastname
-     * @param phoneNumber
-     * @param city
-     * @param birthDate
-     * @param gender
-     * @param intro
-     * @param imgUrl
-     * @param userAccount
+     * @param userDetail
      */
-    public void putUserAccountInDb(String firstname, String lastname, String phoneNumber,
-                                          String city, Date birthDate, Gender gender,
-                                          String intro, String imgUrl, UserAccount userAccount) {
-
-        UserDetail userDetail = new UserDetail(firstname, lastname, phoneNumber, city, birthDate,
-                gender, intro, imgUrl, userAccount);
+    public void putUserAccountInDb(UserDetail userDetail) {
 
         EntityTransaction transaction = entityManager.getTransaction();
         transaction.begin();
@@ -61,30 +48,21 @@ public class ProfilePageQueries {
     /**
      * It updates the user profile in the user detail table.
      * @param userId
-     * @param firstName
-     * @param lastName
-     * @param phoneNumber
-     * @param city
-     * @param birthDate
-     * @param gender
-     * @param intro
-     * @param imgUrl
+     * @param userDetail
      */
-    public void updateAccountById(int userId, String firstName, String lastName, String phoneNumber,
-                                         String city, Date birthDate, Gender gender,
-                                         String intro, String imgUrl) {
+    public void updateAccountById(int userId, UserDetail userDetail) {
 
         EntityTransaction transaction = entityManager.getTransaction();
         transaction.begin();
-        UserDetail userDetail = getUserDetailById(userId);
-        userDetail.setFirstName(firstName);
-        userDetail.setLastName(lastName);
-        userDetail.setPhoneNumber(phoneNumber);
-        userDetail.setDateOfBirth(birthDate);
-        userDetail.setCity(city);
-        userDetail.setGender(gender);
-        userDetail.setIntroductionText(intro);
-        userDetail.setImgUrl(imgUrl);
+        UserDetail userDetailFromDB = getUserDetailById(userId);
+        userDetailFromDB.setFirstName(userDetail.getFirstName());
+        userDetailFromDB.setLastName(userDetail.getLastName());
+        userDetailFromDB.setPhoneNumber(userDetail.getPhoneNumber());
+        userDetailFromDB.setDateOfBirth(userDetail.getDateOfBirth());
+        userDetailFromDB.setCity(userDetail.getCity());
+        userDetailFromDB.setGender(userDetail.getGender());
+        userDetailFromDB.setIntroductionText(userDetail.getIntroductionText());
+        userDetailFromDB.setImgUrl(userDetail.getImgUrl());
         transaction.commit();
     }
 
@@ -93,7 +71,7 @@ public class ProfilePageQueries {
      * @param userId
      * @return
      */
-    public boolean isUserAccountExsist(int userId) {
+    public boolean isUserAccountExist(int userId) {
         try {
             getUserDetailById(userId);
         } catch (NoResultException e) {

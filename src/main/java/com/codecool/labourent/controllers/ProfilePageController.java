@@ -25,7 +25,6 @@ import java.util.stream.Stream;
 
 
 public class ProfilePageController extends HttpServlet {
-    String profileImg = "/static/img/default_profile.png";
 
     private ProfilePageQueries profilePageQueries;
     private UserAccountQueries userAccountQueries;
@@ -47,18 +46,11 @@ public class ProfilePageController extends HttpServlet {
             int userId = (Integer) request.getSession().getAttribute("userId");
 
             String[] genders = Stream.of(Gender.values()).map(Gender::name).toArray(String[]::new);
-            UserDetail userDetails;
 
-            try {
-                userDetails = profilePageQueries.getUserDetailById(userId);
-            } catch (NoResultException e) {
-                userDetails = new UserDetail();
-                System.err.println("No user's details are found by the given user id!");
-            }
+            UserDetail userDetails = requestUserDetails(userId);
 
             context.setVariable("genders", genders);
             context.setVariable("userDetails", userDetails);
-
 
             TemplateEngine engine = TemplateEngineUtil.getTemplateEngine(request.getServletContext());
             engine.process("profilePage.html", context, response.getWriter());
@@ -74,38 +66,55 @@ public class ProfilePageController extends HttpServlet {
 
         } else {
             int userId = (Integer) session.getAttribute("userId");
-            String firstName = request.getParameter("firstname");
-            String lastName = request.getParameter("lastname");
-            String phoneNumber = request.getParameter("phonenumber");
-            String city = request.getParameter("city");
-            String gender = request.getParameter("radioGender");
-            Gender genderEnum = Gender.valueOf(gender);
+            UserDetail userDetail = createUserDetail(request, userId);
 
-            String intro = request.getParameter("introTextarea");
-            //String profileImg = request.getParameter("profileImage");
-
-            SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
-            Date parsedBirthDate = Calendar.getInstance().getTime();
-            String birthDate = "";
-
-            try {
-                birthDate = request.getParameter("birthday");
-                if (!birthDate.equals("")) parsedBirthDate = format.parse(birthDate);
-            } catch (ParseException e) {
-                e.printStackTrace();
-            }
-
-            UserAccount userAccount = userAccountQueries.getUserAccountById(userId);
-
-            if (profilePageQueries.isUserAccountExsist(userId)) {
-                profilePageQueries.updateAccountById(userId, firstName, lastName, phoneNumber, city, parsedBirthDate, genderEnum,
-                        intro, profileImg);
+            if (profilePageQueries.isUserAccountExist(userId)) {
+                profilePageQueries.updateAccountById(userId, userDetail);
             } else {
-                profilePageQueries.putUserAccountInDb(firstName, lastName, phoneNumber, city, parsedBirthDate, genderEnum,
-                        intro, profileImg, userAccount);
+                profilePageQueries.putUserAccountInDb(userDetail);
             }
 
             response.sendRedirect("/profile");
         }
+    }
+
+    private UserDetail createUserDetail(HttpServletRequest request, int userId) {
+        String firstName = request.getParameter("firstname");
+        String lastName = request.getParameter("lastname");
+        String phoneNumber = request.getParameter("phonenumber");
+        String city = request.getParameter("city");
+        String gender = request.getParameter("radioGender");
+        Gender genderEnum = Gender.valueOf(gender);
+
+        String imgUrl = request.getParameter("imageInput");
+        String intro = request.getParameter("introTextarea");
+
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+        Date parsedBirthDate = Calendar.getInstance().getTime();
+        String birthDate = "";
+
+        try {
+            birthDate = request.getParameter("birthday");
+            if (!birthDate.equals("")) parsedBirthDate = format.parse(birthDate);
+        } catch (ParseException e) {
+            System.err.println("An error has been occured during the birthday' parse!");
+        }
+
+        UserAccount userAccount = userAccountQueries.getUserAccountById(userId);
+        UserDetail userDetail = new UserDetail(firstName, lastName, phoneNumber, city,
+                parsedBirthDate, genderEnum, intro, userAccount);
+        userDetail.setImgUrl(imgUrl);
+        return userDetail;
+    }
+
+    private UserDetail requestUserDetails(int userId) {
+        UserDetail userDetails;
+        try {
+            userDetails = profilePageQueries.getUserDetailById(userId);
+        } catch (NoResultException e) {
+            userDetails = new UserDetail();
+            System.err.println("No user's details are found by the given user id!");
+        }
+        return userDetails;
     }
 }
