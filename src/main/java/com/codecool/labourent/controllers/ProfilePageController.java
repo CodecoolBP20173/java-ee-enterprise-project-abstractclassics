@@ -1,6 +1,5 @@
 package com.codecool.labourent.controllers;
 
-
 import com.codecool.labourent.config.TemplateEngineUtil;
 import com.codecool.labourent.dbConnection.ProfilePageQueries;
 import com.codecool.labourent.dbConnection.UserAccountQueries;

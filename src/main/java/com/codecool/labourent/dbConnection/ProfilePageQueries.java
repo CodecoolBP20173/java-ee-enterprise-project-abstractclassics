@@ -1,13 +1,10 @@
 package com.codecool.labourent.dbConnection;
 
-import com.codecool.labourent.model.Gender;
-import com.codecool.labourent.model.UserAccount;
 import com.codecool.labourent.model.UserDetail;
-
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
 import javax.persistence.NoResultException;
-import java.util.Date;
+
 
 /**
  * This class contains the querries which work on the userdetail relation.
