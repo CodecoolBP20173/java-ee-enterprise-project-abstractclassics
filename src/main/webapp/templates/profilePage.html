@@ -21,8 +21,12 @@
 <form action="/profile" method="post">
     <div class="container">
 
-        <img id="profileImage" name="profileImage" th:value="${userDetails.getImgUrl()}"
-             th:src="${userDetails.getImgUrl()}" height="100">
+        <div class="firstColumn">
+            <img id="profileImage" name="profileImage" th:value="${userDetails.getImgUrl()}"
+                 th:src="${userDetails.getImgUrl()}" height="100">
+            <input type="text" id="imageInput" name="imageInput" th:value="${userDetails.getImgUrl()}"
+                   required="required">
+        </div>
 
         <div class="secondColumn">
             <label for="firstname">First name</label>
