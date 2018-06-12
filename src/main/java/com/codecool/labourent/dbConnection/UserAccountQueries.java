@@ -1,6 +1,5 @@
 package com.codecool.labourent.dbConnection;
 
-import com.codecool.labourent.config.EntityManagerSingleton;
 import com.codecool.labourent.model.UserAccount;
 
 import javax.persistence.EntityManager;
@@ -10,34 +9,37 @@ import javax.persistence.Query;
 
 public class UserAccountQueries {
 
-    public static void saveUserAccount(UserAccount userAccount) {
-        EntityManager em = EntityManagerSingleton.getInstance();
-        EntityTransaction transaction = em.getTransaction();
+    private EntityManager entityManager;
+
+    public UserAccountQueries(EntityManager entityManager) {
+        this.entityManager = entityManager;
+    }
+
+    public void saveUserAccount(UserAccount userAccount) {
+        EntityTransaction transaction = entityManager.getTransaction();
 
         transaction.begin();
-        em.persist(userAccount);
+        entityManager.persist(userAccount);
         transaction.commit();
     }
 
-    public static boolean userNameIsTaken(String userName) {
+    public boolean userNameIsTaken(String userName) {
         return fieldIsTaken("userName", userName);
     }
 
-    public static boolean emailIsTaken(String email) {
+    public boolean emailIsTaken(String email) {
         return fieldIsTaken("email", email);
     }
 
-    private static boolean fieldIsTaken(String field, String userName) {
-        EntityManager em = EntityManagerSingleton.getInstance();
+    private boolean fieldIsTaken(String field, String userName) {
         String queryString = "SELECT u, COUNT(u.id) FROM UserAccount u WHERE u." + field + "  = :userName GROUP BY u.id";
-        Query userNameQuery = em.createQuery(queryString).setParameter("userName", userName);
+        Query userNameQuery = entityManager.createQuery(queryString).setParameter("userName", userName);
         return userNameQuery.getResultList().size() > 0;
     }
 
-    public static UserAccount getUserAccountByEmail(String email) {
-        EntityManager em = EntityManagerSingleton.getInstance();
+    public UserAccount getUserAccountByEmail(String email) {
         String queryString = "SELECT u FROM UserAccount u WHERE u.email  = :email";
-        Query userNameQuery = em.createQuery(queryString).setParameter("email", email);
+        Query userNameQuery = entityManager.createQuery(queryString).setParameter("email", email);
 
         try {
             return (UserAccount) userNameQuery.getSingleResult();
@@ -46,8 +48,7 @@ public class UserAccountQueries {
         }
     }
 
-    public static UserAccount getUserAccountById(int id) {
-        EntityManager em = EntityManagerSingleton.getInstance();
-        return em.find(UserAccount.class, id);
+    public UserAccount getUserAccountById(int id) {
+        return entityManager.find(UserAccount.class, id);
     }
 }

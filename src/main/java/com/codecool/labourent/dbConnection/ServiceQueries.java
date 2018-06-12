@@ -2,7 +2,6 @@ package com.codecool.labourent.dbConnection;
 
 import com.codecool.labourent.config.EntityManagerSingleton;
 import com.codecool.labourent.model.Service;
-import com.codecool.labourent.model.ServiceCategory;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
@@ -10,13 +9,17 @@ import java.util.List;
 
 public class ServiceQueries {
 
-    private static List<String> columnNamesArray;
+    private EntityManager entityManager;
+    private List<String> columnNamesArray;
 
-    public static List<Service> getAllRecordsFromTable(String column, String ascOrDesc){
-        EntityManager em = EntityManagerSingleton.getInstance();
-        assignColumnNames(em);
+    public ServiceQueries(EntityManager entityManager) {
+        this.entityManager = entityManager;
+    }
+
+    public List<Service> getAllRecordsFromTable(String column, String ascOrDesc){
+        assignColumnNames(entityManager);
         List<Service> serviceList;
-        serviceList = em.createQuery(
+        serviceList = entityManager.createQuery(
                             "SELECT allRecords " +
                             "from Service  allRecords " +
                             "ORDER BY " + validateColumnName(column) + " " +
@@ -24,12 +27,10 @@ public class ServiceQueries {
         return serviceList;
     }
 
-
-    public static List<Service> getFilteredRecordsFromTable(String column, String ascOrDesc, int servicecategoryId){
-        EntityManager em = EntityManagerSingleton.getInstance();
-        assignColumnNames(em);
+    public List<Service> getFilteredRecordsFromTable(String column, String ascOrDesc, int servicecategoryId){
+        assignColumnNames(entityManager);
         List<Service> serviceList;
-        serviceList = em.createQuery(
+        serviceList = entityManager.createQuery(
                         "SELECT service " +
                         "from Service  service " +
                         "WHERE  service.serviceCategory.id = :servicecategoryId order by " +
@@ -38,9 +39,7 @@ public class ServiceQueries {
         return serviceList;
     }
 
-
-
-    private static String validateColumnName (String column){
+    private String validateColumnName (String column){
         if (columnNamesArray.contains(column.toLowerCase())) {
             return column;
         } else {
@@ -51,7 +50,7 @@ public class ServiceQueries {
 
     }
 
-    private static String validateSortDirection (String sortDirection){
+    private String validateSortDirection (String sortDirection){
         if (sortDirection.equalsIgnoreCase("asc") | sortDirection.equalsIgnoreCase("desc")) {
             return sortDirection;
         } else {
@@ -61,7 +60,7 @@ public class ServiceQueries {
 
     }
 
-    private static  List<String> assignColumnNames(EntityManager em) {
+    private List<String> assignColumnNames(EntityManager em) {
         if (columnNamesArray == null) {
             columnNamesArray =  em.createNativeQuery (
                                     "select column_name" +
@@ -74,12 +73,11 @@ public class ServiceQueries {
         }
     }
 
-    public static void saveService(Service service) {
-        EntityManager em = EntityManagerSingleton.getInstance();
-        EntityTransaction transaction = em.getTransaction();
+    public void saveService(Service service) {
+        EntityTransaction transaction = entityManager.getTransaction();
 
         transaction.begin();
-        em.persist(service);
+        entityManager.persist(service);
         transaction.commit();
     }
 }

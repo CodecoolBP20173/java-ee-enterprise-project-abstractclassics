@@ -12,7 +12,6 @@ import org.thymeleaf.context.WebContext;
 
 import javax.persistence.NoResultException;
 import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -25,10 +24,17 @@ import java.util.Date;
 import java.util.stream.Stream;
 
 
-@WebServlet(urlPatterns = {"/profile"})
 public class ProfilePageController extends HttpServlet {
     String profileImg = "/static/img/default_profile.png";
 
+    private ProfilePageQueries profilePageQueries;
+    private UserAccountQueries userAccountQueries;
+
+    public ProfilePageController(ProfilePageQueries profilePageQueries, UserAccountQueries userAccountQueries) {
+        this.profilePageQueries = profilePageQueries;
+        this.userAccountQueries = userAccountQueries;
+    }
+    
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         HttpSession session = request.getSession();
@@ -44,7 +50,7 @@ public class ProfilePageController extends HttpServlet {
             UserDetail userDetails;
 
             try {
-                userDetails = ProfilePageQueries.getUserDetailById(userId);
+                userDetails = profilePageQueries.getUserDetailById(userId);
             } catch (NoResultException e) {
                 userDetails = new UserDetail();
                 System.err.println("No user's details are found by the given user id!");
@@ -89,13 +95,13 @@ public class ProfilePageController extends HttpServlet {
                 e.printStackTrace();
             }
 
-            UserAccount userAccount = UserAccountQueries.getUserAccountById(userId);
+            UserAccount userAccount = userAccountQueries.getUserAccountById(userId);
 
-            if (ProfilePageQueries.isUserAccountExsist(userId)) {
-                ProfilePageQueries.updateAccountById(userId, firstName, lastName, phoneNumber, city, parsedBirthDate, genderEnum,
+            if (profilePageQueries.isUserAccountExsist(userId)) {
+                profilePageQueries.updateAccountById(userId, firstName, lastName, phoneNumber, city, parsedBirthDate, genderEnum,
                         intro, profileImg);
             } else {
-                ProfilePageQueries.putUserAccountInDb(firstName, lastName, phoneNumber, city, parsedBirthDate, genderEnum,
+                profilePageQueries.putUserAccountInDb(firstName, lastName, phoneNumber, city, parsedBirthDate, genderEnum,
                         intro, profileImg, userAccount);
             }
 
