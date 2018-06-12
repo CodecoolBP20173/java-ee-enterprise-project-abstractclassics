@@ -4,17 +4,10 @@
     <meta charset="UTF-8">
     <title>User's details</title>
     <link rel="stylesheet" type="text/css" href="/static/css/profile.css" media="screen"/>
-    <link rel="stylesheet" type="text/css" href="/static/css/navbar.css">
+    <link th:replace="fragments/navBar.html :: topnavcss">
 </head>
 <body>
-<div class="topnav">
-    <a class="active" href="/list">Services</a>
-    <a href="/introduction">Introduction</a>
-    <a href="/profile">Profile</a>
-    <a href="/registration" th:if="${session.userId == null}">Registration</a>
-    <a href="/login"  th:if="${session.userId == null}">Login</a>
-    <a href="/logout" th:if="${session.userId != null}">Logout</a>
-</div>
+<div th:replace="fragments/navBar.html :: topnav"></div>
 <h1>Profile</h1>
 <div></div>
 

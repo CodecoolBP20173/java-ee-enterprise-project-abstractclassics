@@ -1,23 +1,16 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
     <link rel="stylesheet" type="text/css" href="/static/css/listPage.css">
-    <link rel="stylesheet" type="text/css" href="/static/css/navbar.css">
+    <link th:replace="fragments/navBar.html :: topnavcss">
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 </head>
 <body>
-    <div class="topnav">
-        <a class="active" href="/list">Services</a>
-        <a href="/introduction">Introduction</a>
-        <a href="/profile">Profile</a>
-        <a href="/registration" th:if="${session.userId == null}">Registration</a>
-        <a href="/login"  th:if="${session.userId == null}">Login</a>
-        <a href="/logout" th:if="${session.userId != null}">Logout</a>
-    </div>
+    <div th:replace="fragments/navBar.html :: topnav"></div>
     <div class="dropdown">
         <button class="dropbtn">Categories</button>
         <div class="dropdown-content" >
