@@ -1,8 +1,6 @@
 package com.codecool.labourent.dbConnection;
 
-import com.codecool.labourent.config.EntityManagerSingleton;
 import com.codecool.labourent.model.Service;
-
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
 import java.util.List;
@@ -21,7 +19,7 @@ public class ServiceQueries {
         List<Service> serviceList;
         serviceList = entityManager.createQuery(
                             "SELECT allRecords " +
-                            "from Service  allRecords " +
+                            "from Service allRecords " +
                             "ORDER BY " + validateColumnName(column) + " " +
                             validateSortDirection(ascOrDesc)).getResultList();
         return serviceList;
@@ -43,20 +41,16 @@ public class ServiceQueries {
         if (columnNamesArray.contains(column.toLowerCase())) {
             return column;
         } else {
-            System.out.println("Illegal injection!");
            return "id";
         }
-
     }
 
     private String validateSortDirection (String sortDirection){
         if (sortDirection.equalsIgnoreCase("asc") | sortDirection.equalsIgnoreCase("desc")) {
             return sortDirection;
         } else {
-            System.out.println("Illegal injection!");
             return "asc";
         }
-
     }
 
     private List<String> assignColumnNames(EntityManager em) {
@@ -74,7 +68,6 @@ public class ServiceQueries {
 
     public void saveService(Service service) {
         EntityTransaction transaction = entityManager.getTransaction();
-
         transaction.begin();
         entityManager.persist(service);
         transaction.commit();
