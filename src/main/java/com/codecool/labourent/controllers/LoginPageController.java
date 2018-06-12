@@ -15,8 +15,13 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
-@WebServlet(urlPatterns = {"/login"})
 public class LoginPageController extends HttpServlet{
+    public LoginPageController(UserAccountQueries userAccountQueries) {
+        this.userAccountQueries = userAccountQueries;
+    }
+
+    private UserAccountQueries userAccountQueries;
+
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         TemplateEngine engine = TemplateEngineUtil.getTemplateEngine(request.getServletContext());
@@ -34,7 +39,7 @@ public class LoginPageController extends HttpServlet{
 
     private void handleLogin(HttpServletRequest request, HttpServletResponse response, String email, String password) throws IOException {
         if (passwordIsCorrect(email, password)) {
-            UserAccount userAccount = UserAccountQueries.getUserAccountByEmail(email);
+            UserAccount userAccount = userAccountQueries.getUserAccountByEmail(email);
             HttpSession session = request.getSession();
             session.setAttribute("email", email);
             session.setAttribute("userId", userAccount.getId());
@@ -45,7 +50,7 @@ public class LoginPageController extends HttpServlet{
     }
 
     private boolean passwordIsCorrect(String email, String plainTextPassword) {
-        UserAccount userAccount = UserAccountQueries.getUserAccountByEmail(email);
+        UserAccount userAccount = userAccountQueries.getUserAccountByEmail(email);
 
         if (userAccount == null) {
             return false;

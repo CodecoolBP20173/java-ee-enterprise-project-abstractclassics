@@ -1,6 +1,5 @@
 package com.codecool.labourent.dbConnection;
 
-import com.codecool.labourent.config.EntityManagerSingleton;
 import com.codecool.labourent.model.ServiceCategory;
 
 import javax.persistence.EntityManager;
@@ -10,9 +9,13 @@ import java.util.List;
 
 public class ServiceCategoryQueries {
 
-    private static EntityManager entityManager = EntityManagerSingleton.getInstance();
+    private EntityManager entityManager;
 
-    public static void saveServiceCategory(ServiceCategory serviceCategory) {
+    public ServiceCategoryQueries(EntityManager entityManager) {
+        this.entityManager = entityManager;
+    }
+
+    public void saveServiceCategory(ServiceCategory serviceCategory) {
         EntityTransaction transaction = entityManager.getTransaction();
 
         transaction.begin();
@@ -20,13 +23,13 @@ public class ServiceCategoryQueries {
         transaction.commit();
     }
 
-    public static List<ServiceCategory> getServiceCategories() {
+    public List<ServiceCategory> getServiceCategories() {
         String queryString = "SELECT s FROM ServiceCategory s";
         Query serviceCategoryQuery = entityManager.createQuery(queryString);
         return serviceCategoryQuery.getResultList();
     }
 
-    public static ServiceCategory getServiceCategoryById(int id) {
+    public ServiceCategory getServiceCategoryById(int id) {
         return entityManager.find(ServiceCategory.class, id);
     }
 }

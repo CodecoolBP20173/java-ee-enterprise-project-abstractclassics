@@ -1,3 +1,4 @@
+/*
 package com.codecool.labourent.dbConnection;
 
 import com.codecool.labourent.config.EntityManagerSingleton;
@@ -11,11 +12,13 @@ public class DatabaseInitializer {
     public static void populateDb(EntityManager em) {
 
 
-        /*Service service1 = new Service("Cleaning", 25.0, 4.5);
+        */
+/*Service service1 = new Service("Cleaning", 25.0, 4.5);
         Service service2 = new Service("Math teacher", 23.0, 4.9);
         Service service3 = new Service("Java teacher", 27.0, 3.8);
         Service service4 = new Service("Plumber", 20.0, 4.4);
-        Service service5 = new Service("Personal Trainer", 19.0, 5.0);*/
+        Service service5 = new Service("Personal Trainer", 19.0, 5.0);*//*
+
 
         ServiceCategory serviceCategory1 = new ServiceCategory("Private Teacher", "A teasdlakdsfdasf");
         ServiceCategory serviceCategory2 = new ServiceCategory("Personal Trainer", "A teasdlaadsfsafdkdsfdasf");
@@ -27,28 +30,44 @@ public class DatabaseInitializer {
         ServiceCategoryQueries.saveServiceCategory(serviceCategory3);
         ServiceCategoryQueries.saveServiceCategory(serviceCategory4);
 
-        /*service1.setServiceCategory(serviceCategory1);
+        */
+/*service1.setServiceCategory(serviceCategory1);
         service2.setServiceCategory(serviceCategory1);
         service3.setServiceCategory(serviceCategory1);
         service4.setServiceCategory(serviceCategory2);
-        service5.setServiceCategory(serviceCategory2);*/
+        service5.setServiceCategory(serviceCategory2);*//*
 
 
-        /*EntityTransaction transaction = em.getTransaction();
+
+        */
+/*EntityTransaction transaction = em.getTransaction();
         transaction.begin();
-        *//*em.persist(serviceCategory1);
+        *//*
+*/
+/*em.persist(serviceCategory1);
         em.persist(serviceCategory2);*//*
+*/
+/*
 
-        *//*em.persist(service1);
+        *//*
+*/
+/*em.persist(service1);
         em.persist(service2);
         em.persist(service3);
         em.persist(service4);
         em.persist(service5);*//*
-
-        *//*em.persist(serviceCategory1);
-        em.persist(serviceCategory2);*//*
-        transaction.commit();
 */
+/*
+
+        *//*
+*/
+/*em.persist(serviceCategory1);
+        em.persist(serviceCategory2);*//*
+*/
+/*
+        transaction.commit();
+*//*
+
         System.out.println("Services saved.");
     }
 
@@ -62,3 +81,4 @@ public class DatabaseInitializer {
 
     }
 }
+*/

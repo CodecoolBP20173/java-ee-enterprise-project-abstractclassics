@@ -18,8 +18,12 @@ import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.Map;
 
-@WebServlet(urlPatterns = {"/registration"})
 public class RegistrationPageController extends HttpServlet {
+    private UserAccountQueries userAccountQueries;
+
+    public RegistrationPageController(UserAccountQueries userAccountQueries) {
+        this.userAccountQueries = userAccountQueries;
+    }
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -38,14 +42,14 @@ public class RegistrationPageController extends HttpServlet {
     }
 
     private void handleRegistration(HttpServletResponse servletResponse, String userName, String email, String password) throws IOException {
-        if (UserAccountQueries.emailIsTaken(email)) {
+        if (userAccountQueries.emailIsTaken(email)) {
             servletResponse.sendRedirect("/registration?taken=email");
-        } else if (UserAccountQueries.userNameIsTaken(userName)) {
+        } else if (userAccountQueries.userNameIsTaken(userName)) {
             servletResponse.sendRedirect("/registration?taken=username");
         } else {
             servletResponse.sendRedirect("/login");
             UserAccount userAccount = new UserAccount(userName, email, password);
-            UserAccountQueries.saveUserAccount(userAccount);
+            userAccountQueries.saveUserAccount(userAccount);
         }
     }
 
