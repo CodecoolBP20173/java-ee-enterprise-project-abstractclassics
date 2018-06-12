@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <link rel="stylesheet" type="text/css" href="/static/css/navbar.css" th:fragment="topnavcss">
+</head>
+<body>
+<div>
+    <div class="topnav" th:fragment="topnav">
+        <a class="active" href="/list">Services</a>
+        <a href="/introduction">Introduction</a>
+        <a href="/profile">Profile</a>
+        <a href="/registration" th:if="${session.userId == null}">Registration</a>
+        <a href="/login"  th:if="${session.userId == null}">Login</a>
+        <a href="/logout" th:if="${session.userId != null}">Logout</a>
+    </div>
+</div>
+
+</body>
+</html>
