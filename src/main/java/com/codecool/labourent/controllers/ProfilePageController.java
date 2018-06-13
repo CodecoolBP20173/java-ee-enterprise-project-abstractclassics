@@ -55,12 +55,7 @@ public class ProfilePageController extends HttpServlet {
         int userId = (Integer) session.getAttribute("userId");
 
         UserDetail userDetail = createUserDetail(request, userId);
-
-        if (profilePageQueries.isUserAccountExist(userId)) {
-            profilePageQueries.updateAccountById(userId, userDetail);
-        } else {
-            profilePageQueries.putUserAccountInDb(userDetail);
-        }
+        profilePageQueries.updateAccountById(userId, userDetail);
 
         response.sendRedirect("/profile");
     }
