@@ -34,16 +34,14 @@ public class UserDetail {
 
     private String phoneNumber;
 
-    private String imgUrl = "/static/img/default_profile.png";
+    private String imgUrl;
 
     public UserDetail() {
-        this.userAccount = null;
         this.firstName = "";
         this.lastName = "";
         this.gender = Gender.UNDEFINED;
         this.introductionText = "";
-
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        this.imgUrl = "/static/img/default_profile.png";
         this.dateOfBirth = Calendar.getInstance().getTime();
         this.city = "";
         this.phoneNumber = "";
@@ -51,16 +49,16 @@ public class UserDetail {
 
     public UserDetail(String firstName, String lastName, String phoneNumber,
                       String city, Date dateOfBirth, Gender gender,
-                      String introductionText, String imgUrl, UserAccount userAccount) {
+                      String introductionText, UserAccount userAccount) {
         this.userAccount = userAccount;
         this.firstName = firstName;
         this.lastName = lastName;
         this.gender = gender;
         this.introductionText = introductionText;
+        this.imgUrl = "/static/img/default_profile.png";
         this.dateOfBirth = dateOfBirth;
         this.city = city;
         this.phoneNumber = phoneNumber;
-        //this.imgUrl = "/static/img/default_profile.png";
     }
 
     public int getId() {
@@ -77,7 +75,6 @@ public class UserDetail {
 
     public void setUserAccount(UserAccount userAccount) {
         this.userAccount = userAccount;
-        //this.id = userAccount.getId();
     }
 
     public String getFirstName() {
@@ -119,6 +116,12 @@ public class UserDetail {
         return Period.between(birthInLocalDate, currentDateInLocalDate).getYears();
     }
 
+    public int getAge(Date currentDate) {
+        LocalDate currentDateInLocalDate = currentDate.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+        LocalDate birthInLocalDate = dateOfBirth.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+        return Period.between(birthInLocalDate, currentDateInLocalDate).getYears();
+    }
+
     public String getCity() {
         return city;
     }
@@ -151,4 +154,8 @@ public class UserDetail {
         this.gender = gender;
     }
 
+    public String getFormattedDateOfBirth() {
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        return simpleDateFormat.format(dateOfBirth);
+    }
 }

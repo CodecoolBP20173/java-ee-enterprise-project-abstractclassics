@@ -3,18 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <title>Add a new service</title>
-    <link rel="stylesheet" type="text/css" href="/static/css/navbar.css">
+    <link th:replace="fragments/navBar.html :: topnavcss">
     <script src="https://maps.googleapis.com/maps/api/js?sensor=false&libraries=places&language=en" defer></script>
 </head>
 <body>
-<div class="topnav">
-    <a class="active" href="/list">Services</a>
-    <a href="/introduction">Introduction</a>
-    <a href="/profile">Profile</a>
-    <a href="/registration" th:if="${session.userId == null}">Registration</a>
-    <a href="/login"  th:if="${session.userId == null}">Login</a>
-    <a href="/logout" th:if="${session.userId != null}">Logout</a>
-</div>
+<div th:replace="fragments/navBar.html :: topnav"></div>
 <form method="post">
     <label for="name"><b>Service Name</b></label>
     <input type="text" placeholder="Enter Service Name" id="name" name="name" required>
