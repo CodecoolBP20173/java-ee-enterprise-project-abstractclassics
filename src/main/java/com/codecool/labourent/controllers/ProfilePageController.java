@@ -67,26 +67,30 @@ public class ProfilePageController extends HttpServlet {
         String city = request.getParameter("city");
         String gender = request.getParameter("radioGender");
         Gender genderEnum = Gender.valueOf(gender);
-
         String imgUrl = request.getParameter("imageInput");
         String intro = request.getParameter("introTextarea");
 
-        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
-        Date parsedBirthDate = Calendar.getInstance().getTime();
-        String birthDate = "";
+        String birthDate = request.getParameter("birthday");
 
-        try {
-            birthDate = request.getParameter("birthday");
-            if (!birthDate.equals("")) parsedBirthDate = format.parse(birthDate);
-        } catch (ParseException e) {
-            System.err.println("An error has been occured during the birthday' parse!");
-        }
+        Date parsedBirthDate = getFormatDate(birthDate);
 
         UserAccount userAccount = userAccountQueries.getUserAccountById(userId);
         UserDetail userDetail = new UserDetail(firstName, lastName, phoneNumber, city,
                 parsedBirthDate, genderEnum, intro, userAccount);
         userDetail.setImgUrl(imgUrl);
         return userDetail;
+    }
+
+    public static Date getFormatDate(String birthDate) {
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+        Date parsedBirthDate = Calendar.getInstance().getTime();
+
+        try {
+            if (!birthDate.equals("")) parsedBirthDate = format.parse(birthDate);
+        } catch (ParseException e) {
+            System.err.println("An error has been occured during the birthday' parse!");
+        }
+        return parsedBirthDate;
     }
 
     private UserDetail requestUserDetails(int userId) {
