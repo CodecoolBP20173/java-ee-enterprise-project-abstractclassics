@@ -40,7 +40,7 @@
                    pattern="\d*" maxlength="15">
 
             <label for="birthday">Birthday</label>
-            <input type="date" id="birthday" name="birthday" th:value="${userDetails.getDateOfBirth()}"
+            <input type="date" id="birthday" name="birthday" th:value="${userDetails.getFormattedDateOfBirth()}"
                    required="required">
 
             <fieldset>

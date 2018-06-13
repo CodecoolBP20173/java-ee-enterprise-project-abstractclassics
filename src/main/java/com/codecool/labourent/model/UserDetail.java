@@ -150,4 +150,8 @@ public class UserDetail {
         this.gender = gender;
     }
 
+    public String getFormattedDateOfBirth() {
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        return simpleDateFormat.format(dateOfBirth);
+    }
 }
