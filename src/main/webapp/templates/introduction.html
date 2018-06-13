@@ -3,17 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
-    <link rel="stylesheet" type="text/css" href="/static/css/navbar.css">
+    <link th:replace="fragments/navBar.html :: topnavcss">
 </head>
 <body>
-<div class="topnav">
-    <a class="active" href="/list">Services</a>
-    <a href="/introduction">Introduction</a>
-    <a href="/profile">Profile</a>
-    <a href="/registration" th:if="${session.userId == null}">Registration</a>
-    <a href="/login"  th:if="${session.userId == null}">Login</a>
-    <a href="/logout" th:if="${session.userId != null}">Logout</a>
-</div>
+<div th:replace="fragments/navBar.html :: topnav"></div>
 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus libero ex, congue id vehicula et, commodo quis orci. Sed sagittis maximus scelerisque. Quisque convallis molestie pulvinar. Integer nec congue dolor, nec condimentum felis. Maecenas id porttitor ex, at ullamcorper turpis. Donec consequat nunc quis massa egestas, sed interdum felis maximus. Sed nec sapien ullamcorper, euismod tortor eu, tincidunt urna.
 
 Aliquam mollis, orci at faucibus luctus, urna lacus tristique mi, vel semper dolor dui a lectus. Etiam semper ultricies nulla. Vivamus mollis, quam ut condimentum pellentesque, turpis leo congue turpis, a tempor magna nisl hendrerit nibh. Morbi tempus tincidunt neque sed interdum. Etiam at posuere augue. Aenean consectetur a nibh vitae lobortis. Suspendisse sodales justo libero, sed sodales odio accumsan vel. Curabitur ac sem pulvinar, ultrices diam id, faucibus sem. Nullam id sapien vel odio gravida gravida.
