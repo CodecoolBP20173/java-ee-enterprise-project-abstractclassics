@@ -7,7 +7,7 @@ import javax.persistence.NoResultException;
 
 
 /**
- * This class contains the querries which work on the userdetail relation.
+ * This class contains the queries which work on the userdetail relation.
  */
 public class ProfilePageQueries {
 
