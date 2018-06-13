@@ -60,4 +60,13 @@ class RegistrationPageControllerTest {
         registrationPageController.doPost(requestMock, responseMock);
         verify(userAccountQueriesMock, never()).saveUserAccount(captor.capture());
     }
+
+    @Test
+    void testRegisterNewUserIfDataIsCorrect() throws ServletException, IOException {
+        when(userAccountQueriesMock.emailIsTaken(requestMock.getParameter("email"))).thenReturn(false);
+        when(userAccountQueriesMock.userNameIsTaken(requestMock.getParameter("username"))).thenReturn(false);
+        ArgumentCaptor<UserAccount> captor = ArgumentCaptor.forClass(UserAccount.class);
+        registrationPageController.doPost(requestMock, responseMock);
+        verify(userAccountQueriesMock, times(1)).saveUserAccount(captor.capture());
+    }
 }
