@@ -1,4 +1,4 @@
-import com.codecool.labourent.model.UserDetail;
+package com.codecool.labourent.model;
 
 import org.junit.jupiter.api.Test;
 

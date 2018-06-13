@@ -40,7 +40,8 @@ public class ProfilePageController extends HttpServlet {
         int userId = (Integer) session.getAttribute("userId");
 
         String[] genders = Stream.of(Gender.values()).map(Gender::name).toArray(String[]::new);
-        UserDetail userDetails = requestUserDetails(userId);
+        UserDetail userDetails = new UserDetail();
+        userDetails = requestUserDetails(userId, userDetails);
 
         context.setVariable("genders", genders);
         context.setVariable("userDetails", userDetails);
@@ -57,7 +58,7 @@ public class ProfilePageController extends HttpServlet {
         UserDetail userDetail = createUserDetail(request, userId);
         profilePageQueries.updateAccountById(userId, userDetail);
 
-        response.sendRedirect("/profile");
+            response.sendRedirect("/profile");
     }
 
     private UserDetail createUserDetail(HttpServletRequest request, int userId) {
@@ -67,20 +68,12 @@ public class ProfilePageController extends HttpServlet {
         String city = request.getParameter("city");
         String gender = request.getParameter("radioGender");
         Gender genderEnum = Gender.valueOf(gender);
-
         String imgUrl = request.getParameter("imageInput");
         String intro = request.getParameter("introTextarea");
 
-        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
-        Date parsedBirthDate = Calendar.getInstance().getTime();
-        String birthDate = "";
+        String birthDate = request.getParameter("birthday");
 
-        try {
-            birthDate = request.getParameter("birthday");
-            if (!birthDate.equals("")) parsedBirthDate = format.parse(birthDate);
-        } catch (ParseException e) {
-            System.err.println("An error has been occured during the birthday' parse!");
-        }
+        Date parsedBirthDate = getFormatDate(birthDate);
 
         UserAccount userAccount = userAccountQueries.getUserAccountById(userId);
         UserDetail userDetail = new UserDetail(firstName, lastName, phoneNumber, city,
@@ -89,12 +82,22 @@ public class ProfilePageController extends HttpServlet {
         return userDetail;
     }
 
-    private UserDetail requestUserDetails(int userId) {
-        UserDetail userDetails;
+    public static Date getFormatDate(String birthDate) {
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+        Date parsedBirthDate = Calendar.getInstance().getTime();
+
+        try {
+            if (!birthDate.equals("")) parsedBirthDate = format.parse(birthDate);
+        } catch (ParseException e) {
+            System.err.println("An error has been occured during the birthday' parse!");
+        }
+        return parsedBirthDate;
+    }
+
+    private UserDetail requestUserDetails(int userId, UserDetail userDetails) {
         try {
             userDetails = profilePageQueries.getUserDetailById(userId);
         } catch (NoResultException e) {
-            userDetails = new UserDetail();
             System.err.println("No user's details are found by the given user id!");
         }
         return userDetails;
