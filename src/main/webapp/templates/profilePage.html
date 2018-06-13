@@ -5,6 +5,8 @@
     <title>User's details</title>
     <link rel="stylesheet" type="text/css" href="/static/css/profile.css" media="screen"/>
     <link th:replace="fragments/navBar.html :: topnavcss">
+    <script src="https://maps.googleapis.com/maps/api/js?sensor=false&libraries=places&language=en" defer></script>
+    <script src="/static/script/userLocationAutoComplete.js" defer></script>
 </head>
 <body>
 <div th:replace="fragments/navBar.html :: topnav"></div>

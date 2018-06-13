@@ -111,9 +111,7 @@ public class UserDetail {
 
     public int getAge() {
         Date currentDate = new Date();
-        LocalDate currentDateInLocalDate = currentDate.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
-        LocalDate birthInLocalDate = dateOfBirth.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
-        return Period.between(birthInLocalDate, currentDateInLocalDate).getYears();
+        return getAge(currentDate);
     }
 
     public int getAge(Date currentDate) {
