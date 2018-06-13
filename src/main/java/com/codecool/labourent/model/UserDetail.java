@@ -37,12 +37,10 @@ public class UserDetail {
     private String imgUrl;
 
     public UserDetail() {
-        this.userAccount = null;
         this.firstName = "";
         this.lastName = "";
         this.gender = Gender.UNDEFINED;
         this.introductionText = "";
-        //SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
         this.imgUrl = "/static/img/default_profile.png";
         this.dateOfBirth = Calendar.getInstance().getTime();
         this.city = "";
@@ -113,6 +111,12 @@ public class UserDetail {
 
     public int getAge() {
         Date currentDate = new Date();
+        LocalDate currentDateInLocalDate = currentDate.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+        LocalDate birthInLocalDate = dateOfBirth.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+        return Period.between(birthInLocalDate, currentDateInLocalDate).getYears();
+    }
+
+    public int getAge(Date currentDate) {
         LocalDate currentDateInLocalDate = currentDate.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
         LocalDate birthInLocalDate = dateOfBirth.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
         return Period.between(birthInLocalDate, currentDateInLocalDate).getYears();
