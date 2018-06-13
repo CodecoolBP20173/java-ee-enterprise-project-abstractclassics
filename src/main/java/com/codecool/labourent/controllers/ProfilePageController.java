@@ -57,7 +57,7 @@ public class ProfilePageController extends HttpServlet {
         UserDetail userDetail = createUserDetail(request, userId);
         profilePageQueries.updateAccountById(userId, userDetail);
 
-        response.sendRedirect("/profile");
+            response.sendRedirect("/profile");
     }
 
     private UserDetail createUserDetail(HttpServletRequest request, int userId) {

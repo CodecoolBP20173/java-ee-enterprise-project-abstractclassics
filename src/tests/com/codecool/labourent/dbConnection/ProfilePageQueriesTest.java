@@ -1,4 +1,5 @@
-import com.codecool.labourent.dbConnection.ProfilePageQueries;
+package com.codecool.labourent.dbConnection;
+
 import com.codecool.labourent.model.UserDetail;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

@@ -1,17 +1,14 @@
-import com.codecool.labourent.controllers.ProfilePageController;
+package com.codecool.labourent.controllers;
+
 import com.codecool.labourent.dbConnection.ProfilePageQueries;
 import com.codecool.labourent.dbConnection.UserAccountQueries;
 import com.codecool.labourent.model.Gender;
-import com.codecool.labourent.model.UserAccount;
 import com.codecool.labourent.model.UserDetail;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.mockito.ArgumentCaptor;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 
-import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.Calendar;
@@ -20,7 +17,6 @@ import java.util.GregorianCalendar;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 class ProfilePageControllerTest {
@@ -35,7 +31,6 @@ class ProfilePageControllerTest {
     void settingRequest() {
         userId = 0;
 
-        //UserAccount userAccountMock = mock(UserAccount.class);
         Date dateOfBirth = ProfilePageController.getFormatDate("2021-01-01");
 
         expectedUserDetail = new UserDetail("Apple", "Peach", "1456624",
