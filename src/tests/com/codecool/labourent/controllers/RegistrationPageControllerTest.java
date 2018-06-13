@@ -43,4 +43,21 @@ class RegistrationPageControllerTest {
         registrationPageController.doPost(requestMock, responseMock);
         verify(userAccountQueriesMock, never()).saveUserAccount(captor.capture());
     }
+
+    @Test
+    void testUserIsRedirectedIfUsernameIsTaken() throws ServletException, IOException {
+        when(userAccountQueriesMock.emailIsTaken(requestMock.getParameter("email"))).thenReturn(false);
+        when(userAccountQueriesMock.userNameIsTaken(requestMock.getParameter("username"))).thenReturn(true);
+        registrationPageController.doPost(requestMock, responseMock);
+        verify(responseMock, times(1)).sendRedirect("/registration?taken=username");
+    }
+
+    @Test
+    void testNewUserIsNotRegisteredIfUsernameIsTaken() throws ServletException, IOException {
+        when(userAccountQueriesMock.emailIsTaken(requestMock.getParameter("email"))).thenReturn(false);
+        when(userAccountQueriesMock.userNameIsTaken(requestMock.getParameter("username"))).thenReturn(true);
+        ArgumentCaptor<UserAccount> captor = ArgumentCaptor.forClass(UserAccount.class);
+        registrationPageController.doPost(requestMock, responseMock);
+        verify(userAccountQueriesMock, never()).saveUserAccount(captor.capture());
+    }
 }
