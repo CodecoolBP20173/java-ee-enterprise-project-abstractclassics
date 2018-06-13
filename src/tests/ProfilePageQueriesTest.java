@@ -29,13 +29,11 @@ class ProfilePageQueriesTest {
         int otherUserId = 1;
         when(entityManagerMock.find(UserDetail.class, otherUserId)).thenReturn(userDetailMock);
         UserDetail resultUserDetail = profilePageQueries.getUserDetailById(testUserId);
-
         assertEquals(userDetailMock, resultUserDetail);
     }
 
     @Test
     void testGetUserByIdException() {
-
         int otherUserId = 2;
         when(entityManagerMock.find(UserDetail.class, otherUserId)).thenReturn(userDetailMock);
         assertThrows(NoResultException.class, ()->{
