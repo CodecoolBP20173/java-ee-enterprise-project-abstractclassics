@@ -36,9 +36,9 @@ class ProfilePageControllerTest {
 
         Date dateOfBirth = ProfilePageController.getFormatDate("2021-01-01");
 
-        expectedUserDetail = new UserDetail("Apple", "Peach", "1456624",
+        expectedUserDetail = spy(new UserDetail("Apple", "Peach", "1456624",
                 "Budapest", dateOfBirth, Gender.valueOf("FEMALE"),
-                "hello", null);
+                "hello", null));
         expectedUserDetail.setImgUrl("/");
 
         httpServletRequestMock = mock(HttpServletRequest.class);
@@ -53,7 +53,7 @@ class ProfilePageControllerTest {
 
         profilePageQueriesMock = mock(ProfilePageQueries.class);
         userAccountQueriesMock = mock(UserAccountQueries.class);
-        controller = Mockito.spy(new ProfilePageController(profilePageQueriesMock, userAccountQueriesMock));
+        controller = spy(new ProfilePageController(profilePageQueriesMock, userAccountQueriesMock));
 
     }
 
