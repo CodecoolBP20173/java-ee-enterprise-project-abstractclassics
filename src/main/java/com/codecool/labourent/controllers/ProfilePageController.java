@@ -40,7 +40,8 @@ public class ProfilePageController extends HttpServlet {
         int userId = (Integer) session.getAttribute("userId");
 
         String[] genders = Stream.of(Gender.values()).map(Gender::name).toArray(String[]::new);
-        UserDetail userDetails = requestUserDetails(userId);
+        UserDetail userDetails = new UserDetail();
+        userDetails = requestUserDetails(userId, userDetails);
 
         context.setVariable("genders", genders);
         context.setVariable("userDetails", userDetails);
@@ -93,12 +94,10 @@ public class ProfilePageController extends HttpServlet {
         return parsedBirthDate;
     }
 
-    private UserDetail requestUserDetails(int userId) {
-        UserDetail userDetails;
+    private UserDetail requestUserDetails(int userId, UserDetail userDetails) {
         try {
             userDetails = profilePageQueries.getUserDetailById(userId);
         } catch (NoResultException e) {
-            userDetails = new UserDetail();
             System.err.println("No user's details are found by the given user id!");
         }
         return userDetails;

@@ -6,6 +6,7 @@ import com.codecool.labourent.model.Gender;
 import com.codecool.labourent.model.UserDetail;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.mockito.Mockito;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -17,6 +18,7 @@ import java.util.GregorianCalendar;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.spy;
 import static org.mockito.Mockito.when;
 
 class ProfilePageControllerTest {
@@ -25,6 +27,7 @@ class ProfilePageControllerTest {
     ProfilePageQueries profilePageQueriesMock;
     UserAccountQueries userAccountQueriesMock;
     UserDetail expectedUserDetail;
+    ProfilePageController controller;
     int userId;
 
     @BeforeEach
@@ -50,6 +53,8 @@ class ProfilePageControllerTest {
 
         profilePageQueriesMock = mock(ProfilePageQueries.class);
         userAccountQueriesMock = mock(UserAccountQueries.class);
+        controller = Mockito.spy(new ProfilePageController(profilePageQueriesMock, userAccountQueriesMock));
+
     }
 
     @Test
@@ -62,11 +67,23 @@ class ProfilePageControllerTest {
 
     @Test
     void testCreateUserDetail() throws NoSuchMethodException, InvocationTargetException, IllegalAccessException {
-        ProfilePageController controller = new ProfilePageController(profilePageQueriesMock, userAccountQueriesMock);
         Method createUserDetail = ProfilePageController.class.getDeclaredMethod("createUserDetail", HttpServletRequest.class, int.class);
         createUserDetail.setAccessible(true);
 
         UserDetail resultDetail = (UserDetail) createUserDetail.invoke(controller, httpServletRequestMock, userId);
+        assertEquals(expectedUserDetail.getFirstName(), resultDetail.getFirstName());
+    }
+
+    @Test
+    void testRequestUserDetails() throws NoSuchMethodException, InvocationTargetException, IllegalAccessException {
+        Method requestUserDetails = ProfilePageController.class.getDeclaredMethod("requestUserDetails", int.class, UserDetail.class);
+        requestUserDetails.setAccessible(true);
+
+        when(profilePageQueriesMock.getUserDetailById(userId)).thenReturn(expectedUserDetail);
+
+        UserDetail testDetail = mock(UserDetail.class);
+        UserDetail resultDetail = (UserDetail) requestUserDetails.invoke(controller, userId, testDetail);
+
         assertEquals(expectedUserDetail.getFirstName(), resultDetail.getFirstName());
     }
 }
