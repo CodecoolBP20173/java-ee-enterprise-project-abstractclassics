@@ -2,16 +2,12 @@ package com.codecool.labourent.dbConnection;
 
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
-import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 import javax.persistence.EntityManager;
-import static org.mockito.Mockito.*;
-import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
 
-import static org.junit.jupiter.api.Assertions.*;
 
 class ServiceQueriesTest {
     private EntityManager entityManagerMock = Mockito.mock(EntityManager.class);
