@@ -36,4 +36,16 @@ class UserAccountQueriesTest {
         String email = "qwe@qwe.hu";
         assertFalse(userAccountQueries.emailIsTaken(email));
     }
+
+    @Test
+    void testUserNameIsTaken() {
+        String username = "asd";
+        assertTrue(userAccountQueries.userNameIsTaken(username));
+    }
+
+    @Test
+    void testUserNameIsNotTaken() {
+        String username = "qwe";
+        assertFalse(userAccountQueries.userNameIsTaken(username));
+    }
 }
