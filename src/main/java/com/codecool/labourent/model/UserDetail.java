@@ -156,4 +156,22 @@ public class UserDetail {
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
         return simpleDateFormat.format(dateOfBirth);
     }
+
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null) return false;
+        if (obj == this) return true;
+        if (!(obj instanceof UserDetail)) return false;
+
+        UserDetail objUserDetail = (UserDetail) obj;
+
+        if (this.firstName.equals(objUserDetail.getFirstName()) && this.lastName.equals(objUserDetail.getLastName()) &&
+                this.gender.equals(objUserDetail.getGender()) && this.phoneNumber.equals(objUserDetail.getPhoneNumber()) &&
+                this.city.equals(objUserDetail.getCity()) && this.dateOfBirth.equals(objUserDetail.getDateOfBirth()) &&
+                this.introductionText.equals(objUserDetail.getIntroductionText()) && this.id == objUserDetail.getId()) {
+            return true;
+        }
+        return false;
+    }
 }
