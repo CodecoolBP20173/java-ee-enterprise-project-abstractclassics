@@ -37,7 +37,10 @@ class ProfilePageQueriesTest {
         userDetail2 = new UserDetail("Grape", "Lime", "456789", "Cegléd",
                 dateOfBirth, Gender.valueOf("MALE"), "hi", userAccount2);
         userDetail2.setImgUrl("/");
+
+        profilePageQueries.putUserAccountInDb(userDetail1);
         profilePageQueries.putUserAccountInDb(userDetail2);
+
     }
 
     @Test
@@ -49,12 +52,23 @@ class ProfilePageQueriesTest {
 
     @Test
     void testGetUserByIdException() {
-        int otherUserId = 2;
+        int otherUserId = 3;
         assertThrows(NoResultException.class, ()->{
             profilePageQueries.getUserDetailById(otherUserId); });
     }
 
 
+    @Test
+    void testUpdateAccountById() {
+        int testUserId = 1;
+        String expected = "Visegrád";
+
+        userDetail1.setCity(expected);
+        profilePageQueries.updateAccountById(testUserId, userDetail1);
+        String result = profilePageQueries.getUserDetailById(testUserId).getCity();
+
+        assertEquals(expected, result);
+    }
 
     @AfterAll
     void tearDown() {
