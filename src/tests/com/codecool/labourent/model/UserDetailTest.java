@@ -1,5 +1,6 @@
 package com.codecool.labourent.model;
 
+import com.codecool.labourent.controllers.ProfilePageController;
 import org.junit.jupiter.api.Test;
 
 import java.text.ParseException;
@@ -8,6 +9,7 @@ import java.util.Calendar;
 import java.util.Date;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.spy;
 
 class UserDetailTest {
     @Test
@@ -29,5 +31,19 @@ class UserDetailTest {
         assertEquals(expectedAge, userDetailMock.getAge(currentDate));
     }
 
+    @Test
+    void testEquals() {
 
+        Date dateOfBirth = ProfilePageController.getFormatDate("2021-01-01");
+        UserDetail firstUserDetail = new UserDetail("Apple", "Peach", "1456624",
+                "Budapest", dateOfBirth, Gender.valueOf("FEMALE"),
+                "hello", null);
+        firstUserDetail.setImgUrl("/");
+        UserDetail secondUserDetail = new UserDetail("Apple", "Peach", "1456624",
+                "Budapest", dateOfBirth, Gender.valueOf("FEMALE"),
+                "hello", null);
+        secondUserDetail.setImgUrl("/");
+
+        assertEquals(firstUserDetail,secondUserDetail);
+    }
 }
