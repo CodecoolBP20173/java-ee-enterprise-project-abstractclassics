@@ -48,4 +48,16 @@ class UserAccountQueriesTest {
         String username = "qwe";
         assertFalse(userAccountQueries.userNameIsTaken(username));
     }
+
+    @Test
+    void testGetUserAccountByEmailIfEmailDoesNotExist() {
+        String email = "qwe@qwe.hu";
+        assertNull(userAccountQueries.getUserAccountByEmail(email));
+    }
+
+    @Test
+    void testGetUserAccountByEmailIfEmailExists() {
+        String email = "asd@asd.hu";
+        assertEquals(userAccount, userAccountQueries.getUserAccountByEmail(email));
+    }
 }
