@@ -24,4 +24,16 @@ class UserAccountQueriesTest {
         userAccountQueries = new UserAccountQueries(entityManager);
         userAccountQueries.saveUserAccount(userAccount);
     }
+
+    @Test
+    void testEmailIsTaken() {
+        String email = "asd@asd.hu";
+        assertTrue(userAccountQueries.emailIsTaken(email));
+    }
+
+    @Test
+    void testEmailIsNotTaken() {
+        String email = "qwe@qwe.hu";
+        assertFalse(userAccountQueries.emailIsTaken(email));
+    }
 }
