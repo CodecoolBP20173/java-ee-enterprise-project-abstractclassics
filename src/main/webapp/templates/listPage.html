@@ -45,63 +45,41 @@
                 item6
             </div>
         </div>
-        <div class="row" th:each="index : ${#numbers.sequence( 0, #arrays.length(services)-1)}">
-            <div class="grid_container">
-                <div class="item item-1" th:text="${services[index].id}">
-                    item1
-                </div>
-                <div class="item item-2">
-                    <img id="profileImage" name="profileImage" th:value="${userDetailsList[index].imgUrl}"
-                         th:src="${userDetailsList[index].imgUrl}" height="100">
-                </div>
-                <div class="item item-3" th:text="${services[index].name}">
-                    item3
-                </div>
-                <div class="item item-4" th:text="${services[index].serviceCategory.name}">
-                    item4
-                </div>
-                <div class="item item-5" th:text="${services[index].price}">
-                    item5
-                </div>
-                <div class="item item-6" th:utext="${userDetailsList[index].city}">
-                    item6
-                </div>
-            </div>
-        </div>
-    </div>
-
-
-    <div id="con1" th:each="index : ${#numbers.sequence( 0, #arrays.length(services)-1)}">
-        <div id="tridiv">
-            <div class="scene">
-                <div class="shape cuboid-1 cub-1">
-                    <div class="face ft">
-                        <div class="sort_row">
-                            <div class="sort_button button-1">
-                                <a th:href="@{/list(column='ID', sort=${sortDirection}, categoryId=${categoryId})}">ID</a>
-                            </div>
-                            <div class="sort_button button-2" th:text="${'Provider Picture'}">
-                                item2
-                            </div>
-                            <div class="sort_button button-3" >
-                                <a th:href="@{/list(column='Service Name', sort=${sortDirection}, categoryId=${categoryId})}">Service Name</a>
-                            </div>
-                            <div class="sort_button button-4" th:text="${'Category'}">
-                                item4
-                            </div>
-                            <div class="sort_button button-5" >
-                                <a th:href="@{/list(column='Price', sort=${sortDirection}, categoryId=${categoryId})}">Price</a>
-                            </div>
-                            <div class="sort_button button-6" th:text="${'City'}">
-                                item6
+        <div id="con1" th:each="index : ${#numbers.sequence( 0, #arrays.length(services)-1)}">
+            <div id="tridiv">
+                <div class="scene">
+                    <div class="shape cuboid-1 cub-1">
+                        <div class="face ft">
+                            <div class="row">
+                                <div class="grid_container">
+                                    <div class="item item-1" th:text="${services[index].id}">
+                                        item1
+                                    </div>
+                                    <div class="item item-2">
+                                        <img id="profileImage" name="profileImage" th:value="${userDetailsList[index].imgUrl}"
+                                             th:src="${userDetailsList[index].imgUrl}" height="100">
+                                    </div>
+                                    <div class="item item-3" th:text="${services[index].name}">
+                                        item3
+                                    </div>
+                                    <div class="item item-4" th:text="${services[index].serviceCategory.name}">
+                                        item4
+                                    </div>
+                                    <div class="item item-5" th:text="${services[index].price}">
+                                        item5
+                                    </div>
+                                    <div class="item item-6" th:utext="${userDetailsList[index].city}">
+                                        item6
+                                    </div>
+                                </div>
                             </div>
                         </div>
+                        <div class="face bk"></div>
+                        <div class="face rt"></div>
+                        <div class="face lt"></div>
+                        <div class="face bm"></div>
+                        <div class="face tp"></div>
                     </div>
-                    <div class="face bk"></div>
-                    <div class="face rt"></div>
-                    <div class="face lt"></div>
-                    <div class="face bm"></div>
-                    <div class="face tp"></div>
                 </div>
             </div>
         </div>

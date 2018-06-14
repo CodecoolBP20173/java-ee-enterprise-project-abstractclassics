@@ -17,7 +17,7 @@
     width: 100%;
     height: 100%;
     background: transparent;
-    font-size: 100%;
+    font-size: 108%;
 }
 
 
@@ -212,9 +212,9 @@
 
 #con1{
     position: relative;
-    width: 1800px;
+    width: 100%;
     height: 200px;
-    -webkit-transition: 1s;
+    -webkit-transition: 2.5s;
 }
 #con1:hover {
     height: 500px;
