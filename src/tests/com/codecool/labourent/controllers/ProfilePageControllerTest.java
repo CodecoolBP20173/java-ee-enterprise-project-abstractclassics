@@ -8,8 +8,12 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
+import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
+import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.Calendar;
@@ -17,13 +21,13 @@ import java.util.Date;
 import java.util.GregorianCalendar;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.spy;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.times;
 
 class ProfilePageControllerTest {
 
     HttpServletRequest httpServletRequestMock;
+    HttpServletResponse httpServletResponseMock;
     ProfilePageQueries profilePageQueriesMock;
     UserAccountQueries userAccountQueriesMock;
     UserDetail expectedUserDetail;
@@ -51,6 +55,11 @@ class ProfilePageControllerTest {
         when(httpServletRequestMock.getParameter("introTextarea")).thenReturn("hello");
         when(httpServletRequestMock.getParameter("birthday")).thenReturn("2021-01-01");
 
+        HttpSession sessionMock = mock(HttpSession.class);
+        when(sessionMock.getAttribute("userId")).thenReturn(0);
+        when(httpServletRequestMock.getSession()).thenReturn(sessionMock);
+
+        httpServletResponseMock = mock(HttpServletResponse.class);
         profilePageQueriesMock = mock(ProfilePageQueries.class);
         userAccountQueriesMock = mock(UserAccountQueries.class);
         controller = spy(new ProfilePageController(profilePageQueriesMock, userAccountQueriesMock));
@@ -86,5 +95,11 @@ class ProfilePageControllerTest {
         UserDetail resultDetail = (UserDetail) requestUserDetails.invoke(controller, userId, testDetail);
 
         assertEquals(expectedUserDetail, resultDetail);
+    }
+
+    @Test
+    void testDpPostRedirect() throws ServletException, IOException {
+                controller.doPost(httpServletRequestMock,httpServletResponseMock);
+        verify(httpServletResponseMock, times(1)).sendRedirect("/profile");
     }
 }
