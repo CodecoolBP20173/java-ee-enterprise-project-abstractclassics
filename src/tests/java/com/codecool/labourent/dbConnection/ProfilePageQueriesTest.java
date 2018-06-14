@@ -6,8 +6,6 @@ import com.codecool.labourent.model.UserAccount;
 import com.codecool.labourent.model.UserDetail;
 import org.junit.jupiter.api.*;
 
-import static org.mockito.Mockito.mock;
-
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
 import javax.persistence.NoResultException;
