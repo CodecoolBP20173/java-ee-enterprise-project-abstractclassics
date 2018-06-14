@@ -3,6 +3,8 @@ package com.codecool.labourent.dbConnection;
 import com.codecool.labourent.model.UserDetail;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+
+import static org.mockito.ArgumentMatchers.booleanThat;
 import static org.mockito.Mockito.mock;
 
 import javax.persistence.EntityManager;
@@ -40,4 +42,5 @@ class ProfilePageQueriesTest {
         assertThrows(NoResultException.class, ()->{
             profilePageQueries.getUserDetailById(testUserId); });
     }
+
 }
