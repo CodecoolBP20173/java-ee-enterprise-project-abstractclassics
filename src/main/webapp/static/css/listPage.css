@@ -10,16 +10,7 @@
 }
 
 
- #tridiv {
-    perspective: 800px;
-    position: absolute;
-    overflow: hidden;
-    width: 100%;
-    height: 100%;
-    background: transparent;
-    font-size: 100%;
-}
-#tridiv2 {
+#tridiv {
     perspective: 800px;
     position: absolute;
     overflow: hidden;
@@ -223,20 +214,9 @@
     position: relative;
     width: 1800px;
     height: 200px;
-    -webkit-transition: 2s;
+    -webkit-transition: 1s;
 }
 #con1:hover {
     height: 500px;
-    -webkit-transition: 2s;
-}
-#con1{
-    position: relative;
-    width: 1800px;
-    height: 200px;
-    -webkit-transition: 2s;
-}
-#con1:hover {
-    height: 500px;
-    -webkit-transition: 2s;
-
+    -webkit-transition: 1s;
 }
