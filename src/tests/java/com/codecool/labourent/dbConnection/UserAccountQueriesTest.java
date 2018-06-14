@@ -60,4 +60,16 @@ class UserAccountQueriesTest {
         String email = "asd@asd.hu";
         assertEquals(userAccount, userAccountQueries.getUserAccountByEmail(email));
     }
+
+    @Test
+    void testGetUserAccountByIdIfIdDoesNotExist() {
+        int id = 2;
+        assertNull(userAccountQueries.getUserAccountById(id));
+    }
+
+    @Test
+    void testGetUserAccountByIdIfIdExists() {
+        int id = 1;
+        assertEquals(userAccount, userAccountQueries.getUserAccountById(id));
+    }
 }
