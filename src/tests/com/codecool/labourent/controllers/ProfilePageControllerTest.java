@@ -6,10 +6,13 @@ import com.codecool.labourent.model.Gender;
 import com.codecool.labourent.model.UserDetail;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.mockito.Mockito;
 
+import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
+import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.Calendar;
@@ -17,13 +20,13 @@ import java.util.Date;
 import java.util.GregorianCalendar;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.spy;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.times;
 
 class ProfilePageControllerTest {
 
     HttpServletRequest httpServletRequestMock;
+    HttpServletResponse httpServletResponseMock;
     ProfilePageQueries profilePageQueriesMock;
     UserAccountQueries userAccountQueriesMock;
     UserDetail expectedUserDetail;
@@ -31,14 +34,13 @@ class ProfilePageControllerTest {
     int userId;
 
     @BeforeEach
-    void settingRequest() {
+    void initialization() {
         userId = 0;
 
         Date dateOfBirth = ProfilePageController.getFormatDate("2021-01-01");
 
-        expectedUserDetail = spy(new UserDetail("Apple", "Peach", "1456624",
-                "Budapest", dateOfBirth, Gender.valueOf("FEMALE"),
-                "hello", null));
+        expectedUserDetail = new UserDetail("Apple", "Peach", "1456624", "Budapest",
+                dateOfBirth, Gender.valueOf("FEMALE"), "hello", null);
         expectedUserDetail.setImgUrl("/");
 
         httpServletRequestMock = mock(HttpServletRequest.class);
@@ -51,6 +53,11 @@ class ProfilePageControllerTest {
         when(httpServletRequestMock.getParameter("introTextarea")).thenReturn("hello");
         when(httpServletRequestMock.getParameter("birthday")).thenReturn("2021-01-01");
 
+        HttpSession sessionMock = mock(HttpSession.class);
+        when(sessionMock.getAttribute("userId")).thenReturn(0);
+        when(httpServletRequestMock.getSession()).thenReturn(sessionMock);
+
+        httpServletResponseMock = mock(HttpServletResponse.class);
         profilePageQueriesMock = mock(ProfilePageQueries.class);
         userAccountQueriesMock = mock(UserAccountQueries.class);
         controller = spy(new ProfilePageController(profilePageQueriesMock, userAccountQueriesMock));
@@ -71,7 +78,8 @@ class ProfilePageControllerTest {
         createUserDetail.setAccessible(true);
 
         UserDetail resultDetail = (UserDetail) createUserDetail.invoke(controller, httpServletRequestMock, userId);
-        assertEquals(expectedUserDetail.getFirstName(), resultDetail.getFirstName());
+        assertEquals(expectedUserDetail, resultDetail);
+
     }
 
     @Test
@@ -84,6 +92,12 @@ class ProfilePageControllerTest {
         UserDetail testDetail = mock(UserDetail.class);
         UserDetail resultDetail = (UserDetail) requestUserDetails.invoke(controller, userId, testDetail);
 
-        assertEquals(expectedUserDetail.getFirstName(), resultDetail.getFirstName());
+        assertEquals(expectedUserDetail, resultDetail);
+    }
+
+    @Test
+    void testDoPostRedirect() throws ServletException, IOException {
+        controller.doPost(httpServletRequestMock,httpServletResponseMock);
+        verify(httpServletResponseMock, times(1)).sendRedirect("/profile");
     }
 }
