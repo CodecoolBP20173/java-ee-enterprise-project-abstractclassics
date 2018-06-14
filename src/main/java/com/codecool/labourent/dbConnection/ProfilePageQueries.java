@@ -50,4 +50,31 @@ public class ProfilePageQueries {
         userDetailFromDB.setImgUrl(userDetail.getImgUrl());
         transaction.commit();
     }
+
+    /**
+     * It puts the new user profile in the userdetail table.
+     * @param userDetail
+     */
+    public void putUserAccountInDb(UserDetail userDetail) {
+
+        EntityTransaction transaction = entityManager.getTransaction();
+        transaction.begin();
+        entityManager.persist(userDetail);
+        transaction.commit();
+    }
+
+    /**
+     * It checks if the user profile exsists.
+     * @param userId
+     * @return
+     */
+    public boolean isUserAccountExist(int userId) {
+        try {
+            getUserDetailById(userId);
+        } catch (NoResultException e) {
+            System.err.println("No user's details are found by the given user id!");
+            return false;
+        }
+        return true;
+    }
 }
