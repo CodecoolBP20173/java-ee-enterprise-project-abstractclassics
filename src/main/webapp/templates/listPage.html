@@ -45,57 +45,58 @@
                 item6
             </div>
         </div>
-
-        <div class="row" th:each="index : ${#numbers.sequence( 0, #arrays.length(services)-1)}">
-            <div class="grid_container">
-                <div class="item item-1" th:text="${services[index].id}">
-                    item1
-                </div>
-                <div class="item item-2">
-                    <img id="profileImage" name="profileImage" th:value="${userDetailsList[index].imgUrl}"
-                         th:src="${userDetailsList[index].imgUrl}" height="100">
-                </div>
-                <div class="item item-3" th:text="${services[index].name}">
-                    item3
-                </div>
-                <div class="item item-4" th:text="${services[index].serviceCategory.name}">
-                    item4
-                </div>
-                <div class="item item-5" th:text="${services[index].price}">
-                    item5
-                </div>
-                <div class="item item-6" th:utext="${userDetailsList[index].city}">
-                    item6
+        <div id="con1" th:each="index : ${#numbers.sequence( 0, #arrays.length(services)-1)}">
+            <div id="tridiv">
+                <div class="scene">
+                    <div class="shape cuboid-1 cub-1">
+                        <div class="face ft">
+                            <div class="row">
+                                <div class="grid_container">
+                                    <div class="item item-1" th:text="${services[index].id}">
+                                        item1
+                                    </div>
+                                    <div class="item item-2">
+                                        <img id="profileImage" name="profileImage" th:value="${userDetailsList[index].imgUrl}"
+                                             th:src="${userDetailsList[index].imgUrl}" height="100">
+                                    </div>
+                                    <div class="item item-3" th:text="${services[index].name}">
+                                        item3
+                                    </div>
+                                    <div class="item item-4" th:text="${services[index].serviceCategory.name}">
+                                        item4
+                                    </div>
+                                    <div class="item item-5" th:text="${services[index].price}">
+                                        item5
+                                    </div>
+                                    <div class="item item-6" th:utext="${userDetailsList[index].city}">
+                                        item6
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="face bk"></div>
+                        <div class="face rt"></div>
+                        <div class="face lt"></div>
+                        <div class="face bm">
+                            <div class="row">
+                                <div class="grid_container_details">
+                                    <div class="item item-1" th:text="${services[index].description}">
+                                        item1
+                                    </div>
+                                    <div class="item item-2" th:text="${userDetailsList[index].firstName + userDetailsList[index].lastName}">
+                                        item2
+                                    </div>
+                                    <div class="item item-3" th:text="${userDetailsList[index].introductionText}">
+                                        item3
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="face tp"></div>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-
-
-
-    <!--<div class="item col-xs-4 col-lg-4" th:each="prod,iterStat : ${products}">
-        <div class="thumbnail">
-            <img class="group list-group-image" src="https://kremmania.hu/UploadedImages/7/alma-300-300.png"
-                 th:attr="src=${prod.getImgUrl()}" alt=""/>
-            <div class="caption">
-                <h4 class="group inner list-group-item-heading" th:text="${prod.name}">Product name</h4>
-                <p class="group inner list-group-item-text" th:text="${prod.description}">Product
-                    description... </p>
-                <div class="row">
-                    <div class="col-xs-12 col-md-6">
-                        <p class="lead" th:text="${prod.getDefaultPrice()}">100 USD</p>
-                    </div>
-                    <div class="col-xs-12 col-md-6">
-                        <form th:action="${#httpServletRequest.getRequestURI()}" method="post">
-                            <button type="submit" class="btn btn-success addButton" name="add-button" th:if="${session.username != null}" th:value="${prod.id}">Add to cart</button>
-                            <input hidden name="current-uri" th:value="${#httpServletRequest.getRequestURI()} +'?' + ${#httpServletRequest.getQueryString()}" th:if="${ #httpServletRequest.getQueryString() != null}">
-                            <input hidden name="current-uri" th:value="${#httpServletRequest.getRequestURI()}" th:if="${#httpServletRequest.getQueryString() eq null}">
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>-->
-
 </body>
 </html>
