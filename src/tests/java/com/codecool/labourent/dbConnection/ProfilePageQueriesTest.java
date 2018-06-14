@@ -9,6 +9,7 @@ import org.junit.jupiter.api.*;
 import static org.mockito.Mockito.mock;
 
 import javax.persistence.EntityManager;
+import javax.persistence.EntityTransaction;
 import javax.persistence.NoResultException;
 import javax.persistence.Persistence;
 
@@ -27,20 +28,28 @@ class ProfilePageQueriesTest {
     void setUp() {
         entityManager = Persistence.createEntityManagerFactory("labourentPUTest").createEntityManager();
         profilePageQueries = new ProfilePageQueries(entityManager);
+
         Date dateOfBirth = ProfilePageController.getFormatDate("2021-01-01");
         UserAccount userAccount = new UserAccount("peach", "asd@asd.hu", "pw");
         userDetail1 = new UserDetail("Apple", "Peach", "1456624", "Budapest",
                 dateOfBirth, Gender.valueOf("FEMALE"), "hello", userAccount);
         userDetail1.setImgUrl("/");
+        putInTheDB(userDetail1);
+    }
 
+    @Test
+    void testPutUserAccountInDB() {
+        int userId = 2;
+        Date dateOfBirth = ProfilePageController.getFormatDate("2011-01-01");
         UserAccount userAccount2 = new UserAccount("lime", "limed@asd.hu", "pw");
         userDetail2 = new UserDetail("Grape", "Lime", "456789", "Cegléd",
                 dateOfBirth, Gender.valueOf("MALE"), "hi", userAccount2);
         userDetail2.setImgUrl("/");
 
-        profilePageQueries.putUserAccountInDb(userDetail1);
         profilePageQueries.putUserAccountInDb(userDetail2);
 
+        UserDetail result = entityManager.find(UserDetail.class, userId);
+        assertEquals(userDetail2, result);
     }
 
     @Test
@@ -56,7 +65,6 @@ class ProfilePageQueriesTest {
         assertThrows(NoResultException.class, ()->{
             profilePageQueries.getUserDetailById(otherUserId); });
     }
-
 
     @Test
     void testUpdateAccountById() {
@@ -74,5 +82,12 @@ class ProfilePageQueriesTest {
     void tearDown() {
         entityManager.clear();
         entityManager.close();
+    }
+
+    private void putInTheDB(UserDetail userDetail) {
+        EntityTransaction transaction = entityManager.getTransaction();
+        transaction.begin();
+        entityManager.persist(userDetail);
+        transaction.commit();
     }
 }
