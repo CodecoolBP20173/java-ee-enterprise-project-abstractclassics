@@ -62,7 +62,7 @@ public class Initializer implements ServletContextListener {
         addServicePageController = new AddServicePageController(serviceCategoryQueries, serviceQueries, userAccountQueries);
         indexPageController = new IndexPageController();
         introductionPageController = new IntroductionPageController();
-        listPageController = new ListPageController(serviceCategoryQueries, serviceQueries);
+        listPageController = new ListPageController(serviceCategoryQueries, serviceQueries, profilePageQueries);
         loginPageController = new LoginPageController(userAccountQueries);
         logoutPageController = new LogoutPageController();
         profilePageController = new ProfilePageController(profilePageQueries, userAccountQueries);

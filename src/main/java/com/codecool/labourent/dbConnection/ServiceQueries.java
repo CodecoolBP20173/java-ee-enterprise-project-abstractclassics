@@ -21,7 +21,7 @@ public class ServiceQueries {
                             "SELECT allRecords " +
                             "from Service allRecords " +
                             "ORDER BY " + validateColumnName(column) + " " +
-                            validateSortDirection(ascOrDesc)).getResultList();
+                            validateSortDirection(ascOrDesc)).getResultList(); //Todo Trasnform this query for being able to sort it by another table
         return serviceList;
     }
 
