@@ -28,7 +28,6 @@ class ServiceQueriesTest {
         assertEquals("asc", (validateSortDirection.invoke(serviceQueries, "asc")));
         assertEquals("desc", (validateSortDirection.invoke(serviceQueries, "desc")));
     }
-
     @Test
     void testValidateSortDirectionDetectsInvalidArguments() throws NoSuchMethodException, InvocationTargetException, IllegalAccessException {
         Method validateSortDirection = getValidateSortDirection();
