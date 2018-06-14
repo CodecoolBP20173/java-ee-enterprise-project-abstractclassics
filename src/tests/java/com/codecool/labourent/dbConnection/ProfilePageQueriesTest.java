@@ -27,12 +27,7 @@ class ProfilePageQueriesTest {
         entityManager = Persistence.createEntityManagerFactory("labourentPUTest").createEntityManager();
         profilePageQueries = new ProfilePageQueries(entityManager);
 
-        Date dateOfBirth = ProfilePageController.getFormatDate("2021-01-01");
-        UserAccount userAccount = new UserAccount("peach", "asd@asd.hu", "pw");
-        userDetail1 = new UserDetail("Apple", "Peach", "1456624", "Budapest",
-                dateOfBirth, Gender.valueOf("FEMALE"), "hello", userAccount);
-        userDetail1.setImgUrl("/");
-        putInTheDB(userDetail1);
+        initDBWithAUser();
     }
 
     @Test
@@ -92,6 +87,15 @@ class ProfilePageQueriesTest {
     void tearDown() {
         entityManager.clear();
         entityManager.close();
+    }
+
+    private void initDBWithAUser() {
+        Date dateOfBirth = ProfilePageController.getFormatDate("2021-01-01");
+        UserAccount userAccount = new UserAccount("peach", "asd@asd.hu", "pw");
+        userDetail1 = new UserDetail("Apple", "Peach", "1456624", "Budapest",
+                dateOfBirth, Gender.valueOf("FEMALE"), "hello", userAccount);
+        userDetail1.setImgUrl("/");
+        putInTheDB(userDetail1);
     }
 
     private void putInTheDB(UserDetail userDetail) {
