@@ -9,6 +9,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
     <script src="/static/script/servicePage.js" defer></script>
+    <script src="/static/script/navbar.js" defer></script>
 </head>
 <body>
     <div th:replace="fragments/navBar.html :: topnav"></div>
@@ -81,10 +82,23 @@
                         <div class="face bm">
                             <div class="row">
                                 <div class="grid_container_details">
+                                    <div class="item item-1">
+                                        Service Description
+                                    </div>
+                                    <div class="item item-2">
+                                        Provider Person
+                                    </div>
+                                    <div class="item item-3">
+                                        Provider Introduction
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="grid_container_details">
                                     <div class="item item-1" th:text="${services[index].description}">
                                         item1
                                     </div>
-                                    <div class="item item-2" th:text="${userDetailsList[index].firstName + userDetailsList[index].lastName}">
+                                    <div class="item item-2" th:text="${userDetailsList[index].firstName + ' ' + userDetailsList[index].lastName}">
                                         item2
                                     </div>
                                     <div class="item item-3" th:text="${userDetailsList[index].introductionText}">
@@ -92,28 +106,33 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="row">
-                                <div class="grid_container_details">
-                                    <div class="item item-1">
-
-                                    </div>
-                                    <div class="item item-2">
-
-                                    </div>
-                                    <div class="item item-3">
-                                    </div>
-                                </div>
-                            </div>
                             <button class="back_button" style="vertical-align:middle"><span>Back</span></button>
                             <button class="contact_button" style="vertical-align:middle"><span>Contact</span></button>
                         </div>
                         <div class="face tp">
-                            <div class="grid_container_contact">
-                                <div class="item item-1" th:text="${'Email Address: '  + services[index].userAccount.email}">
-                                   item1
+                            <div class="row">
+                                <div class="grid_container_contact">
+                                    <div class="item item-1">
+
+                                    </div>
+                                    <div class="item item-2" th:text="${'Contanct Details of provider '  + userDetailsList[index].firstName + ' ' + userDetailsList[index].lastName}">
+                                        Contact details of Provider
+                                    </div>
+                                    <div class="item item-3">
+                                    </div>
+
                                 </div>
-                                <div class="item item-3" th:text="${'Phone Number: '  + userDetailsList[index].phoneNumber}">
-                                    item2
+                            </div>
+                            <div class="row">
+                                <div class="grid_container_contact">
+                                    <div class="item item-1" th:text="${'Email Address: '  + services[index].userAccount.email}">
+                                       item1
+                                    </div>
+                                    <div class="item item-2">
+                                    </div>
+                                    <div class="item item-3" th:text="${'Phone Number: '  + userDetailsList[index].phoneNumber}">
+                                        item2
+                                    </div>
                                 </div>
                             </div>
                             <button class="back_to_deatils_button" style="vertical-align:middle"><span>Back</span></button>
