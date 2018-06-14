@@ -78,6 +78,18 @@ class ProfilePageQueriesTest {
         assertEquals(expected, result);
     }
 
+    @Test
+    void testIsExistUserAccount() {
+        int testUserId = 1;
+        assertTrue(profilePageQueries.isUserAccountExist(testUserId));
+    }
+
+    @Test
+    void testIsNotExistUserAccount() {
+        int testUserId = 3;
+        assertFalse(profilePageQueries.isUserAccountExist(testUserId));
+    }
+
     @AfterAll
     void tearDown() {
         entityManager.clear();
