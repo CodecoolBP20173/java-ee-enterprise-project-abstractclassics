@@ -6,7 +6,6 @@ import com.codecool.labourent.model.Gender;
 import com.codecool.labourent.model.UserDetail;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.mockito.Mockito;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -35,14 +34,13 @@ class ProfilePageControllerTest {
     int userId;
 
     @BeforeEach
-    void settingRequest() {
+    void initialization() {
         userId = 0;
 
         Date dateOfBirth = ProfilePageController.getFormatDate("2021-01-01");
 
-        expectedUserDetail = new UserDetail("Apple", "Peach", "1456624",
-                "Budapest", dateOfBirth, Gender.valueOf("FEMALE"),
-                "hello", null);
+        expectedUserDetail = new UserDetail("Apple", "Peach", "1456624", "Budapest",
+                dateOfBirth, Gender.valueOf("FEMALE"), "hello", null);
         expectedUserDetail.setImgUrl("/");
 
         httpServletRequestMock = mock(HttpServletRequest.class);
@@ -98,8 +96,8 @@ class ProfilePageControllerTest {
     }
 
     @Test
-    void testDpPostRedirect() throws ServletException, IOException {
-                controller.doPost(httpServletRequestMock,httpServletResponseMock);
+    void testDoPostRedirect() throws ServletException, IOException {
+        controller.doPost(httpServletRequestMock,httpServletResponseMock);
         verify(httpServletResponseMock, times(1)).sendRedirect("/profile");
     }
 }
