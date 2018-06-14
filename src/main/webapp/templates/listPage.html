@@ -8,6 +8,7 @@
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    <script src="/static/script/servicePage.js" defer></script>
 </head>
 <body>
     <div th:replace="fragments/navBar.html :: topnav"></div>
@@ -45,7 +46,7 @@
                 item6
             </div>
         </div>
-        <div id="con1" th:each="index : ${#numbers.sequence( 0, #arrays.length(services)-1)}">
+        <div class="con1"  th:each="index : ${#numbers.sequence( 0, #arrays.length(services)-1)}">
             <div id="tridiv">
                 <div class="scene">
                     <div class="shape cuboid-1 cub-1">
@@ -88,6 +89,19 @@
                                     </div>
                                     <div class="item item-3" th:text="${userDetailsList[index].introductionText}">
                                         item3
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="grid_container_details">
+                                    <div class="item item-1">
+
+                                    </div>
+                                    <div class="item item-2">
+
+                                    </div>
+                                    <div class="item item-3">
+                                        <button class="contact_button" style="vertical-align:middle"><span>Contact</span></button>
                                     </div>
                                 </div>
                             </div>
