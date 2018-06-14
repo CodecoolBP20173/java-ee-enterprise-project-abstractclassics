@@ -95,7 +95,7 @@
                             <div class="row">
                                 <div class="grid_container_details">
                                     <div class="item item-1">
-
+                                        <button class="back_button" style="vertical-align:middle"><span>Back</span></button>
                                     </div>
                                     <div class="item item-2">
 
@@ -106,7 +106,16 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="face tp"></div>
+                        <div class="face tp">
+                            <div class="grid_container_contact">
+                                <div class="item item-1" th:text="${'Email Address: '  + services[index].userAccount.email}">
+                                   item1
+                                </div>
+                                <div class="item item-3" th:text="${'Phone Number: '  + userDetailsList[index].phoneNumber}">
+                                    item2
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>

@@ -40,7 +40,46 @@
     opacity: 1;
     right: 0;
 }
+.back_button {
+    display: inline-block;
+    border-radius: 4px;
+    background-color: #f4511e;
+    border: none;
+    color: #FFFFFF;
+    text-align: center;
+    font-size: 28px;
+    padding: 20px;
+    width: 200px;
+    transition: all 0.5s;
+    cursor: pointer;
+    margin: 5px;
+    z-index: 3;
+}
 
+.back_button span {
+    cursor: pointer;
+    display: inline-block;
+    position: relative;
+    transition: 0.5s;
+}
+
+.back_button span:after {
+    content: '\00bb';
+    position: absolute;
+    opacity: 0;
+    top: 0;
+    right: -20px;
+    transition: 0.5s;
+}
+
+.back_button:hover span {
+    padding-right: 25px;
+}
+
+.back_button:hover span:after {
+    opacity: 1;
+    right: 0;
+}
 .scene {
     -webkit-transition: 1s;
     -webkit-transform:rotateX(0deg) rotateY(0deg);
@@ -55,7 +94,7 @@
 
 .scene_turn_left {
     -webkit-transition: 1s;
-    -webkit-transform:rotateX(90deg) rotateZ(180deg);
+    -webkit-transform:rotateX(90deg) rotateZ(180deg) rotateY(180deg);
     transition-delay: 0.5s;
 
 }
@@ -219,6 +258,18 @@
     position: relative;
     justify-items: center;
 }
+
+.grid_container_contact {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: auto;
+    align-items: center;
+    position: relative;
+    justify-items: center;
+}
+
+
+
 
 .sort_row {
     display: grid;
