@@ -5,8 +5,10 @@
 }
 
 .scene:hover {
-    -webkit-transition: 2s;
+    -webkit-transition: 1.5s;
     -webkit-transform:rotateX(90deg) rotateY(0deg);
+    transition-delay: 1.5s;
+
 }
 
 
@@ -118,6 +120,8 @@
     width:60em;
     height:25em;
     background:url(https://upload.wikimedia.org/wikipedia/commons/d/d1/Mount_Everest_as_seen_from_Drukair2_PLW_edit.jpg);
+    text-align: center;
+
 
 }
 .cub-1 .face {
@@ -143,6 +147,14 @@
     align-items: center;
     border: 2px solid black;
     position: relative;
+}
+.grid_container_details {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: auto;
+    align-items: center;
+    position: relative;
+    justify-items: center;
 }
 
 .sort_row {
@@ -208,13 +220,12 @@
 
 }
 
-
-
 #con1{
     position: relative;
     width: 100%;
     height: 200px;
-    -webkit-transition: 2.5s;
+    -webkit-transition: 1s;
+    transition-delay: 1.5s;
 }
 #con1:hover {
     height: 500px;
