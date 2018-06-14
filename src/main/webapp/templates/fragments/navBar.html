@@ -2,18 +2,19 @@
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 <head>
     <link rel="stylesheet" type="text/css" href="/static/css/navbar.css" th:fragment="topnavcss">
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="/static/script/navbar.js" defer></script>
 </head>
 <body>
 <div>
     <div class="topnav" th:fragment="topnav">
-        <a class="active" href="/list">Services</a>
+        <a href="/list">Services</a>
         <a href="/introduction">Introduction</a>
-        <a href="/profile">Profile</a>
+        <a href="/profile" th:if="${session.userId != null}">Profile</a>
         <a href="/registration" th:if="${session.userId == null}">Registration</a>
         <a href="/login"  th:if="${session.userId == null}">Login</a>
         <a href="/logout" th:if="${session.userId != null}">Logout</a>
     </div>
 </div>
-
 </body>
 </html>
