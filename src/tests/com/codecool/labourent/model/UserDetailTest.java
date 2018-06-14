@@ -46,4 +46,20 @@ class UserDetailTest {
 
         assertEquals(firstUserDetail,secondUserDetail);
     }
+
+    @Test
+    void testNotEquals() {
+
+        Date dateOfBirth = ProfilePageController.getFormatDate("2021-01-01");
+        UserDetail firstUserDetail = new UserDetail("Apple", "Peach", "1456624",
+                "Budapest", dateOfBirth, Gender.valueOf("FEMALE"),
+                "hello", null);
+        firstUserDetail.setImgUrl("/");
+        UserDetail secondUserDetail = new UserDetail("Apple", "Peach", "1456624",
+                "Budapest", dateOfBirth, Gender.valueOf("FEMALE"),
+                "hi", null);
+        secondUserDetail.setImgUrl("/");
+
+        assertNotEquals(firstUserDetail,secondUserDetail);
+    }
 }

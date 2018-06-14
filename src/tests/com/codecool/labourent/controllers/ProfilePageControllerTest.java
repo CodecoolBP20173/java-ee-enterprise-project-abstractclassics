@@ -36,9 +36,9 @@ class ProfilePageControllerTest {
 
         Date dateOfBirth = ProfilePageController.getFormatDate("2021-01-01");
 
-        expectedUserDetail = spy(new UserDetail("Apple", "Peach", "1456624",
+        expectedUserDetail = new UserDetail("Apple", "Peach", "1456624",
                 "Budapest", dateOfBirth, Gender.valueOf("FEMALE"),
-                "hello", null));
+                "hello", null);
         expectedUserDetail.setImgUrl("/");
 
         httpServletRequestMock = mock(HttpServletRequest.class);
@@ -71,7 +71,8 @@ class ProfilePageControllerTest {
         createUserDetail.setAccessible(true);
 
         UserDetail resultDetail = (UserDetail) createUserDetail.invoke(controller, httpServletRequestMock, userId);
-        assertEquals(expectedUserDetail.getFirstName(), resultDetail.getFirstName());
+        assertEquals(expectedUserDetail, resultDetail);
+
     }
 
     @Test
@@ -84,6 +85,6 @@ class ProfilePageControllerTest {
         UserDetail testDetail = mock(UserDetail.class);
         UserDetail resultDetail = (UserDetail) requestUserDetails.invoke(controller, userId, testDetail);
 
-        assertEquals(expectedUserDetail.getFirstName(), resultDetail.getFirstName());
+        assertEquals(expectedUserDetail, resultDetail);
     }
 }
