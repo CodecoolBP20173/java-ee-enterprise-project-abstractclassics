@@ -22,6 +22,7 @@ public class ProfilePageQueries {
      *
      * @param userId: int
      * @return UserDetail instance
+     * @Exeption NoResultException: It throws when user can't be found in the database.
      */
     public UserDetail getUserDetailById(int userId) throws NoResultException {
         UserDetail userDetail = entityManager.find(UserDetail.class, userId);
@@ -66,7 +67,7 @@ public class ProfilePageQueries {
     /**
      * It checks if the user profile exsists.
      * @param userId
-     * @return
+     * @return boolean
      */
     public boolean isUserAccountExist(int userId) {
         try {
