@@ -7,6 +7,8 @@
     <link th:replace="fragments/navBar.html :: topnavcss">
     <script src="https://maps.googleapis.com/maps/api/js?sensor=false&libraries=places&language=en" defer></script>
     <script src="/static/script/userLocationAutoComplete.js" defer></script>
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="/static/script/navbar.js" defer></script>
 </head>
 <body>
 <div th:replace="fragments/navBar.html :: topnav"></div>
@@ -52,7 +54,7 @@
             </fieldset>
 
             <fieldset>
-                <legend>Genre</legend>
+                <legend>Gender</legend>
                 <label>
                     <input type="radio"
                            th:each="gender : ${genders}"
@@ -67,7 +69,7 @@
             <button class="addService" onclick="location.href='/add-service';return false;"  >Add New Service</button>
         </div>
         <div class="thirdColumn">
-            <img src="/static/img/logo.png" height="100">
+            <img class="logo" src="/static/img/logo.png">
         </div>
     </div>
 </form>
