@@ -168,7 +168,7 @@
     width: 100%;
     height: 100%;
     background: transparent;
-    font-size: 2.83vh;
+    font-size: 108%              /*1.91vh;*/
 }
 
 
@@ -273,11 +273,12 @@
 }
 
 .cub-1 .bm {
-
+    background: url(https://d2v9y0dukr6mq2.cloudfront.net/video/thumbnail/yZhWZV2/animated-subtle-gray-background-element_4193a55gl__F0000.png);
 }
 .cub-1 .face {
 }
 .cub-1 .tp {
+    background: url(https://d2v9y0dukr6mq2.cloudfront.net/video/thumbnail/uD8Hd-O/abstract-white-waves-in-motion-with-falling-white-snowflakes-on-gradient-gray-background-loop-animation-ultra-hd-4k-video-footage_4ycw0z93ql__F0000.png);
 }
 
 
