@@ -10,7 +10,6 @@ $(document).ready(function () {
         console.log(navButtonUrl);
         if (myURL === navButtonUrl) {
             navButton.classList.add("currentUrl");
-
         }
     }
 });
