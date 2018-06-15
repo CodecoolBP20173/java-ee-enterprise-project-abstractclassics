@@ -391,3 +391,16 @@
 
 }
 
+
+#profileImageHolder{
+    overflow: hidden;
+}
+
+#profileImage {
+    transition: transform .5s;
+
+}
+#profileImage:hover {
+    transform: scale(1.5);
+}
+
