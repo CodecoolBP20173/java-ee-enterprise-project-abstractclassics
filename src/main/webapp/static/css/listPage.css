@@ -206,7 +206,7 @@
 
 
 #tridiv {
-    perspective: 800px;
+    perspective: 50vw;
     position: absolute;
     overflow: hidden;
     width: 100%;
@@ -370,7 +370,9 @@
     display: grid;
     grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
     margin-bottom: 2ch;
-
+    width: 93%;
+    margin-left: auto;
+    margin-right: auto;
 
 }
 
