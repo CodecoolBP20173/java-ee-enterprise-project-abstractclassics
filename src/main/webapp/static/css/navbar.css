@@ -13,14 +13,14 @@
 }
 
 .topnav a:hover {
-    background-color: #ddd;
+    background-color: #f4511e;
     color: black;
 }
 
 .topnav a.active {
     background-color: #4CAF50;
-    color: white;
 }
 .currentUrl {
     background-color: #f4511e;
+    color: black !important;
 }
