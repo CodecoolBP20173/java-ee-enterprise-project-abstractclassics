@@ -5,6 +5,8 @@ import com.codecool.labourent.config.TemplateEngineUtil;
 import com.codecool.labourent.service.UserAccountService;
 import com.codecool.labourent.model.UserAccount;
 import org.mindrot.jbcrypt.BCrypt;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 import org.thymeleaf.TemplateEngine;
 import org.thymeleaf.context.WebContext;
 
@@ -14,12 +16,12 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-public class RegistrationPageController extends HttpServlet {
-    private UserAccountService userAccountService;
 
-    public RegistrationPageController(UserAccountService userAccountService) {
-        this.userAccountService = userAccountService;
-    }
+@Controller
+public class RegistrationPageController {
+
+    @Autowired
+    private UserAccountService userAccountService;
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

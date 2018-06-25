@@ -7,6 +7,8 @@ import com.codecool.labourent.service.UserAccountService;
 import com.codecool.labourent.model.Service;
 import com.codecool.labourent.model.ServiceCategory;
 import com.codecool.labourent.model.UserAccount;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 import org.thymeleaf.TemplateEngine;
 import org.thymeleaf.context.WebContext;
 
@@ -18,18 +20,19 @@ import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.List;
 
-public class AddServicePageController extends HttpServlet {
+@Controller
+public class AddServicePageController {
 
+    @Autowired
     private ServiceCategoryService serviceCategoryService;
+
+    @Autowired
     private ServiceService serviceService;
+
+    @Autowired
     private UserAccountService userAccountService;
 
 
-    public AddServicePageController(ServiceCategoryService serviceCategoryService, ServiceService serviceService, UserAccountService userAccountService) {
-        this.serviceCategoryService = serviceCategoryService;
-        this.serviceService = serviceService;
-        this.userAccountService = userAccountService;
-    }
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

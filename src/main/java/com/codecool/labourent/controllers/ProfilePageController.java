@@ -6,6 +6,8 @@ import com.codecool.labourent.service.UserDetailService;
 import com.codecool.labourent.model.Gender;
 import com.codecool.labourent.model.UserAccount;
 import com.codecool.labourent.model.UserDetail;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 import org.thymeleaf.TemplateEngine;
 import org.thymeleaf.context.WebContext;
 
@@ -22,16 +24,14 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.stream.Stream;
 
+@Controller
+public class ProfilePageController {
 
-public class ProfilePageController extends HttpServlet {
-
+    @Autowired
     private UserDetailService userDetailService;
-    private UserAccountService userAccountService;
 
-    public ProfilePageController(UserDetailService userDetailService, UserAccountService userAccountService) {
-        this.userDetailService = userDetailService;
-        this.userAccountService = userAccountService;
-    }
+    @Autowired
+    private UserAccountService userAccountService;
     
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

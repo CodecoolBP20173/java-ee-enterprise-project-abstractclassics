@@ -7,6 +7,8 @@ import com.codecool.labourent.service.ServiceService;
 import com.codecool.labourent.model.Service;
 import com.codecool.labourent.model.ServiceCategory;
 import com.codecool.labourent.model.UserDetail;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 import org.thymeleaf.TemplateEngine;
 import org.thymeleaf.context.WebContext;
 
@@ -17,17 +19,18 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ListPageController extends HttpServlet {
+@Controller
+public class ListPageController {
 
+    @Autowired
     private ServiceCategoryService serviceCategoryService;
+
+    @Autowired
     private ServiceService serviceService;
+
+    @Autowired
     private UserDetailService userDetailService;
 
-    public ListPageController(ServiceCategoryService serviceCategoryService, ServiceService serviceService, UserDetailService userDetailService) {
-        this.serviceCategoryService = serviceCategoryService;
-        this.serviceService = serviceService;
-        this.userDetailService = userDetailService;
-    }
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
