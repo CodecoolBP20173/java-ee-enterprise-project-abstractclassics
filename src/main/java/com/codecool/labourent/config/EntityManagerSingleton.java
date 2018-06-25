@@ -1,3 +1,4 @@
+/*
 package com.codecool.labourent.config;
 
 import javax.persistence.EntityManager;
@@ -16,3 +17,4 @@ public class EntityManagerSingleton {
 
     }
 }
+*/

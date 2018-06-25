@@ -1,3 +1,4 @@
+/*
 package com.codecool.labourent.config;
 
 import com.codecool.labourent.controllers.*;
@@ -82,3 +83,4 @@ public class Initializer implements ServletContextListener {
         this.entityManager = EntityManagerSingleton.getInstance();
     }
 }
+*/
