@@ -1,19 +1,20 @@
 package com.codecool.labourent.service;
 
 import com.codecool.labourent.model.UserAccount;
+import com.codecool.labourent.repository.UserAccountRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
 import javax.persistence.NoResultException;
 import javax.persistence.Query;
 
+@Service
 public class UserAccountService {
 
-    private EntityManager entityManager;
-
-    public UserAccountService(EntityManager entityManager) {
-        this.entityManager = entityManager;
-    }
+    @Autowired
+    private UserAccountRepository userAccountRepository;
 
     public void saveUserAccount(UserAccount userAccount) {
         EntityTransaction transaction = entityManager.getTransaction();

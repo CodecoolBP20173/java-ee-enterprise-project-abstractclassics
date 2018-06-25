@@ -1,6 +1,11 @@
 package com.codecool.labourent.service;
 
 import com.codecool.labourent.model.UserDetail;
+import com.codecool.labourent.repository.UserAccountRepository;
+import com.codecool.labourent.repository.UserDetailRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
 import javax.persistence.NoResultException;
@@ -9,9 +14,11 @@ import javax.persistence.NoResultException;
 /**
  * This class contains the queries which work on the userdetail relation.
  */
+@Service
 public class UserDetailService {
 
-    private EntityManager entityManager;
+    @Autowired
+    private UserDetailRepository userDetailRepository;
 
     public UserDetailService(EntityManager entityManager) {
         this.entityManager = entityManager;

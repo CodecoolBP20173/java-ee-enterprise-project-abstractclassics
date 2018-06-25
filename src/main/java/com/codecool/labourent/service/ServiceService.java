@@ -1,13 +1,19 @@
 package com.codecool.labourent.service;
 
 import com.codecool.labourent.model.Service;
+import com.codecool.labourent.repository.ServiceRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
 import java.util.List;
 
+@org.springframework.stereotype.Service
 public class ServiceService {
 
-    private EntityManager entityManager;
+    @Autowired
+    private ServiceRepository serviceRepository;
+
     private List<String> columnNamesArray;
 
     public ServiceService(EntityManager entityManager) {

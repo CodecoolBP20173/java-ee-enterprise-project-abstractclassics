@@ -1,15 +1,20 @@
 package com.codecool.labourent.service;
 
 import com.codecool.labourent.model.ServiceCategory;
+import com.codecool.labourent.repository.ServiceCategoryRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
 import javax.persistence.Query;
 import java.util.List;
 
+@Service
 public class ServiceCategoryService {
 
-    private EntityManager entityManager;
+    @Autowired
+    private ServiceCategoryRepository serviceCategoryRepository;
 
     public ServiceCategoryService(EntityManager entityManager) {
         this.entityManager = entityManager;
