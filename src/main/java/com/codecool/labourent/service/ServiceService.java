@@ -1,16 +1,16 @@
-package com.codecool.labourent.dbConnection;
+package com.codecool.labourent.service;
 
 import com.codecool.labourent.model.Service;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
 import java.util.List;
 
-public class ServiceQueries {
+public class ServiceService {
 
     private EntityManager entityManager;
     private List<String> columnNamesArray;
 
-    public ServiceQueries(EntityManager entityManager) {
+    public ServiceService(EntityManager entityManager) {
         this.entityManager = entityManager;
     }
 

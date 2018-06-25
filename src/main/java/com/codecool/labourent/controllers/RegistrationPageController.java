@@ -2,27 +2,23 @@ package com.codecool.labourent.controllers;
 
 
 import com.codecool.labourent.config.TemplateEngineUtil;
-import com.codecool.labourent.dbConnection.UserAccountQueries;
+import com.codecool.labourent.service.UserAccountService;
 import com.codecool.labourent.model.UserAccount;
 import org.mindrot.jbcrypt.BCrypt;
 import org.thymeleaf.TemplateEngine;
 import org.thymeleaf.context.WebContext;
 
 import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.Enumeration;
-import java.util.HashMap;
-import java.util.Map;
 
 public class RegistrationPageController extends HttpServlet {
-    private UserAccountQueries userAccountQueries;
+    private UserAccountService userAccountService;
 
-    public RegistrationPageController(UserAccountQueries userAccountQueries) {
-        this.userAccountQueries = userAccountQueries;
+    public RegistrationPageController(UserAccountService userAccountService) {
+        this.userAccountService = userAccountService;
     }
 
     @Override
@@ -42,14 +38,14 @@ public class RegistrationPageController extends HttpServlet {
     }
 
     private void handleRegistration(HttpServletResponse servletResponse, String userName, String email, String password) throws IOException {
-        if (userAccountQueries.emailIsTaken(email)) {
+        if (userAccountService.emailIsTaken(email)) {
             servletResponse.sendRedirect("/registration?taken=email");
-        } else if (userAccountQueries.userNameIsTaken(userName)) {
+        } else if (userAccountService.userNameIsTaken(userName)) {
             servletResponse.sendRedirect("/registration?taken=username");
         } else {
             servletResponse.sendRedirect("/login");
             UserAccount userAccount = new UserAccount(userName, email, password);
-            userAccountQueries.saveUserAccount(userAccount);
+            userAccountService.saveUserAccount(userAccount);
         }
     }
 

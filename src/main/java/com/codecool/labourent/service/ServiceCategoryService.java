@@ -1,4 +1,4 @@
-package com.codecool.labourent.dbConnection;
+package com.codecool.labourent.service;
 
 import com.codecool.labourent.model.ServiceCategory;
 
@@ -7,11 +7,11 @@ import javax.persistence.EntityTransaction;
 import javax.persistence.Query;
 import java.util.List;
 
-public class ServiceCategoryQueries {
+public class ServiceCategoryService {
 
     private EntityManager entityManager;
 
-    public ServiceCategoryQueries(EntityManager entityManager) {
+    public ServiceCategoryService(EntityManager entityManager) {
         this.entityManager = entityManager;
     }
 

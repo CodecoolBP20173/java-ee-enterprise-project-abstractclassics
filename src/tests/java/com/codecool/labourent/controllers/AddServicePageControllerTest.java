@@ -1,8 +1,8 @@
 package com.codecool.labourent.controllers;
 
-import com.codecool.labourent.dbConnection.ServiceCategoryQueries;
-import com.codecool.labourent.dbConnection.ServiceQueries;
-import com.codecool.labourent.dbConnection.UserAccountQueries;
+import com.codecool.labourent.service.ServiceCategoryService;
+import com.codecool.labourent.service.ServiceService;
+import com.codecool.labourent.service.UserAccountService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.ArgumentCaptor;
@@ -14,15 +14,14 @@ import javax.servlet.http.HttpSession;
 
 import java.io.IOException;
 
-import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
 class AddServicePageControllerTest {
     private HttpServletRequest requestMock;
     private HttpServletResponse responseMock;
-    private ServiceCategoryQueries serviceCategoryQueriesMock;
-    private ServiceQueries serviceQueriesMock;
-    private UserAccountQueries userAccountQueriesMock;
+    private ServiceCategoryService serviceCategoryServiceMock;
+    private ServiceService serviceServiceMock;
+    private UserAccountService userAccountServiceMock;
     private HttpSession httpSessionMock;
     private AddServicePageController addServicePageController;
 
@@ -30,11 +29,11 @@ class AddServicePageControllerTest {
     void setUp() {
         requestMock = mock(HttpServletRequest.class);
         responseMock = mock(HttpServletResponse.class);
-        serviceCategoryQueriesMock = mock(ServiceCategoryQueries.class);
-        serviceQueriesMock = mock(ServiceQueries.class);
-        userAccountQueriesMock = mock(UserAccountQueries.class);
+        serviceCategoryServiceMock = mock(ServiceCategoryService.class);
+        serviceServiceMock = mock(ServiceService.class);
+        userAccountServiceMock = mock(UserAccountService.class);
         httpSessionMock = mock(HttpSession.class);
-        addServicePageController = new AddServicePageController(serviceCategoryQueriesMock, serviceQueriesMock, userAccountQueriesMock);
+        addServicePageController = new AddServicePageController(serviceCategoryServiceMock, serviceServiceMock, userAccountServiceMock);
     }
 
     @BeforeEach
@@ -51,14 +50,14 @@ class AddServicePageControllerTest {
     void testUserAccountIsQueried() throws ServletException, IOException {
         addServicePageController.doPost(requestMock, responseMock);
         ArgumentCaptor<Integer> captor = ArgumentCaptor.forClass(Integer.class);
-        verify(userAccountQueriesMock, times(1)).getUserAccountById(captor.capture());
+        verify(userAccountServiceMock, times(1)).getUserAccountById(captor.capture());
     }
 
     @Test
     void testServiceCategoryIsQueried() throws ServletException, IOException {
         addServicePageController.doPost(requestMock, responseMock);
         ArgumentCaptor<Integer> captor = ArgumentCaptor.forClass(Integer.class);
-        verify(serviceCategoryQueriesMock, times(1)).getServiceCategoryById(captor.capture());
+        verify(serviceCategoryServiceMock, times(1)).getServiceCategoryById(captor.capture());
     }
 
     @Test

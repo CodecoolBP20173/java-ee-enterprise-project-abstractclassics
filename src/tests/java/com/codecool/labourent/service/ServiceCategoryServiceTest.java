@@ -1,4 +1,4 @@
-package com.codecool.labourent.dbConnection;
+package com.codecool.labourent.service;
 
 import com.codecool.labourent.model.ServiceCategory;
 import org.junit.jupiter.api.BeforeAll;
@@ -13,22 +13,22 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.*;
 
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
-class ServiceCategoryQueriesTest {
+class ServiceCategoryServiceTest {
     private EntityManager entityManager;
-    private ServiceCategoryQueries serviceCategoryQueries;
+    private ServiceCategoryService serviceCategoryService;
     private ServiceCategory serviceCategory;
 
     @BeforeAll
     void setUp() {
         entityManager = Persistence.createEntityManagerFactory("labourentPUTest").createEntityManager();
         serviceCategory = new ServiceCategory("SC", "This is a service category.");
-        serviceCategoryQueries = new ServiceCategoryQueries(entityManager);
-        serviceCategoryQueries.saveServiceCategory(serviceCategory);
+        serviceCategoryService = new ServiceCategoryService(entityManager);
+        serviceCategoryService.saveServiceCategory(serviceCategory);
     }
 
     @Test
     void testGetServiceCategories() {
-        List<ServiceCategory> serviceCategories = serviceCategoryQueries.getServiceCategories();
+        List<ServiceCategory> serviceCategories = serviceCategoryService.getServiceCategories();
         assertEquals(1, serviceCategories.size());
         assertEquals(serviceCategory, serviceCategories.get(0));
     }
@@ -36,12 +36,12 @@ class ServiceCategoryQueriesTest {
     @Test
     void testGetServiceCategoryByIdIfIdDoesNotExist() {
         int id = 2;
-        assertNull(serviceCategoryQueries.getServiceCategoryById(id));
+        assertNull(serviceCategoryService.getServiceCategoryById(id));
     }
 
     @Test
     void testGetServiceCategoryByIdIfIdExists() {
         int id = 1;
-        assertEquals(serviceCategory, serviceCategoryQueries.getServiceCategoryById(id));
+        assertEquals(serviceCategory, serviceCategoryService.getServiceCategoryById(id));
     }
 }

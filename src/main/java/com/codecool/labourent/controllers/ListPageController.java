@@ -1,9 +1,9 @@
 package com.codecool.labourent.controllers;
 
 import com.codecool.labourent.config.TemplateEngineUtil;
-import com.codecool.labourent.dbConnection.ProfilePageQueries;
-import com.codecool.labourent.dbConnection.ServiceCategoryQueries;
-import com.codecool.labourent.dbConnection.ServiceQueries;
+import com.codecool.labourent.service.UserDetailService;
+import com.codecool.labourent.service.ServiceCategoryService;
+import com.codecool.labourent.service.ServiceService;
 import com.codecool.labourent.model.Service;
 import com.codecool.labourent.model.ServiceCategory;
 import com.codecool.labourent.model.UserDetail;
@@ -19,14 +19,14 @@ import java.util.List;
 
 public class ListPageController extends HttpServlet {
 
-    private ServiceCategoryQueries serviceCategoryQueries;
-    private ServiceQueries serviceQueries;
-    private ProfilePageQueries profilePageQueries;
+    private ServiceCategoryService serviceCategoryService;
+    private ServiceService serviceService;
+    private UserDetailService userDetailService;
 
-    public ListPageController(ServiceCategoryQueries serviceCategoryQueries, ServiceQueries serviceQueries, ProfilePageQueries profilePageQueries) {
-        this.serviceCategoryQueries = serviceCategoryQueries;
-        this.serviceQueries = serviceQueries;
-        this.profilePageQueries = profilePageQueries;
+    public ListPageController(ServiceCategoryService serviceCategoryService, ServiceService serviceService, UserDetailService userDetailService) {
+        this.serviceCategoryService = serviceCategoryService;
+        this.serviceService = serviceService;
+        this.userDetailService = userDetailService;
     }
 
     @Override
@@ -34,7 +34,7 @@ public class ListPageController extends HttpServlet {
         TemplateEngine engine = TemplateEngineUtil.getTemplateEngine(req.getServletContext());
         WebContext context = new WebContext(req, resp, req.getServletContext());
 
-        List<ServiceCategory> serviceCategories = serviceCategoryQueries.getServiceCategories();
+        List<ServiceCategory> serviceCategories = serviceCategoryService.getServiceCategories();
         context.setVariable("serviceCategories", serviceCategories);
 
         origanizeTable(req, context);
@@ -52,7 +52,7 @@ public class ListPageController extends HttpServlet {
             switchSortDirection(sortDirection, context);
 
         } else {
-            List<Service> services = serviceQueries.getAllRecordsFromTable("id", "asc");
+            List<Service> services = serviceService.getAllRecordsFromTable("id", "asc");
             List<UserDetail> userDetailList = getUserDetailsList(services);
             context.setVariable("services", services);
             context.setVariable("sortDirection", "asc");
@@ -73,13 +73,13 @@ public class ListPageController extends HttpServlet {
     private void filterSortTable(HttpServletRequest req, WebContext context, String columnName, String sortDirection) {
         if (!req.getParameter("categoryId").equals("all")) {
             int categoryId = Integer.parseInt(req.getParameter("categoryId"));
-            List<Service> services = serviceQueries.getFilteredRecordsFromTable(columnName, sortDirection, categoryId); //Todo
+            List<Service> services = serviceService.getFilteredRecordsFromTable(columnName, sortDirection, categoryId); //Todo
             context.setVariable("services", services);
             context.setVariable("userDetailsList", getUserDetailsList(services));
         }
         else {
-            List<Service> services = serviceQueries.getAllRecordsFromTable(columnName, sortDirection);
-            context.setVariable("services", serviceQueries.getAllRecordsFromTable(columnName, sortDirection));  //Todo
+            List<Service> services = serviceService.getAllRecordsFromTable(columnName, sortDirection);
+            context.setVariable("services", serviceService.getAllRecordsFromTable(columnName, sortDirection));  //Todo
             context.setVariable("userDetailsList", getUserDetailsList(services));
         }
     }
@@ -88,7 +88,7 @@ public class ListPageController extends HttpServlet {
         List<UserDetail> userDetailsList = new ArrayList<>();
         for (Service service: services) {
             int userAccountId = service.getUserAccount().getId();
-            UserDetail userDetail = profilePageQueries.getUserDetailById(userAccountId);
+            UserDetail userDetail = userDetailService.getUserDetailById(userAccountId);
             userDetailsList.add(userDetail);
         }
         return userDetailsList;

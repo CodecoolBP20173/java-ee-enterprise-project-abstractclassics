@@ -1,4 +1,4 @@
-package com.codecool.labourent.dbConnection;
+package com.codecool.labourent.service;
 
 import com.codecool.labourent.model.UserAccount;
 import org.junit.jupiter.api.BeforeAll;
@@ -11,65 +11,65 @@ import javax.persistence.Persistence;
 import static org.junit.jupiter.api.Assertions.*;
 
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
-class UserAccountQueriesTest {
+class UserAccountServiceTest {
 
     private EntityManager entityManager;
-    private UserAccountQueries userAccountQueries;
+    private UserAccountService userAccountService;
     private UserAccount userAccount;
 
     @BeforeAll
     void setUp() {
         entityManager = Persistence.createEntityManagerFactory("labourentPUTest").createEntityManager();
         userAccount = new UserAccount("asd", "asd@asd.hu", "pw");
-        userAccountQueries = new UserAccountQueries(entityManager);
-        userAccountQueries.saveUserAccount(userAccount);
+        userAccountService = new UserAccountService(entityManager);
+        userAccountService.saveUserAccount(userAccount);
     }
 
     @Test
     void testEmailIsTaken() {
         String email = "asd@asd.hu";
-        assertTrue(userAccountQueries.emailIsTaken(email));
+        assertTrue(userAccountService.emailIsTaken(email));
     }
 
     @Test
     void testEmailIsNotTaken() {
         String email = "qwe@qwe.hu";
-        assertFalse(userAccountQueries.emailIsTaken(email));
+        assertFalse(userAccountService.emailIsTaken(email));
     }
 
     @Test
     void testUserNameIsTaken() {
         String username = "asd";
-        assertTrue(userAccountQueries.userNameIsTaken(username));
+        assertTrue(userAccountService.userNameIsTaken(username));
     }
 
     @Test
     void testUserNameIsNotTaken() {
         String username = "qwe";
-        assertFalse(userAccountQueries.userNameIsTaken(username));
+        assertFalse(userAccountService.userNameIsTaken(username));
     }
 
     @Test
     void testGetUserAccountByEmailIfEmailDoesNotExist() {
         String email = "qwe@qwe.hu";
-        assertNull(userAccountQueries.getUserAccountByEmail(email));
+        assertNull(userAccountService.getUserAccountByEmail(email));
     }
 
     @Test
     void testGetUserAccountByEmailIfEmailExists() {
         String email = "asd@asd.hu";
-        assertEquals(userAccount, userAccountQueries.getUserAccountByEmail(email));
+        assertEquals(userAccount, userAccountService.getUserAccountByEmail(email));
     }
 
     @Test
     void testGetUserAccountByIdIfIdDoesNotExist() {
         int id = 2;
-        assertNull(userAccountQueries.getUserAccountById(id));
+        assertNull(userAccountService.getUserAccountById(id));
     }
 
     @Test
     void testGetUserAccountByIdIfIdExists() {
         int id = 1;
-        assertEquals(userAccount, userAccountQueries.getUserAccountById(id));
+        assertEquals(userAccount, userAccountService.getUserAccountById(id));
     }
 }

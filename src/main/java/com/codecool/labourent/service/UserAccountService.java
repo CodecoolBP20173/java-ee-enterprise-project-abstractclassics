@@ -1,4 +1,4 @@
-package com.codecool.labourent.dbConnection;
+package com.codecool.labourent.service;
 
 import com.codecool.labourent.model.UserAccount;
 
@@ -7,11 +7,11 @@ import javax.persistence.EntityTransaction;
 import javax.persistence.NoResultException;
 import javax.persistence.Query;
 
-public class UserAccountQueries {
+public class UserAccountService {
 
     private EntityManager entityManager;
 
-    public UserAccountQueries(EntityManager entityManager) {
+    public UserAccountService(EntityManager entityManager) {
         this.entityManager = entityManager;
     }
 

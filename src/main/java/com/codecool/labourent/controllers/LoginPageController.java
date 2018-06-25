@@ -1,14 +1,13 @@
 package com.codecool.labourent.controllers;
 
 import com.codecool.labourent.config.TemplateEngineUtil;
-import com.codecool.labourent.dbConnection.UserAccountQueries;
+import com.codecool.labourent.service.UserAccountService;
 import com.codecool.labourent.model.UserAccount;
 import org.mindrot.jbcrypt.BCrypt;
 import org.thymeleaf.TemplateEngine;
 import org.thymeleaf.context.WebContext;
 
 import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -16,11 +15,11 @@ import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
 public class LoginPageController extends HttpServlet{
-    public LoginPageController(UserAccountQueries userAccountQueries) {
-        this.userAccountQueries = userAccountQueries;
+    public LoginPageController(UserAccountService userAccountService) {
+        this.userAccountService = userAccountService;
     }
 
-    private UserAccountQueries userAccountQueries;
+    private UserAccountService userAccountService;
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -39,7 +38,7 @@ public class LoginPageController extends HttpServlet{
 
     private void handleLogin(HttpServletRequest request, HttpServletResponse response, String email, String password) throws IOException {
         if (passwordIsCorrect(email, password)) {
-            UserAccount userAccount = userAccountQueries.getUserAccountByEmail(email);
+            UserAccount userAccount = userAccountService.getUserAccountByEmail(email);
             HttpSession session = request.getSession();
             session.setAttribute("email", email);
             session.setAttribute("userId", userAccount.getId());
@@ -50,7 +49,7 @@ public class LoginPageController extends HttpServlet{
     }
 
     private boolean passwordIsCorrect(String email, String plainTextPassword) {
-        UserAccount userAccount = userAccountQueries.getUserAccountByEmail(email);
+        UserAccount userAccount = userAccountService.getUserAccountByEmail(email);
 
         if (userAccount == null) {
             return false;

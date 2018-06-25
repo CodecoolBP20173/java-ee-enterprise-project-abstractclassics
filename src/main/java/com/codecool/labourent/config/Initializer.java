@@ -2,10 +2,10 @@
 package com.codecool.labourent.config;
 
 import com.codecool.labourent.controllers.*;
-import com.codecool.labourent.dbConnection.ProfilePageQueries;
-import com.codecool.labourent.dbConnection.ServiceCategoryQueries;
-import com.codecool.labourent.dbConnection.ServiceQueries;
-import com.codecool.labourent.dbConnection.UserAccountQueries;
+import com.codecool.labourent.service.UserDetailService;
+import com.codecool.labourent.service.ServiceCategoryService;
+import com.codecool.labourent.service.ServiceService;
+import com.codecool.labourent.service.UserAccountService;
 
 import javax.persistence.EntityManager;
 import javax.servlet.ServletContext;
@@ -29,10 +29,10 @@ public class Initializer implements ServletContextListener {
     private RegistrationPageController registrationPageController;
     private ServicePageController servicePageController;
 
-    private ProfilePageQueries profilePageQueries;
-    private ServiceCategoryQueries serviceCategoryQueries;
-    private ServiceQueries serviceQueries;
-    private UserAccountQueries userAccountQueries;
+    private UserDetailService profilePageQueries;
+    private ServiceCategoryService serviceCategoryQueries;
+    private ServiceService serviceQueries;
+    private UserAccountService userAccountQueries;
 
 
     @Override
@@ -73,10 +73,10 @@ public class Initializer implements ServletContextListener {
     }
 
     private void instantiateQueries() {
-        profilePageQueries = new ProfilePageQueries(entityManager);
-        serviceCategoryQueries = new ServiceCategoryQueries(entityManager);
-        serviceQueries = new ServiceQueries(entityManager);
-        userAccountQueries = new UserAccountQueries(entityManager);
+        profilePageQueries = new UserDetailService(entityManager);
+        serviceCategoryQueries = new ServiceCategoryService(entityManager);
+        serviceQueries = new ServiceService(entityManager);
+        userAccountQueries = new UserAccountService(entityManager);
     }
 
     private void createEntityManager() {

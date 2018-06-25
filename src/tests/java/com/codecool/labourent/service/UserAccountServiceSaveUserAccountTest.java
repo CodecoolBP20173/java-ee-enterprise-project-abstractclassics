@@ -1,4 +1,4 @@
-package com.codecool.labourent.dbConnection;
+package com.codecool.labourent.service;
 
 import com.codecool.labourent.model.UserAccount;
 import org.junit.jupiter.api.BeforeAll;
@@ -13,9 +13,9 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.*;
 
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
-class UserAccountQueriesSaveUserAccountTest {
+class UserAccountServiceSaveUserAccountTest {
     private EntityManager entityManager;
-    private UserAccountQueries userAccountQueries;
+    private UserAccountService userAccountService;
     private UserAccount userAccountToSave;
     private String getUserAccountsQuery;
 
@@ -23,9 +23,9 @@ class UserAccountQueriesSaveUserAccountTest {
     void setUp() {
         entityManager = Persistence.createEntityManagerFactory("labourentPUTest").createEntityManager();
         userAccountToSave = new UserAccount("asd", "asd@asd.hu", "pw");
-        userAccountQueries = new UserAccountQueries(entityManager);
+        userAccountService = new UserAccountService(entityManager);
         getUserAccountsQuery = "SELECT u FROM UserAccount u";
-        userAccountQueries.saveUserAccount(userAccountToSave);
+        userAccountService.saveUserAccount(userAccountToSave);
     }
 
     @Test

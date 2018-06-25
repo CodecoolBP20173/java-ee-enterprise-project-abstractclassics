@@ -1,4 +1,5 @@
-package com.codecool.labourent.dbConnection;
+/*
+package com.codecool.labourent.service;
 
 import com.codecool.labourent.config.EntityManagerSingleton;
 import com.codecool.labourent.model.ServiceCategory;
@@ -7,9 +8,9 @@ import javax.persistence.EntityManager;
 
 public class DatabaseInitializer {
 
-    private ServiceCategoryQueries serviceCategoryQueries;
+    private ServiceCategoryService serviceCategoryQueries;
 
-    private DatabaseInitializer(ServiceCategoryQueries serviceCategoryQueries) {
+    private DatabaseInitializer(ServiceCategoryService serviceCategoryQueries) {
         this.serviceCategoryQueries = serviceCategoryQueries;
     }
 
@@ -29,9 +30,10 @@ public class DatabaseInitializer {
 
     public static void main(String[] args) {
         EntityManager entityManager = EntityManagerSingleton.getInstance();
-        ServiceCategoryQueries serviceCategoryQueries = new ServiceCategoryQueries(entityManager);
+        ServiceCategoryService serviceCategoryQueries = new ServiceCategoryService(entityManager);
         DatabaseInitializer databaseInitializer = new DatabaseInitializer(serviceCategoryQueries);
 
         databaseInitializer.populateDb();
     }
 }
+*/

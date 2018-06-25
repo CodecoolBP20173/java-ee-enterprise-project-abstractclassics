@@ -1,4 +1,4 @@
-package com.codecool.labourent.dbConnection;
+package com.codecool.labourent.service;
 
 import com.codecool.labourent.model.UserDetail;
 import javax.persistence.EntityManager;
@@ -9,11 +9,11 @@ import javax.persistence.NoResultException;
 /**
  * This class contains the queries which work on the userdetail relation.
  */
-public class ProfilePageQueries {
+public class UserDetailService {
 
     private EntityManager entityManager;
 
-    public ProfilePageQueries(EntityManager entityManager) {
+    public UserDetailService(EntityManager entityManager) {
         this.entityManager = entityManager;
     }
 

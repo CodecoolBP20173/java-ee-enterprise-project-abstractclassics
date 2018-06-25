@@ -1,9 +1,9 @@
 package com.codecool.labourent.controllers;
 
 import com.codecool.labourent.config.TemplateEngineUtil;
-import com.codecool.labourent.dbConnection.ServiceCategoryQueries;
-import com.codecool.labourent.dbConnection.ServiceQueries;
-import com.codecool.labourent.dbConnection.UserAccountQueries;
+import com.codecool.labourent.service.ServiceCategoryService;
+import com.codecool.labourent.service.ServiceService;
+import com.codecool.labourent.service.UserAccountService;
 import com.codecool.labourent.model.Service;
 import com.codecool.labourent.model.ServiceCategory;
 import com.codecool.labourent.model.UserAccount;
@@ -20,15 +20,15 @@ import java.util.List;
 
 public class AddServicePageController extends HttpServlet {
 
-    private ServiceCategoryQueries serviceCategoryQueries;
-    private ServiceQueries serviceQueries;
-    private  UserAccountQueries userAccountQueries;
+    private ServiceCategoryService serviceCategoryService;
+    private ServiceService serviceService;
+    private UserAccountService userAccountService;
 
 
-    public AddServicePageController(ServiceCategoryQueries serviceCategoryQueries, ServiceQueries serviceQueries, UserAccountQueries userAccountQueries) {
-        this.serviceCategoryQueries = serviceCategoryQueries;
-        this.serviceQueries = serviceQueries;
-        this.userAccountQueries = userAccountQueries;
+    public AddServicePageController(ServiceCategoryService serviceCategoryService, ServiceService serviceService, UserAccountService userAccountService) {
+        this.serviceCategoryService = serviceCategoryService;
+        this.serviceService = serviceService;
+        this.userAccountService = userAccountService;
     }
 
     @Override
@@ -36,7 +36,7 @@ public class AddServicePageController extends HttpServlet {
         TemplateEngine engine = TemplateEngineUtil.getTemplateEngine(request.getServletContext());
         WebContext context = new WebContext(request, response, request.getServletContext());
 
-        List<ServiceCategory> serviceCategories = serviceCategoryQueries.getServiceCategories();
+        List<ServiceCategory> serviceCategories = serviceCategoryService.getServiceCategories();
         context.setVariable("serviceCategories", serviceCategories);
         engine.process("addService.html", context, response.getWriter());
     }
@@ -51,14 +51,14 @@ public class AddServicePageController extends HttpServlet {
         int userId = (Integer) session.getAttribute("userId");
         int serviceCategoryId = Integer.valueOf(request.getParameter("serviceCategoryId"));
 
-        UserAccount userAccount = userAccountQueries.getUserAccountById(userId);
-        ServiceCategory serviceCategory = serviceCategoryQueries.getServiceCategoryById(serviceCategoryId);
+        UserAccount userAccount = userAccountService.getUserAccountById(userId);
+        ServiceCategory serviceCategory = serviceCategoryService.getServiceCategoryById(serviceCategoryId);
 
         response.sendRedirect("/profile");
 
         Service service = new Service(serviceName, description, price);
         service.setUserAccount(userAccount);
         service.setServiceCategory(serviceCategory);
-        serviceQueries.saveService(service);
+        serviceService.saveService(service);
     }
 }

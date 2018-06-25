@@ -1,4 +1,4 @@
-package com.codecool.labourent.dbConnection;
+package com.codecool.labourent.service;
 
 import com.codecool.labourent.controllers.ProfilePageController;
 import com.codecool.labourent.model.Gender;
@@ -16,16 +16,16 @@ import java.util.Date;
 import static org.junit.jupiter.api.Assertions.*;
 
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
-class ProfilePageQueriesTest {
+class UserDetailServiceTest {
     private EntityManager entityManager;
-    private ProfilePageQueries profilePageQueries;
+    private UserDetailService userDetailService;
     private UserDetail userDetail1;
     private UserDetail userDetail2;
 
     @BeforeAll
     void setUp() {
         entityManager = Persistence.createEntityManagerFactory("labourentPUTest").createEntityManager();
-        profilePageQueries = new ProfilePageQueries(entityManager);
+        userDetailService = new UserDetailService(entityManager);
 
         initDBWithAUser();
     }
@@ -39,7 +39,7 @@ class ProfilePageQueriesTest {
                 dateOfBirth, Gender.valueOf("MALE"), "hi", userAccount2);
         userDetail2.setImgUrl("/");
 
-        profilePageQueries.putUserAccountInDb(userDetail2);
+        userDetailService.putUserAccountInDb(userDetail2);
 
         UserDetail result = entityManager.find(UserDetail.class, userId);
         assertEquals(userDetail2, result);
@@ -48,7 +48,7 @@ class ProfilePageQueriesTest {
     @Test
     void testGetUserById() {
         int otherUserId = 1;
-        UserDetail resultUserDetail = profilePageQueries.getUserDetailById(otherUserId);
+        UserDetail resultUserDetail = userDetailService.getUserDetailById(otherUserId);
         assertEquals(userDetail1, resultUserDetail);
     }
 
@@ -56,7 +56,7 @@ class ProfilePageQueriesTest {
     void testGetUserByIdException() {
         int otherUserId = 3;
         assertThrows(NoResultException.class, ()->{
-            profilePageQueries.getUserDetailById(otherUserId); });
+            userDetailService.getUserDetailById(otherUserId); });
     }
 
     @Test
@@ -65,8 +65,8 @@ class ProfilePageQueriesTest {
         String expected = "Visegrád";
 
         userDetail1.setCity(expected);
-        profilePageQueries.updateAccountById(testUserId, userDetail1);
-        String result = profilePageQueries.getUserDetailById(testUserId).getCity();
+        userDetailService.updateAccountById(testUserId, userDetail1);
+        String result = userDetailService.getUserDetailById(testUserId).getCity();
 
         assertEquals(expected, result);
     }
@@ -74,13 +74,13 @@ class ProfilePageQueriesTest {
     @Test
     void testIsExistUserAccount() {
         int testUserId = 1;
-        assertTrue(profilePageQueries.isUserAccountExist(testUserId));
+        assertTrue(userDetailService.isUserAccountExist(testUserId));
     }
 
     @Test
     void testIsNotExistUserAccount() {
         int testUserId = 3;
-        assertFalse(profilePageQueries.isUserAccountExist(testUserId));
+        assertFalse(userDetailService.isUserAccountExist(testUserId));
     }
 
     @AfterAll

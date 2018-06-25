@@ -1,8 +1,8 @@
 package com.codecool.labourent.controllers;
 
 import com.codecool.labourent.config.TemplateEngineUtil;
-import com.codecool.labourent.dbConnection.ProfilePageQueries;
-import com.codecool.labourent.dbConnection.UserAccountQueries;
+import com.codecool.labourent.service.UserAccountService;
+import com.codecool.labourent.service.UserDetailService;
 import com.codecool.labourent.model.Gender;
 import com.codecool.labourent.model.UserAccount;
 import com.codecool.labourent.model.UserDetail;
@@ -25,12 +25,12 @@ import java.util.stream.Stream;
 
 public class ProfilePageController extends HttpServlet {
 
-    private ProfilePageQueries profilePageQueries;
-    private UserAccountQueries userAccountQueries;
+    private UserDetailService userDetailService;
+    private UserAccountService userAccountService;
 
-    public ProfilePageController(ProfilePageQueries profilePageQueries, UserAccountQueries userAccountQueries) {
-        this.profilePageQueries = profilePageQueries;
-        this.userAccountQueries = userAccountQueries;
+    public ProfilePageController(UserDetailService userDetailService, UserAccountService userAccountService) {
+        this.userDetailService = userDetailService;
+        this.userAccountService = userAccountService;
     }
     
     @Override
@@ -56,10 +56,10 @@ public class ProfilePageController extends HttpServlet {
         int userId = (Integer) session.getAttribute("userId");
 
         UserDetail userDetail = createUserDetail(request, userId);
-        if (profilePageQueries.isUserAccountExist(userId)) {
-            profilePageQueries.updateAccountById(userId, userDetail);
+        if (userDetailService.isUserAccountExist(userId)) {
+            userDetailService.updateAccountById(userId, userDetail);
         } else {
-            profilePageQueries.putUserAccountInDb(userDetail);
+            userDetailService.putUserAccountInDb(userDetail);
         }
 
         response.sendRedirect("/profile");
@@ -79,7 +79,7 @@ public class ProfilePageController extends HttpServlet {
 
         Date parsedBirthDate = getFormatDate(birthDate);
 
-        UserAccount userAccount = userAccountQueries.getUserAccountById(userId);
+        UserAccount userAccount = userAccountService.getUserAccountById(userId);
         UserDetail userDetail = new UserDetail(firstName, lastName, phoneNumber, city,
                 parsedBirthDate, genderEnum, intro, userAccount);
         userDetail.setImgUrl(imgUrl);
@@ -100,7 +100,7 @@ public class ProfilePageController extends HttpServlet {
 
     private UserDetail requestUserDetails(int userId, UserDetail userDetails) {
         try {
-            userDetails = profilePageQueries.getUserDetailById(userId);
+            userDetails = userDetailService.getUserDetailById(userId);
         } catch (NoResultException e) {
             System.err.println("No user's details are found by the given user id!");
         }

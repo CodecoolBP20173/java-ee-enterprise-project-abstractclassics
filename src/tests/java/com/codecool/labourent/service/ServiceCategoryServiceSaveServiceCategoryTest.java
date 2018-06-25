@@ -1,4 +1,4 @@
-package com.codecool.labourent.dbConnection;
+package com.codecool.labourent.service;
 
 import com.codecool.labourent.model.ServiceCategory;
 import org.junit.jupiter.api.BeforeAll;
@@ -13,9 +13,9 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.*;
 
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
-class ServiceCategoryQueriesSaveServiceCategoryTest {
+class ServiceCategoryServiceSaveServiceCategoryTest {
     private EntityManager entityManager;
-    private ServiceCategoryQueries serviceCategoryQueries;
+    private ServiceCategoryService serviceCategoryService;
     private ServiceCategory serviceCategoryToSave1;
     private ServiceCategory serviceCategoryToSave2;
     private String getServiceCategoriesQuery;
@@ -23,13 +23,13 @@ class ServiceCategoryQueriesSaveServiceCategoryTest {
     @BeforeAll
     void setUp() {
         entityManager = Persistence.createEntityManagerFactory("labourentPUTest").createEntityManager();
-        serviceCategoryQueries = new ServiceCategoryQueries(entityManager);
+        serviceCategoryService = new ServiceCategoryService(entityManager);
         serviceCategoryToSave1 = new ServiceCategory("SC", "This is a service category.");
         serviceCategoryToSave2 = new ServiceCategory("SC2", "This is another service category.");
         getServiceCategoriesQuery = "SELECT s FROM ServiceCategory s";
 
-        serviceCategoryQueries.saveServiceCategory(serviceCategoryToSave1);
-        serviceCategoryQueries.saveServiceCategory(serviceCategoryToSave2);
+        serviceCategoryService.saveServiceCategory(serviceCategoryToSave1);
+        serviceCategoryService.saveServiceCategory(serviceCategoryToSave2);
     }
 
     @Test
