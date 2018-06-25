@@ -1,3 +1,9 @@
+.wrapper{
+    position: absolute;
+    width: 100%;
+    height: auto;
+    top: 10%;
+}
 .container {
     display: grid;
     grid-template-columns: 1fr 3fr 1fr;
@@ -24,7 +30,7 @@ textarea {
     position: relative;
     top: 10px;
 }
-.logo{
-    width: 100%;
+.complogo{
+    width: 80%;
     height: auto;
 }
