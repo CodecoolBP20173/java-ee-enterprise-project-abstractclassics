@@ -9,12 +9,12 @@
     border: none;
     color: #FFFFFF;
     text-align: center;
-    font-size: 28px;
-    padding: 20px;
-    width: 200px;
+    font-size: 1.5vw;
+    padding: 2%;
+    width: 20%;
     transition: all 0.5s;
     cursor: pointer;
-    margin: 5px;
+    margin: 1%;
     z-index: 3;
 }
 
@@ -26,21 +26,21 @@
 }
 
 .back_to_deatils_button span:after {
-    content: '\00bb';
+    content: '\00ab';
     position: absolute;
     opacity: 0;
     top: 0;
-    right: -20px;
+    left: -20px;
     transition: 0.5s;
 }
 
 .back_to_deatils_button:hover span {
-    padding-right: 25px;
+    padding-left: 25px;
 }
 
 .back_to_deatils_button:hover span:after {
     opacity: 1;
-    right: 0;
+    left: 0;
 }
 
 .contact_button {
@@ -53,12 +53,12 @@
     border: none;
     color: #FFFFFF;
     text-align: center;
-    font-size: 28px;
-    padding: 20px;
-    width: 200px;
+    font-size: 1.5vw;
+    padding: 2%;
+    width: 20%;
     transition: all 0.5s;
     cursor: pointer;
-    margin: 5px;
+    margin: 1%;
     z-index: 3;
 }
 
@@ -86,10 +86,53 @@
     opacity: 1;
     right: 0;
 }
+
+/*aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa*/
 .back_button {
     position: absolute;
     left: 0;
     bottom: 0;
+    display: inline-block;
+    border-radius: 4px;
+    background-color: #f4511e;
+    border: none;
+    color: #FFFFFF;
+    text-align: center;
+    font-size: 1.5vw;
+    padding: 2%;
+    width: 20%;
+    transition: all 0.5s;
+    cursor: pointer;
+    margin: 1%;
+    z-index: 3;
+}
+
+.back_button span {
+    cursor: pointer;
+    display: inline-block;
+    position: relative;
+    transition: 0.5s;
+}
+
+.back_button span:after {
+    content: '\00ab';
+    position: absolute;
+    opacity: 0;
+    top: 0;
+    left: -20px;
+    transition: 0.5s;
+}
+
+.back_button:hover span {
+    padding-left: 25px;
+}
+
+.back_button:hover span:after {
+    opacity: 1;
+    left: 0;
+}
+
+.button {
     display: inline-block;
     border-radius: 4px;
     background-color: #f4511e;
@@ -102,33 +145,34 @@
     transition: all 0.5s;
     cursor: pointer;
     margin: 5px;
-    z-index: 3;
 }
 
-.back_button span {
+.button span {
     cursor: pointer;
     display: inline-block;
     position: relative;
     transition: 0.5s;
 }
 
-.back_button span:after {
-    content: '\00bb';
+.button span:after {
+    content: '\00ab';
     position: absolute;
     opacity: 0;
     top: 0;
-    right: -20px;
+    left: -20px;
     transition: 0.5s;
 }
 
-.back_button:hover span {
-    padding-right: 25px;
+.button:hover span {
+    padding-left: 25px;
 }
 
-.back_button:hover span:after {
+.button:hover span:after {
     opacity: 1;
-    right: 0;
+    left: 0;
 }
+
+/*aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa*/
 .scene {
     -webkit-transition: 1s;
     -webkit-transform:rotateX(0deg) rotateY(0deg);
@@ -151,30 +195,30 @@
 .con1{
     position: relative;
     width: 100%;
-    height: 200px;
+    height: 10vw;
     -webkit-transition:1s;
     transition-delay: 0.5s;
 }
 .con1_turn {
-    height: 500px;
+    height: 30vw;
     -webkit-transition: 1s;
 }
 
 
 #tridiv {
-    perspective: 800px;
+    perspective: 50vw;
     position: absolute;
     overflow: hidden;
     width: 100%;
     height: 100%;
     background: transparent;
-    font-size: 108%              /*1.91vh;*/
+    font-size: 0.94vw              /*1.91vh;*/
 }
 
 
 
 .face {
-    box-shadow: inset 0 0 0 2px rgb(0, 0, 0);
+    box-shadow: inset 0 0 0 0.1vw rgb(0, 0, 0);
 }
 .scene, .shape, .face, .face-wrapper, .cr {
     position: absolute;
@@ -326,15 +370,20 @@
     display: grid;
     grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
     margin-bottom: 2ch;
-
+    width: 93%;
+    margin-left: auto;
+    margin-right: auto;
 
 }
 
 
+.item {
+     padding: 0.3vw;
+}
 
 .item, .sort_button {
     text-align: center;
-    padding: 10px;
+
 
 }
 
@@ -398,6 +447,7 @@
 
 #profileImage {
     transition: transform .5s;
+    height: 6vw;
 
 }
 #profileImage:hover {
