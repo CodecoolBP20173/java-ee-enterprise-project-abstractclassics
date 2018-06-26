@@ -4,14 +4,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Registration</title>
-    <link th:replace="fragments/navBar.html :: topnavcss">
+    <link th:replace="fragments/navBar :: topnavcss">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.0/css/all.css" integrity="sha384-lKuwvrZot6UHsBSfcMvOkWwlCMgc0TaWr+30HWe3a4ltaBwTZhyTEggF5tJv8tbt" crossorigin="anonymous">
     <script src="/static/script/registration.js" defer></script>
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
     <script src="/static/script/navbar.js" defer></script>
 </head>
 <body>
-<div th:replace="fragments/navBar.html :: topnav"></div>
+<div th:replace="fragments/navBar :: topnav"></div>
     <h1>Registration</h1>
     <p>Please fill in this form to create an account.</p>
     <form method="post">
@@ -29,11 +29,11 @@
 
         <button type="submit">Register</button>
 
-        <p th:if="${#request.getParameter('taken') != null && #request.getParameter('taken').equals('email')}">
+        <p th:if="${#httpServletRequest.getParameter('taken') != null && #httpServletRequest.getParameter('taken').equals('email')}">
             Your email is already taken. Please use a different email for the registration.
         </p>
 
-        <p th:if="${#request.getParameter('taken') != null && #request.getParameter('taken').equals('username')}">
+        <p th:if="${#httpServletRequest.getParameter('taken') != null && #httpServletRequest.getParameter('taken').equals('username')}">
             Your username is already taken. Please use a different username for the registration.
         </p>
     </form>

@@ -1,20 +1,15 @@
 /*
 package com.codecool.labourent.controllers;
 
-
-import com.codecool.labourent.config.TemplateEngineUtil;
-import com.codecool.labourent.service.UserAccountService;
 import com.codecool.labourent.model.UserAccount;
+import com.codecool.labourent.service.UserAccountService;
 import org.mindrot.jbcrypt.BCrypt;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.thymeleaf.TemplateEngine;
-import org.thymeleaf.context.WebContext;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.context.request.WebRequest;
 
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 
@@ -24,31 +19,29 @@ public class RegistrationPageController {
     @Autowired
     private UserAccountService userAccountService;
 
-    @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        TemplateEngine engine = TemplateEngineUtil.getTemplateEngine(request.getServletContext());
-        WebContext context = new WebContext(request, response, request.getServletContext());
-        engine.process("registration.html", context, response.getWriter());
+    @RequestMapping(value = "/registration", method = RequestMethod.GET)
+    public String showRegistrationForm() {
+        return "registration";
     }
 
-    @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse servletResponse) throws ServletException, IOException {
+    @RequestMapping(value = "/registration", method = RequestMethod.POST)
+    public String registerUserAccount(WebRequest request) throws IOException {
         String userName = request.getParameter("username");
         String email = request.getParameter("email");
         String password = hashPassword(request.getParameter("password"));
 
-        handleRegistration(servletResponse, userName, email, password);
+        return handleRegistration(userName, email, password);
     }
 
-    private void handleRegistration(HttpServletResponse servletResponse, String userName, String email, String password) throws IOException {
+    private String handleRegistration(String userName, String email, String password) throws IOException {
         if (userAccountService.emailIsTaken(email)) {
-            servletResponse.sendRedirect("/registration?taken=email");
+            return "redirect:" + "/registration?taken=email";
         } else if (userAccountService.userNameIsTaken(userName)) {
-            servletResponse.sendRedirect("/registration?taken=username");
+            return "redirect:" + "/registration?taken=username";
         } else {
-            servletResponse.sendRedirect("/login");
             UserAccount userAccount = new UserAccount(userName, email, password);
             userAccountService.saveUserAccount(userAccount);
+            return "redirect:" + "/login";
         }
     }
 
