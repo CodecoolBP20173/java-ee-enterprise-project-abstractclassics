@@ -1,20 +1,20 @@
 package com.codecool.labourent.controllers;
 
+import com.codecool.labourent.model.*;
 import com.codecool.labourent.service.ServiceCategoryService;
 import com.codecool.labourent.service.ServiceService;
 import com.codecool.labourent.service.UserAccountService;
-import com.codecool.labourent.model.Service;
-import com.codecool.labourent.model.ServiceCategory;
-import com.codecool.labourent.model.UserAccount;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.thymeleaf.TemplateEngine;
 import org.thymeleaf.context.WebContext;
 
 import java.io.IOException;
+import java.util.Date;
 import java.util.List;
 
 @Controller
@@ -31,7 +31,7 @@ public class AddServicePageController {
 
 
     @RequestMapping(value = "/add-service", method = RequestMethod.GET)
-    public String profilePageView(Model model) {
+    public String servicePageView(Model model) {
         List<ServiceCategory> serviceCategories = serviceCategoryService.getServiceCategories();
         model.addAttribute("serviceCategories", serviceCategories);
         return "addService";
@@ -46,6 +46,23 @@ public class AddServicePageController {
         engine.process("addService.html", context, response.getWriter());
     }*/
 
+    @RequestMapping(value = "/add-service", method = RequestMethod.POST)
+    public String servicePagePostView(@RequestParam("name") String name, @RequestParam("description") String description,
+                                      @RequestParam("price") Double price,
+                                      @RequestParam("serviceCategoryId") int serviceCategoryId) {
+
+        //int userId = (Integer) session.getAttribute("userId");
+        int userId = 1;
+        UserAccount userAccount = userAccountService.getUserAccountById(userId);
+        ServiceCategory serviceCategory = serviceCategoryService.getServiceCategoryById(serviceCategoryId);
+
+        Service service = new Service(name, description, price);
+        service.setUserAccount(userAccount);
+        service.setServiceCategory(serviceCategory);
+        serviceService.saveService(service);
+
+        return "redirect:profile";
+    }
     /*@Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         HttpSession session = request.getSession();

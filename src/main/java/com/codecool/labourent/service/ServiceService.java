@@ -44,4 +44,8 @@ public class ServiceService {
         }
         return serviceRepository.findAllByOrderByIdAsc();
     }
+
+    public void saveService(Service service) {
+        serviceRepository.save(service);
+    }
 }
