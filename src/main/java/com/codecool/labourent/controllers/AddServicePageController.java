@@ -1,3 +1,4 @@
+/*
 package com.codecool.labourent.controllers;
 
 import com.codecool.labourent.config.TemplateEngineUtil;
@@ -65,3 +66,4 @@ public class AddServicePageController {
         serviceService.saveService(service);
     }
 }
+*/

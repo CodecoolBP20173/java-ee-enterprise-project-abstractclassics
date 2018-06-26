@@ -1,3 +1,4 @@
+/*
 package com.codecool.labourent.controllers;
 
 import com.codecool.labourent.config.TemplateEngineUtil;
@@ -107,3 +108,4 @@ public class ProfilePageController {
         return userDetails;
     }
 }
+*/

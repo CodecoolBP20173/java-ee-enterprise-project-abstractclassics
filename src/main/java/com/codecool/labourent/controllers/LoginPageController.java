@@ -1,3 +1,4 @@
+/*
 package com.codecool.labourent.controllers;
 
 import com.codecool.labourent.config.TemplateEngineUtil;
@@ -60,3 +61,4 @@ public class LoginPageController {
         return BCrypt.checkpw(plainTextPassword, hashedPassword);
     }
 }
+*/

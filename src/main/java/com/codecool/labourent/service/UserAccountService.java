@@ -1,3 +1,4 @@
+/*
 package com.codecool.labourent.service;
 
 import com.codecool.labourent.model.UserAccount;
@@ -53,3 +54,4 @@ public class UserAccountService {
         return entityManager.find(UserAccount.class, id);
     }
 }
+*/

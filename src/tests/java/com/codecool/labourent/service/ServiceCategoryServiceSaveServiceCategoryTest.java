@@ -1,3 +1,4 @@
+/*
 package com.codecool.labourent.service;
 
 import com.codecool.labourent.model.ServiceCategory;
@@ -44,4 +45,4 @@ class ServiceCategoryServiceSaveServiceCategoryTest {
         assertEquals("SC2", serviceCategoryFromDB.getName());
         assertEquals("This is another service category.", serviceCategoryFromDB.getDescription());
     }
-}
+}*/

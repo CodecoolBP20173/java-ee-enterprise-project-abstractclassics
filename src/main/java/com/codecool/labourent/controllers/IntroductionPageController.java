@@ -1,3 +1,4 @@
+/*
 package com.codecool.labourent.controllers;
 
 import com.codecool.labourent.config.TemplateEngineUtil;
@@ -26,3 +27,4 @@ public class IntroductionPageController {
         engine.process("introduction.html", context, resp.getWriter());
     }
 }
+*/
