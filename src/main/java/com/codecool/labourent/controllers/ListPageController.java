@@ -1,6 +1,5 @@
 package com.codecool.labourent.controllers;
 
-import com.codecool.labourent.config.TemplateEngineUtil;
 import com.codecool.labourent.service.UserDetailService;
 import com.codecool.labourent.service.ServiceCategoryService;
 import com.codecool.labourent.service.ServiceService;
@@ -9,6 +8,11 @@ import com.codecool.labourent.model.ServiceCategory;
 import com.codecool.labourent.model.UserDetail;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.thymeleaf.TemplateEngine;
 import org.thymeleaf.context.WebContext;
 
@@ -32,58 +36,61 @@ public class ListPageController {
     private UserDetailService userDetailService;
 
 
-    @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
-        TemplateEngine engine = TemplateEngineUtil.getTemplateEngine(req.getServletContext());
-        WebContext context = new WebContext(req, resp, req.getServletContext());
-
+    @RequestMapping(value = "/list", method = RequestMethod.GET)
+    public String listServices(Model model, HttpServletRequest request,
+                               @RequestParam(value = "column", required=false) String columnName,
+                               @RequestParam(value = "sort", required=false) String sortDirection,
+                               @RequestParam(value = "categoryId", required=false) String categoryId) {
+        String queryString = request.getQueryString();
+        System.out.println(columnName);
         List<ServiceCategory> serviceCategories = serviceCategoryService.getServiceCategories();
-        context.setVariable("serviceCategories", serviceCategories);
-
-        origanizeTable(req, context);
-        engine.process("listPage.html", context, resp.getWriter());
-    }
-
-    private void origanizeTable(HttpServletRequest req, WebContext context) {
-        String queryString = req.getQueryString();
-        if (queryString != null){
-            String columnName = req.getParameter("column");
-            String sortDirection = req.getParameter("sort");
-            String categoryId = req.getParameter("categoryId");
-            context.setVariable("categoryId", categoryId);
-            filterSortTable(req, context, columnName, sortDirection);
-            switchSortDirection(sortDirection, context);
-
+        model.addAttribute("serviceCategories", serviceCategories);
+        if (queryString == null){
+            organizeTable(model);
         } else {
-            List<Service> services = serviceService.getAllRecordsFromTable("id", "asc");
-            List<UserDetail> userDetailList = getUserDetailsList(services);
-            context.setVariable("services", services);
-            context.setVariable("sortDirection", "asc");
-            context.setVariable("categoryId", "all");
-            context.setVariable("userDetailsList", userDetailList);
+            organizeTable(columnName, sortDirection, categoryId, model);
         }
+        return "listPage";
     }
 
-    private void switchSortDirection(String direction, WebContext context) {
+    private void organizeTable(String columnName,
+                               String sortDirection,
+                               String categoryId,
+                               Model model) {
+            model.addAttribute("categoryId", categoryId);
+            filterSortTable(columnName, sortDirection, categoryId, model);
+            switchSortDirection(sortDirection, model);
+    }
+
+    private void organizeTable(Model model) {
+        List<Service> services = serviceService.getAllRecordsFromTable("id", "asc");
+        List<UserDetail> userDetailList = getUserDetailsList(services);
+        model.addAttribute("services", services);
+        model.addAttribute("sortDirection", "asc");
+        model.addAttribute("categoryId", "all");
+        model.addAttribute("userDetailsList", userDetailList);
+    }
+
+    private void switchSortDirection(String direction, Model model) {
 
         if (direction.equals("asc")){
-            context.setVariable("sortDirection", "desc");
+           model.addAttribute("sortDirection", "desc");
         } else {
-            context.setVariable("sortDirection", "asc");
+            model.addAttribute("sortDirection", "asc");
         }
     }
 
-    private void filterSortTable(HttpServletRequest req, WebContext context, String columnName, String sortDirection) {
-        if (!req.getParameter("categoryId").equals("all")) {
-            int categoryId = Integer.parseInt(req.getParameter("categoryId"));
-            List<Service> services = serviceService.getFilteredRecordsFromTable(columnName, sortDirection, categoryId); //Todo
-            context.setVariable("services", services);
-            context.setVariable("userDetailsList", getUserDetailsList(services));
+    private void filterSortTable(String columnName, String sortDirection, String categoryId, Model model) {
+        if (!categoryId.equals("all")) {
+            int categoryIdint = Integer.parseInt(categoryId);
+            List<Service> services = serviceService.getFilteredRecordsFromTable(columnName, sortDirection, categoryIdint);
+            model.addAttribute("services", services);
+            model.addAttribute("userDetailsList", getUserDetailsList(services));
         }
         else {
             List<Service> services = serviceService.getAllRecordsFromTable(columnName, sortDirection);
-            context.setVariable("services", serviceService.getAllRecordsFromTable(columnName, sortDirection));  //Todo
-            context.setVariable("userDetailsList", getUserDetailsList(services));
+            model.addAttribute("services", serviceService.getAllRecordsFromTable(columnName, sortDirection));
+            model.addAttribute("userDetailsList", getUserDetailsList(services));
         }
     }
 
@@ -95,8 +102,5 @@ public class ListPageController {
             userDetailsList.add(userDetail);
         }
         return userDetailsList;
-
     }
-
-
 }
