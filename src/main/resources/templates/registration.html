@@ -29,11 +29,11 @@
 
         <button type="submit">Register</button>
 
-        <p th:if="${#request.getParameter('taken') != null && #request.getParameter('taken').equals('email')}">
+        <p th:if="${#httpServletRequest.getParameter('taken') != null && #httpServletRequest.getParameter('taken').equals('email')}">
             Your email is already taken. Please use a different email for the registration.
         </p>
 
-        <p th:if="${#request.getParameter('taken') != null && #request.getParameter('taken').equals('username')}">
+        <p th:if="${#httpServletRequest.getParameter('taken') != null && #httpServletRequest.getParameter('taken').equals('username')}">
             Your username is already taken. Please use a different username for the registration.
         </p>
     </form>
