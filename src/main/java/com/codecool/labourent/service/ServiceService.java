@@ -3,9 +3,6 @@ package com.codecool.labourent.service;
 import com.codecool.labourent.model.Service;
 import com.codecool.labourent.repository.ServiceRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-
-import javax.persistence.EntityManager;
-import javax.persistence.EntityTransaction;
 import java.util.List;
 
 @org.springframework.stereotype.Service
@@ -14,68 +11,37 @@ public class ServiceService {
     @Autowired
     private ServiceRepository serviceRepository;
 
-    private List<String> columnNamesArray;
-
-    public ServiceService(EntityManager entityManager) {
-        this.entityManager = entityManager;
-    }
-
     public List<Service> getAllRecordsFromTable(String column, String ascOrDesc){
-        assignColumnNames(entityManager);
-        List<Service> serviceList;
-        serviceList = entityManager.createQuery(
-                            "SELECT allRecords " +
-                            "from Service allRecords " +
-                            "ORDER BY " + validateColumnName(column) + " " +
-                            validateSortDirection(ascOrDesc)).getResultList(); //Todo Trasnform this query for being able to sort it by another table
-        return serviceList;
+        if (column.equals("id") && ascOrDesc.equalsIgnoreCase("asc") ) {
+            return serviceRepository.findAllByOrderByIdAsc();
+        } else if (column.equals("name") && ascOrDesc.equalsIgnoreCase("asc")) {
+            return serviceRepository.findAllByOrderByNameAsc();
+        } else if (column.equals("price") && ascOrDesc.equalsIgnoreCase("asc")) {
+            return serviceRepository.findAllByOrderByPriceAsc();
+        } else if (column.equals("id") && ascOrDesc.equalsIgnoreCase("desc")) {
+            return serviceRepository.findAllByOrderByIdDesc();
+        } else if (column.equals("name") && ascOrDesc.equalsIgnoreCase("desc")) {
+            return serviceRepository.findAllByOrderByNameDesc();
+        } else if (column.equals("price") && ascOrDesc.equalsIgnoreCase("desc")) {
+            return serviceRepository.findAllByOrderByPriceDesc();
+        }
+        return serviceRepository.findAllByOrderByIdAsc();
     }
 
     public List<Service> getFilteredRecordsFromTable(String column, String ascOrDesc, int servicecategoryId){
-        assignColumnNames(entityManager);
-        List<Service> serviceList;
-        serviceList = entityManager.createQuery(
-                        "SELECT service " +
-                        "from Service  service " +
-                        "WHERE  service.serviceCategory.id = :servicecategoryId order by " +
-                        validateColumnName(column) + " " +
-                        validateSortDirection(ascOrDesc)).setParameter("servicecategoryId", servicecategoryId).getResultList();
-        return serviceList;
-    }
-
-    private String validateColumnName (String column){
-        if (columnNamesArray.contains(column.toLowerCase())) {
-            return column;
-        } else {
-           return "id";
+        if (column.equals("id") && ascOrDesc.equalsIgnoreCase("asc") ) {
+            return serviceRepository.findByServiceCategoryIdOrderByIdAsc(servicecategoryId);
+        } else if (column.equals("name") && ascOrDesc.equalsIgnoreCase("asc")) {
+            return serviceRepository.findByServiceCategoryIdOrderByNameAsc(servicecategoryId);
+        } else if (column.equals("price") && ascOrDesc.equalsIgnoreCase("asc")) {
+            return serviceRepository.findByServiceCategoryIdOrderByPriceAsc(servicecategoryId);
+        } else if (column.equals("id") && ascOrDesc.equalsIgnoreCase("desc")) {
+            return serviceRepository.findByServiceCategoryIdOrderByIdDesc(servicecategoryId);
+        } else if (column.equals("name") && ascOrDesc.equalsIgnoreCase("desc")) {
+            return serviceRepository.findByServiceCategoryIdOrderByNameDesc(servicecategoryId);
+        } else if (column.equals("price") && ascOrDesc.equalsIgnoreCase("desc")) {
+            return serviceRepository.findByServiceCategoryIdOrderByPriceDesc(servicecategoryId);
         }
-    }
-
-    private String validateSortDirection (String sortDirection){
-        if (sortDirection.equalsIgnoreCase("asc") | sortDirection.equalsIgnoreCase("desc")) {
-            return sortDirection;
-        } else {
-            return "asc";
-        }
-    }
-
-    private List<String> assignColumnNames(EntityManager em) {
-        if (columnNamesArray == null) {
-            columnNamesArray =  em.createNativeQuery (
-                                    "select column_name" +
-                                    " from information_schema.columns " +
-                                    "where table_name='service'"
-                                ).getResultList();
-            return columnNamesArray;
-        } else {
-            return columnNamesArray;
-        }
-    }
-
-    public void saveService(Service service) {
-        EntityTransaction transaction = entityManager.getTransaction();
-        transaction.begin();
-        entityManager.persist(service);
-        transaction.commit();
+        return serviceRepository.findAllByOrderByIdAsc();
     }
 }
