@@ -38,6 +38,7 @@ public class ProfilePageController {
 
     @RequestMapping(value = "/profile", method = RequestMethod.GET)
     public String profilePageView(Model model) {
+        //TODO: it not working for empty database
         //int userId = (Integer) session.getAttribute("userId");
         int userId = 1;
         String[] genders = Stream.of(Gender.values()).map(Gender::name).toArray(String[]::new);
@@ -49,6 +50,9 @@ public class ProfilePageController {
 
         return "profilePage";
     }
+
+
+
     
     /*@Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -67,6 +71,7 @@ public class ProfilePageController {
         engine.process("profilePage.html", context, response.getWriter());
     }*/
 
+
     @RequestMapping(value = "/profile", method = RequestMethod.POST)
     public String profilePagePostView(Model model, @RequestParam("firstname") String firstName, @RequestParam("lastname") String lastName,
                                       @RequestParam("phonenumber") String phoneNumber, @RequestParam("city") String city,
@@ -84,10 +89,17 @@ public class ProfilePageController {
                 parsedBirthDate, genderEnum, introTextarea, userAccount);
         userDetail.setImgUrl(imageInput);
 
-        //TODO: here the userdetail has already saved
-        userDetailService.saveUserDetail(userDetail);
+        //userDetailService.saveUserDetail(userDetail);
+        if (userDetailService.isUserAccountExist(userId)) {
+            userDetailService.updateAccountById(userId, userDetail);
+        } else {
+            userDetailService.putUserAccountInDb(userDetail);
+        }
 
+
+        return "redirect:profile";
     }
+
     /*
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
