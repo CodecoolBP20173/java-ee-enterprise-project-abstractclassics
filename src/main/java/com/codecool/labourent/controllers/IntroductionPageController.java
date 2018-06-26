@@ -1,4 +1,3 @@
-/*
 package com.codecool.labourent.controllers;
 
 import org.springframework.stereotype.Controller;
@@ -14,4 +13,3 @@ public class IntroductionPageController {
         return "introduction";
     }
 }
-*/
