@@ -8,7 +8,7 @@ import java.time.ZoneId;
 import java.util.Calendar;
 import java.util.Date;
 
-@Entity
+@Entity(name="userdetail")
 public class UserDetail {
     @Id
     private int id;

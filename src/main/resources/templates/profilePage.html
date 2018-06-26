@@ -4,17 +4,17 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>User's details</title>
-    <link rel="stylesheet" type="text/css" href="/static/css/profile.css" media="screen"/>
-    <link th:replace="fragments/navBar.html :: topnavcss">
+    <link rel="stylesheet" type="text/css" href="css/profile.css" media="screen"/>
+    <link th:replace="fragments/navBar :: topnavcss">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.0/css/all.css" integrity="sha384-lKuwvrZot6UHsBSfcMvOkWwlCMgc0TaWr+30HWe3a4ltaBwTZhyTEggF5tJv8tbt" crossorigin="anonymous">
 
     <script src="https://maps.googleapis.com/maps/api/js?sensor=false&libraries=places&language=en" defer></script>
-    <script src="/static/script/userLocationAutoComplete.js" defer></script>
+    <script src="script/userLocationAutoComplete.js" defer></script>
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-    <script src="/static/script/navbar.js" defer></script>
+    <script src="script/navbar.js" defer></script>
 </head>
 <body>
-<div th:replace="fragments/navBar.html :: topnav"></div>
+<div th:replace="fragments/navBar :: topnav"></div>
 
 <div class="wrapper">
     <form action="/profile" method="post">
@@ -71,7 +71,7 @@
                 <button class="addService" onclick="location.href='/add-service';return false;"  >Add New Service</button>
             </div>
             <div class="thirdColumn">
-                <img class="complogo" src="/static/img/logo.png">
+                <img class="complogo" src="img/logo.png">
             </div>
         </div>
     </form>
