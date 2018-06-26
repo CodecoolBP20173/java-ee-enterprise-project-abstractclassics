@@ -89,7 +89,6 @@ public class ProfilePageController {
                 parsedBirthDate, genderEnum, introTextarea, userAccount);
         userDetail.setImgUrl(imageInput);
 
-        //userDetailService.saveUserDetail(userDetail);
         if (userDetailService.isUserAccountExist(userId)) {
             userDetailService.updateAccountById(userId, userDetail);
         } else {
@@ -99,56 +98,6 @@ public class ProfilePageController {
 
         return "redirect:profile";
     }
-
-    /*
-    @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        HttpSession session = request.getSession();
-        int userId = (Integer) session.getAttribute("userId");
-
-        UserDetail userDetail = createUserDetail(request, userId);
-        if (userDetailService.isUserAccountExist(userId)) {
-            userDetailService.updateAccountById(userId, userDetail);
-        } else {
-            userDetailService.putUserAccountInDb(userDetail);
-        }
-
-        response.sendRedirect("/profile");
-    }*/
-
-
-
-    /*private UserDetail createUserDetail(HttpServletRequest request, int userId) {
-        String firstName = request.getParameter("firstname");
-        String lastName = request.getParameter("lastname");
-        String phoneNumber = request.getParameter("phonenumber");
-        String city = request.getParameter("city");
-        String gender = request.getParameter("radioGender");
-        Gender genderEnum = Gender.valueOf(gender);
-        String imgUrl = request.getParameter("imageInput");
-        String intro = request.getParameter("introTextarea");
-
-        String birthDate = request.getParameter("birthday");
-
-        Date parsedBirthDate = getFormatDate(birthDate);
-
-        UserAccount userAccount = userAccountService.getUserAccountById(userId);
-        UserDetail userDetail = new UserDetail(firstName, lastName, phoneNumber, city,
-                parsedBirthDate, genderEnum, intro, userAccount);
-        userDetail.setImgUrl(imgUrl);
-        return userDetail;
-    }
-
-
-
-    private UserDetail requestUserDetails(int userId, UserDetail userDetails) {
-        try {
-            userDetails = userDetailService.getUserDetailById(userId);
-        } catch (NoResultException e) {
-            System.err.println("No user's details are found by the given user id!");
-        }
-        return userDetails;
-    }*/
 
     public static Date getFormatDate(String birthDate) {
         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
