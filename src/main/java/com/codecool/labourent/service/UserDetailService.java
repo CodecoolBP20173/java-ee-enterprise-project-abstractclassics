@@ -1,52 +1,46 @@
 package com.codecool.labourent.service;
 
 import com.codecool.labourent.model.UserDetail;
-import com.codecool.labourent.repository.UserAccountRepository;
 import com.codecool.labourent.repository.UserDetailRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import javax.persistence.EntityManager;
-import javax.persistence.EntityTransaction;
 import javax.persistence.NoResultException;
 
 
 /**
  * This class contains the queries which work on the userdetail relation.
  */
+
 @Service
 public class UserDetailService {
 
     @Autowired
     private UserDetailRepository userDetailRepository;
 
-    public UserDetailService(EntityManager entityManager) {
-        this.entityManager = entityManager;
-    }
 
-    /**
+/**
      * It gives back a UserDetail instance, if the user has already created a profile. If not, it returns a default instance.
      *
      * @param userId: int
      * @return UserDetail instance
      * @Exeption NoResultException: It throws when user can't be found in the database.
      */
-    public UserDetail getUserDetailById(int userId) throws NoResultException {
-        UserDetail userDetail = entityManager.find(UserDetail.class, userId);
 
+    public UserDetail getUserDetailById(int userId) throws NoResultException {
+
+        UserDetail userDetail = userDetailRepository.findUserDetailByUserAccountId(userId);
         if (userDetail == null) throw new NoResultException();
         return userDetail;
     }
 
-    /**
+/**
      * It updates the user profile in the user detail table.
      * @param userId
      * @param userDetail
      */
+
     public void updateAccountById(int userId, UserDetail userDetail) {
 
-        EntityTransaction transaction = entityManager.getTransaction();
-        transaction.begin();
         UserDetail userDetailFromDB = getUserDetailById(userId);
         userDetailFromDB.setFirstName(userDetail.getFirstName());
         userDetailFromDB.setLastName(userDetail.getLastName());
@@ -56,26 +50,28 @@ public class UserDetailService {
         userDetailFromDB.setGender(userDetail.getGender());
         userDetailFromDB.setIntroductionText(userDetail.getIntroductionText());
         userDetailFromDB.setImgUrl(userDetail.getImgUrl());
-        transaction.commit();
+        userDetailRepository.save(userDetailFromDB);
+
+
     }
 
-    /**
+/*
+*
      * It puts the new user profile in the userdetail table.
      * @param userDetail
-     */
-    public void putUserAccountInDb(UserDetail userDetail) {
+*/
 
-        EntityTransaction transaction = entityManager.getTransaction();
-        transaction.begin();
-        entityManager.persist(userDetail);
-        transaction.commit();
+
+    public void putUserAccountInDb(UserDetail userDetail) {
+        userDetailRepository.save(userDetail);
     }
 
-    /**
+/**
      * It checks if the user profile exsists.
      * @param userId
      * @return boolean
      */
+
     public boolean isUserAccountExist(int userId) {
         try {
             getUserDetailById(userId);
