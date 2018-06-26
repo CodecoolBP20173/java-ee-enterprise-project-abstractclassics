@@ -6,7 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import javax.persistence.NoResultException;
 
-
 /**
  * This class contains the queries which work on the userdetail relation.
  */

@@ -11,7 +11,7 @@ public class UserAccountService {
     @Autowired
     private UserAccountRepository userAccountRepository;
 
-    public void saveUserAccount(UserAccount userAccount) {
+    /*public void saveUserAccount(UserAccount userAccount) {
         userAccountRepository.save(userAccount);
     }
 
@@ -26,7 +26,7 @@ public class UserAccountService {
     public UserAccount getUserAccountByEmail(String email) {
         return userAccountRepository.findByEmail(email);
     }
-
+*/
     public UserAccount getUserAccountById(int id) {
         return userAccountRepository.findOne(id);
     }

@@ -1,20 +1,21 @@
 <!DOCTYPE html>
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
     <title>Title</title>
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.0/css/all.css" integrity="sha384-lKuwvrZot6UHsBSfcMvOkWwlCMgc0TaWr+30HWe3a4ltaBwTZhyTEggF5tJv8tbt" crossorigin="anonymous">
-    <link rel="stylesheet" type="text/css" href="/static/css/listPage.css">
-    <link th:replace="fragments/navBar.html :: topnavcss">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.0/css/all.css" integrity="sha384-lKuwvrZot6UHsBSfcMvOkWwlCMgc0TaWr+30HWe3a4ltaBwTZhyTEggF5tJv8tbt" crossorigin="anonymous"/>
+    <link rel="stylesheet" type="text/css" href="/css/listPage.css"/>
+    <link rel="stylesheet" type="text/css" href="/css/navBar.css"/>
+    <link th:replace="fragments/navBar :: topnavcss">
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
-    <script src="/static/script/servicePage.js" defer></script>
-    <script src="/static/script/navbar.js" defer></script>
+    <script src="/script/servicePage.js" defer="defer"></script>
+    <script src="/script/navbar.js" defer="defer"></script>
 </head>
 <body>
-    <div th:replace="fragments/navBar.html :: topnav"></div>
+<div th:replace="fragments/navBar :: topnav"></div>
     <div class="dropdown">
         <button class="dropbtn">Categories</button>
         <div class="dropdown-content" >
@@ -29,19 +30,19 @@
     <div class="serviceContainer">
         <div class="sort_row">
             <div class="sort_button button-1">
-                <a th:href="@{/list(column='ID', sort=${sortDirection}, categoryId=${categoryId})}">ID</a>
+                <a th:href="@{/list(column='id', sort=${sortDirection}, categoryId=${categoryId})}">ID</a>
             </div>
             <div class="sort_button button-2" th:text="${'Provider Picture'}">
                 item2
             </div>
             <div class="sort_button button-3" >
-                <a th:href="@{/list(column='Service Name', sort=${sortDirection}, categoryId=${categoryId})}">Service Name</a>
+                <a th:href="@{/list(column='name', sort=${sortDirection}, categoryId=${categoryId})}">Service Name</a>
             </div>
             <div class="sort_button button-4" th:text="${'Category'}">
                 item4
             </div>
             <div class="sort_button button-5" >
-                <a th:href="@{/list(column='Price', sort=${sortDirection}, categoryId=${categoryId})}">Price</a>
+                <a th:href="@{/list(column='price', sort=${sortDirection}, categoryId=${categoryId})}">Price</a>
             </div>
             <div class="sort_button button-6" th:text="${'City'}">
                 item6
@@ -59,7 +60,7 @@
                                     </div>
                                     <div class="item item-2" id="profileImageHolder">
                                         <img id="profileImage" name="profileImage" th:value="${userDetailsList[index].imgUrl}"
-                                             th:src="${userDetailsList[index].imgUrl}">
+                                             th:src="${userDetailsList[index].imgUrl}"/>
                                     </div>
                                     <div class="item item-3" th:text="${services[index].name}">
                                         item3

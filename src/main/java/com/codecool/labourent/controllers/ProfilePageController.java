@@ -1,3 +1,4 @@
+
 package com.codecool.labourent.controllers;
 
 import com.codecool.labourent.service.UserAccountService;
@@ -51,27 +52,6 @@ public class ProfilePageController {
         return "profilePage";
     }
 
-
-
-    
-    /*@Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        HttpSession session = request.getSession();
-        WebContext context = new WebContext(request, response, request.getServletContext());
-        int userId = (Integer) session.getAttribute("userId");
-
-        String[] genders = Stream.of(Gender.values()).map(Gender::name).toArray(String[]::new);
-        UserDetail userDetails = new UserDetail();
-        userDetails = requestUserDetails(userId, userDetails);
-
-        context.setVariable("genders", genders);
-        context.setVariable("userDetails", userDetails);
-
-        TemplateEngine engine = TemplateEngineUtil.getTemplateEngine(request.getServletContext());
-        engine.process("profilePage.html", context, response.getWriter());
-    }*/
-
-
     @RequestMapping(value = "/profile", method = RequestMethod.POST)
     public String profilePagePostView(Model model, @RequestParam("firstname") String firstName, @RequestParam("lastname") String lastName,
                                       @RequestParam("phonenumber") String phoneNumber, @RequestParam("city") String city,
@@ -111,3 +91,4 @@ public class ProfilePageController {
         return parsedBirthDate;
     }
 }
+

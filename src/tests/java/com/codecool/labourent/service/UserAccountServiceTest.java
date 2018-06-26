@@ -1,3 +1,4 @@
+/*
 package com.codecool.labourent.service;
 
 import com.codecool.labourent.model.UserAccount;
@@ -72,4 +73,4 @@ class UserAccountServiceTest {
         int id = 1;
         assertEquals(userAccount, userAccountService.getUserAccountById(id));
     }
-}
+}*/

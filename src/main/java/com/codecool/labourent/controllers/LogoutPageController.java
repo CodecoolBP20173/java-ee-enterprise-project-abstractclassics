@@ -1,3 +1,4 @@
+/*
 package com.codecool.labourent.controllers;
 
 import org.springframework.stereotype.Controller;
@@ -23,3 +24,4 @@ public class LogoutPageController {
         response.sendRedirect("/list");
     }
 }
+*/

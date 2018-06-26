@@ -1,3 +1,4 @@
+/*
 package com.codecool.labourent.controllers;
 
 
@@ -55,3 +56,4 @@ public class RegistrationPageController {
         return BCrypt.hashpw(password, BCrypt.gensalt(16));
     }
 }
+*/

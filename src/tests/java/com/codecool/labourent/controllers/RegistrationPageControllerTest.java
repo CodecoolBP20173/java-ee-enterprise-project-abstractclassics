@@ -1,3 +1,4 @@
+/*
 package com.codecool.labourent.controllers;
 
 import com.codecool.labourent.service.UserAccountService;
@@ -69,4 +70,4 @@ class RegistrationPageControllerTest {
         registrationPageController.doPost(requestMock, responseMock);
         verify(userAccountServiceMock, times(1)).saveUserAccount(captor.capture());
     }
-}
+}*/

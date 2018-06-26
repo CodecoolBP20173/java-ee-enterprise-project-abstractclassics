@@ -1,3 +1,4 @@
+/*
 package com.codecool.labourent.service;
 
 import org.junit.jupiter.api.Test;
@@ -37,4 +38,4 @@ class ServiceServiceTest {
         assertEquals("asc", (validateSortDirection.invoke(serviceService, "ASDF$#agdfgdsf")));
         assertEquals("asc", (validateSortDirection.invoke(serviceService, "SDFGS")));
     }
-}
+}*/
