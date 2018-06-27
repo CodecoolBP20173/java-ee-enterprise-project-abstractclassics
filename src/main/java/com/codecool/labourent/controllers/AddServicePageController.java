@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import java.util.List;
 
 @Controller
@@ -36,10 +38,13 @@ public class AddServicePageController {
     @RequestMapping(value = "/add-service", method = RequestMethod.POST)
     public String servicePagePostView(@RequestParam("name") String name, @RequestParam("description") String description,
                                       @RequestParam("price") Double price,
-                                      @RequestParam("serviceCategoryId") int serviceCategoryId) {
+                                      @RequestParam("serviceCategoryId") int serviceCategoryId, HttpServletRequest request) {
 
-        //int userId = (Integer) session.getAttribute("userId");
-        int userId = 1;
+        //int userId = 1;
+        //TODO:int userId = (Integer) session.getAttribute("userId");
+        HttpSession session = request.getSession();
+        int userId = (Integer) session.getAttribute("userId");
+
         UserAccount userAccount = userAccountService.getUserAccountById(userId);
         ServiceCategory serviceCategory = serviceCategoryService.getServiceCategoryById(serviceCategoryId);
 

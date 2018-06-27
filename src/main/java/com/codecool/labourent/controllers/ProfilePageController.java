@@ -7,6 +7,7 @@ import com.codecool.labourent.model.Gender;
 import com.codecool.labourent.model.UserAccount;
 import com.codecool.labourent.model.UserDetail;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -38,10 +39,12 @@ public class ProfilePageController {
     private UserAccountService userAccountService;
 
     @RequestMapping(value = "/profile", method = RequestMethod.GET)
-    public String profilePageView(Model model) {
-        //TODO: it not working for empty database
-        //int userId = (Integer) session.getAttribute("userId");
-        int userId = 1;
+    public String profilePageView(Model model, HttpServletRequest request) {
+
+        //TODO:int userId = (Integer) session.getAttribute("userId");
+        HttpSession session = request.getSession();
+        int userId = (Integer) session.getAttribute("userId");
+        //int userId = 1;
         String[] genders = Stream.of(Gender.values()).map(Gender::name).toArray(String[]::new);
 
         UserDetail userDetail = userDetailService.getUserDetailById(userId);
@@ -56,9 +59,13 @@ public class ProfilePageController {
     public String profilePagePostView(Model model, @RequestParam("firstname") String firstName, @RequestParam("lastname") String lastName,
                                       @RequestParam("phonenumber") String phoneNumber, @RequestParam("city") String city,
                                       @RequestParam("radioGender") String radioGender, @RequestParam("imageInput") String imageInput,
-                                      @RequestParam("introTextarea") String introTextarea, @RequestParam("birthday") String birthday) {
-        //int userId = (Integer) session.getAttribute("userId");
-        int userId = 1;
+                                      @RequestParam("introTextarea") String introTextarea, @RequestParam("birthday") String birthday,
+                                      HttpServletRequest request) {
+        //int userId = 1;
+        //TODO:int userId = (Integer) session.getAttribute("userId");
+        HttpSession session = request.getSession();
+        int userId = (Integer) session.getAttribute("userId");
+
 
         Gender genderEnum = Gender.valueOf(radioGender);
 
