@@ -9,10 +9,7 @@ import com.codecool.labourent.model.UserDetail;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.thymeleaf.TemplateEngine;
 import org.thymeleaf.context.WebContext;
 
@@ -42,7 +39,6 @@ public class ListPageController {
                                @RequestParam(value = "sort", required=false) String sortDirection,
                                @RequestParam(value = "categoryId", required=false) String categoryId) {
         String queryString = request.getQueryString();
-        System.out.println(columnName);
         List<ServiceCategory> serviceCategories = serviceCategoryService.getServiceCategories();
         model.addAttribute("serviceCategories", serviceCategories);
         if (queryString == null){
@@ -52,6 +48,7 @@ public class ListPageController {
         }
         return "listPage";
     }
+
 
     private void organizeTable(String columnName,
                                String sortDirection,
