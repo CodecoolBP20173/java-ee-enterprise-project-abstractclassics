@@ -1,4 +1,27 @@
 
+
+
+.rate_container {
+    font-size: larger;
+    display: inline-flex;
+}
+
+.disabled{
+    pointer-events: none;
+}
+
+.rate_container .fa{
+    padding: 5%;
+}
+
+.checked {
+    color: #f4511e;
+}
+
+.final_checked {
+    color: #f4511e;
+}
+
 .back_to_deatils_button {
     position: absolute;
     left: 0;
@@ -16,6 +39,7 @@
     cursor: pointer;
     margin: 1%;
     z-index: 3;
+
 }
 
 .back_to_deatils_button span {
