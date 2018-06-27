@@ -12,10 +12,10 @@ import java.util.List;
 public interface RatingRepository extends JpaRepository<Rating, Integer> {
 
 
-    @Query(value = "select * from rating where useraccount_id=:useraccountId and service_id=:serviceId", nativeQuery = true)
+    @Query(value = "select * from rating where rating.useraccount_id=:useraccountId and rating.service_id=:serviceId", nativeQuery = true)
     List<Rating> findByUseraccount(@Param("useraccountId") Integer useraccountId, @Param("serviceId") Integer serviceId);
 
     @Query(value = "INSERT into rating(service_id, useraccount_id)\n" +
-            "    values (service_id=:serviceId, useraccount_id=:useraccountId)", nativeQuery = true)
+            "    values (:serviceId, :useraccountId)", nativeQuery = true)
     void saveRating(@Param("useraccountId") Integer useraccountId, @Param("serviceId") Integer serviceId);
 }
