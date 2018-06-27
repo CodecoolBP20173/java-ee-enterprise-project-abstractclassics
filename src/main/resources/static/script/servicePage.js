@@ -37,7 +37,8 @@ $(document).ready(function() {
         })
     }
 
-    let ratingDivs = document.getElementsByClassName("item item-4");
+
+    let ratingDivs = document.getElementsByClassName("starContainer");
     for (let i = 0; i < ratingDivs.length; i++) {
         let ratingDiv = ratingDivs[i];
         let rating = ratingDiv.getAttribute("data-avgRating");
@@ -83,13 +84,10 @@ $(document).ready(function() {
                         serviceId : serviceId
                         //Todo send user UserId
                     },
-                    success: function (data) {
-                        alert(data);
-                    },
                     error: function(xhr, desc, err) {
                         console.log(xhr);
                         console.log("Details0: " + desc + "\nError:" + err);
-                    },
+                    }
                 });
             });
 
