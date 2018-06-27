@@ -1,7 +1,9 @@
 package com.codecool.labourent.controllers;
 
 import com.codecool.labourent.model.UserAccount;
+import com.codecool.labourent.model.UserDetail;
 import com.codecool.labourent.service.UserAccountService;
+import com.codecool.labourent.service.UserDetailService;
 import org.mindrot.jbcrypt.BCrypt;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -17,6 +19,9 @@ public class RegistrationPageController {
 
     @Autowired
     private UserAccountService userAccountService;
+
+    @Autowired
+    private UserDetailService userDetailService;
 
     @RequestMapping(value = "/registration", method = RequestMethod.GET)
     public String showRegistrationForm() {
@@ -40,6 +45,8 @@ public class RegistrationPageController {
         } else {
             UserAccount userAccount = new UserAccount(userName, email, password);
             userAccountService.saveUserAccount(userAccount);
+            UserDetail userDetail = new UserDetail(userAccount);
+            userDetailService.saveUserDetail(userDetail);
             return "redirect:" + "/login";
         }
     }
