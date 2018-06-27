@@ -22,9 +22,10 @@ public class Service {
     @ManyToOne
     private ServiceCategory serviceCategory;
 
-    private Integer numOfRatings;
 
-    private Double sumOfRating;
+    private Integer numOfRatings = 0;
+
+    private Double sumOfRating = 0.0;
 
     @Transient
     private Double averageRating;
@@ -41,7 +42,7 @@ public class Service {
 
     public Double getAverageRating() {
         Double noRatingCode = 6.0;
-        if (sumOfRating != null && numOfRatings != null) {
+        if (numOfRatings != 0) {
             return sumOfRating / numOfRatings;
         }
         return noRatingCode;
