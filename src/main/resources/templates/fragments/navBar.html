@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" href="css/navbar.css" th:fragment="topnavcss">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.0/css/all.css" integrity="sha384-lKuwvrZot6UHsBSfcMvOkWwlCMgc0TaWr+30HWe3a4ltaBwTZhyTEggF5tJv8tbt" crossorigin="anonymous">
+
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="script/navbar.js" defer></script>
+</head>
+<body>
+<div>
+    <nav th:fragment="topnav">
+        <div class="menu-icon">
+            <i class="fa fa-bars fa-2x"></i>
+        </div>
+        <div class="logo">
+            LOGO
+        </div>
+        <div class="menu">
+            <ul>
+                <li><a href="/introduction">Introduction</a></li>
+                <li><a href="/list">Services</a></li>
+                <li><a href="/profile" th:if="${session.userId != null}">Profile</a></li>
+                <li><a href="/registration" th:if="${session.userId == null}">Registration</a></li>
+                <li><a href="/login" th:if="${session.userId == null}">Login</a></li>
+                <li><a href="/logout" th:if="${session.userId != null}">Logout</a></li>
+            </ul>
+        </div>
+    </nav>
+</div>
+</div>
+</body>
+</html>

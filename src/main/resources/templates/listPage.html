@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <title>Title</title>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.0/css/all.css" integrity="sha384-lKuwvrZot6UHsBSfcMvOkWwlCMgc0TaWr+30HWe3a4ltaBwTZhyTEggF5tJv8tbt" crossorigin="anonymous"/>
+    <link rel="stylesheet" type="text/css" href="/css/listPage.css"/>
+    <link rel="stylesheet" type="text/css" href="/css/navBar.css"/>
+    <link th:replace="fragments/navBar :: topnavcss">
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    <script src="/script/servicePage.js" defer="defer"></script>
+    <script src="/script/navbar.js" defer="defer"></script>
+</head>
+<body>
+<div th:replace="fragments/navBar :: topnav"></div>
+    <div class="dropdown">
+        <button class="dropbtn">Categories</button>
+        <div class="dropdown-content" >
+            <a th:href="@{/list(column='id', sort=${sortDirection}, categoryId='all')}">All</a>
+            <div th:each="serviceCategory :${serviceCategories}">
+                <a th:href="@{/list(column='id', sort=${sortDirection}, categoryId=${serviceCategory.id})}" th:text="${serviceCategory.name}">Category Name</a>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="serviceContainer">
+        <div class="sort_row">
+            <div class="sort_button button-1">
+                <a th:href="@{/list(column='id', sort=${sortDirection}, categoryId=${categoryId})}">ID</a>
+            </div>
+            <div class="sort_button button-2" th:text="${'Provider Picture'}">
+                item2
+            </div>
+            <div class="sort_button button-3" >
+                <a th:href="@{/list(column='name', sort=${sortDirection}, categoryId=${categoryId})}">Service Name</a>
+            </div>
+            <div class="sort_button button-4" th:text="${'Category'}">
+                item4
+            </div>
+            <div class="sort_button button-5" >
+                <a th:href="@{/list(column='price', sort=${sortDirection}, categoryId=${categoryId})}">Price</a>
+            </div>
+            <div class="sort_button button-6" th:text="${'City'}">
+                item6
+            </div>
+        </div>
+        <div class="con1"  th:each="index : ${#numbers.sequence( 0, #arrays.length(services)-1)}">
+            <div id="tridiv">
+                <div class="scene">
+                    <div class="shape cuboid-1 cub-1">
+                        <div class="face ft">
+                            <div class="row">
+                                <div class="grid_container">
+                                    <div class="item item-1" th:text="${services[index].id}">
+                                        item1
+                                    </div>
+                                    <div class="item item-2" id="profileImageHolder">
+                                        <img id="profileImage" name="profileImage" th:value="${userDetailsList[index].imgUrl}"
+                                             th:src="${userDetailsList[index].imgUrl}"/>
+                                    </div>
+                                    <div class="item item-3" th:text="${services[index].name}">
+                                        item3
+                                    </div>
+                                    <div class="item item-4" th:text="${services[index].serviceCategory.name}">
+                                        item4
+                                    </div>
+                                    <div class="item item-5" th:text="${services[index].price}">
+                                        item5
+                                    </div>
+                                    <div class="item item-6" th:utext="${userDetailsList[index].city}">
+                                        item6
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="face bk"></div>
+                        <div class="face rt"></div>
+                        <div class="face lt"></div>
+                        <div class="face bm">
+                            <div class="row">
+                                <div class="grid_container_details">
+                                    <div class="item item-1">
+                                        Service Description
+                                    </div>
+                                    <div class="item item-2">
+                                        Provider Person
+                                    </div>
+                                    <div class="item item-3">
+                                        Provider Introduction
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="grid_container_details">
+                                    <div class="item item-1" th:text="${services[index].description}">
+                                        item1
+                                    </div>
+                                    <div class="item item-2" th:text="${userDetailsList[index].firstName + ' ' + userDetailsList[index].lastName}">
+                                        item2
+                                    </div>
+                                    <div class="item item-3" th:text="${userDetailsList[index].introductionText}">
+                                        item3
+                                    </div>
+                                </div>
+                            </div>
+                            <button class="back_button" style="vertical-align:middle"><span>Back</span></button>
+                            <button class="contact_button" style="vertical-align:middle"><span>Contact</span></button>
+                        </div>
+                        <div class="face tp">
+                            <div class="row">
+                                <div class="grid_container_contact">
+                                    <div class="item item-1">
+
+                                    </div>
+                                    <div class="item item-2" th:text="${'Contanct Details of provider '  + userDetailsList[index].firstName + ' ' + userDetailsList[index].lastName}">
+                                        Contact details of Provider
+                                    </div>
+                                    <div class="item item-3">
+                                    </div>
+
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="grid_container_contact">
+                                    <div class="item item-1" th:text="${'Email Address: '  + services[index].userAccount.email}">
+                                       item1
+                                    </div>
+                                    <div class="item item-2">
+                                    </div>
+                                    <div class="item item-3" th:text="${'Phone Number: '  + userDetailsList[index].phoneNumber}">
+                                        item2
+                                    </div>
+                                </div>
+                            </div>
+                            <button class="back_to_deatils_button" style="vertical-align:middle"><span>Back</span></button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
