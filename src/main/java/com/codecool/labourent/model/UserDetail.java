@@ -47,6 +47,18 @@ public class UserDetail {
         this.phoneNumber = "";
     }
 
+    public UserDetail(UserAccount userAccount) {
+        this.userAccount = userAccount;
+        this.firstName = "";
+        this.lastName = "";
+        this.gender = Gender.UNDEFINED;
+        this.introductionText = "";
+        this.imgUrl = "/static/img/default_profile.png";
+        this.dateOfBirth = Calendar.getInstance().getTime();
+        this.city = "";
+        this.phoneNumber = "";
+    }
+
     public UserDetail(String firstName, String lastName, String phoneNumber,
                       String city, Date dateOfBirth, Gender gender,
                       String introductionText, UserAccount userAccount) {
