@@ -58,6 +58,9 @@ public interface ServiceRepository extends JpaRepository<Service, Integer> {
 
     List<Service> findByServiceCategoryIdOrderByIdAsc(Integer serviceCategoryId);
 
-    @Query(value = "select column_name from information_schema.columns where table_name='service'", nativeQuery = true)
-    public List<String> getColumnNames();
+
+    Service findById(Integer serviceId);
+
+
+
 }
