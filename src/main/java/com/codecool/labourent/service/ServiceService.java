@@ -49,4 +49,11 @@ public class ServiceService {
         serviceRepository.save(service);
     }
 
+    public void increaseRatingStats(Integer rating, Integer serviceId) {
+        Service service = serviceRepository.findById(serviceId);
+        service.setSumOfRating(service.getSumOfRating() + rating);
+        service.setNumOfRatings(service.getNumOfRatings() + 1);
+        saveService(service);
+    }
+
 }
