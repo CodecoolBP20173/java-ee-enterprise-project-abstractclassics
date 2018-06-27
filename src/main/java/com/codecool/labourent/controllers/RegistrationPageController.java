@@ -1,4 +1,3 @@
-/*
 package com.codecool.labourent.controllers;
 
 import com.codecool.labourent.model.UserAccount;
@@ -49,4 +48,3 @@ public class RegistrationPageController {
         return BCrypt.hashpw(password, BCrypt.gensalt(16));
     }
 }
-*/
