@@ -42,7 +42,7 @@ public class ServiceService {
         } else if (column.equals("price") && ascOrDesc.equalsIgnoreCase("desc")) {
             return serviceRepository.findByServiceCategoryIdOrderByPriceDesc(servicecategoryId);
         }
-        return serviceRepository.findAllByOrderByIdAsc();
+        return serviceRepository.findByServiceCategoryIdOrderByIdAsc(servicecategoryId);
     }
 
     public void saveService(Service service) {
