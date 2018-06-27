@@ -38,7 +38,7 @@ public class Service {
         this.price = price;
     }
 
-    private Double getAverageRating() {
+    public Double getAverageRating() {
         return sumOfRating / numOfRatings;
     }
 
