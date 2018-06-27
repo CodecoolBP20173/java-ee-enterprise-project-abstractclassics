@@ -3,15 +3,18 @@ package com.codecool.labourent.service;
 import com.codecool.labourent.model.UserAccount;
 import com.codecool.labourent.repository.UserAccountRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 @Service
-public class UserAccountService {
+public class UserAccountService implements UserDetailsService{
 
     @Autowired
     private UserAccountRepository userAccountRepository;
 
-    /*public void saveUserAccount(UserAccount userAccount) {
+    public void saveUserAccount(UserAccount userAccount) {
         userAccountRepository.save(userAccount);
     }
 
@@ -26,8 +29,18 @@ public class UserAccountService {
     public UserAccount getUserAccountByEmail(String email) {
         return userAccountRepository.findByEmail(email);
     }
-*/
     public UserAccount getUserAccountById(int id) {
         return userAccountRepository.findOne(id);
+    }
+
+    @Override
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        UserAccount userAccount = getUserAccountByEmail(username);
+
+        if (userAccount == null) {
+            throw new UsernameNotFoundException(username);
+        }
+
+        return new AuthenticationService(userAccount);
     }
 }
