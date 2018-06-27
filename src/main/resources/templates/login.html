@@ -22,7 +22,7 @@
 
         <button type="submit">Login</button>
 
-        <p th:if="${#httpServletRequest.getParameter('invalid') != null && #httpServletRequestrequest.getParameter('invalid').equals('true')}">
+        <p th:if="${#httpServletRequest.getParameter('invalid') != null && #httpServletRequest.getParameter('invalid').equals('true')}">
             Invalid username or password.
         </p>
     </form>
