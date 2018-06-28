@@ -40,8 +40,6 @@ public class AddServicePageController {
                                       @RequestParam("price") Double price,
                                       @RequestParam("serviceCategoryId") int serviceCategoryId, HttpServletRequest request) {
 
-        //int userId = 1;
-        //TODO:int userId = (Integer) session.getAttribute("userId");
         HttpSession session = request.getSession();
         int userId = (Integer) session.getAttribute("userId");
 
