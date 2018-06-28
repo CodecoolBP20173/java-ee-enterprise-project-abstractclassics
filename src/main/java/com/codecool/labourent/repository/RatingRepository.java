@@ -20,4 +20,6 @@ public interface RatingRepository extends JpaRepository<Rating, Integer> {
     @Query(value = "INSERT into rating(service_id, useraccount_id)\n" +
             "    values (:serviceId, :useraccountId) RETURNING rating.id ", nativeQuery = true)
     void saveRating(@Param("useraccountId") Integer useraccountId, @Param("serviceId") Integer serviceId);
+
+    List<Rating> findAllByUseraccountId(Integer useracccountId);
 }

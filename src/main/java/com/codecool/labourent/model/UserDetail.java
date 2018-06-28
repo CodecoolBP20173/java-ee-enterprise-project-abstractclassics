@@ -34,6 +34,7 @@ public class UserDetail {
 
     private String phoneNumber;
 
+    @Column(columnDefinition = "TEXT")
     private String imgUrl;
 
     public UserDetail() {

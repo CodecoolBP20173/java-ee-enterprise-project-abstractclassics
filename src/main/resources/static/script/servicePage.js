@@ -52,46 +52,62 @@ $(document).ready(function() {
     }
 
     let rateContainers = document.getElementsByClassName("rate_container");
+    let ratedServiceIdList = document.getElementsByClassName("serviceContainer").item(0).getAttribute('data-ratedServiceList');
     for (let i = 0; i < rateContainers.length; i++) {
         let stars= rateContainers[i].getElementsByClassName("fa fa-star");
-        for(let j = 0; j < stars.length; j++) {
-            let star = stars[j];
-            star.addEventListener('mouseenter', function (evt) {
-                for (let k = 0; k <= j; k++ ) {
-                    stars[k].classList.add("checked")
-                }
-            });
-            star.addEventListener('mouseleave', function (evt) {
-                for (let k = 0; k <= j; k++ ) {
-                    stars[k].classList.remove("checked")
-                }
-            });
-            star.addEventListener('click', function (evt) {
-                let rating = 0;
-                for (let k = 0; k <= j; k++ ) {
-                    stars[k].classList.add("final_checked");
-                    rating++;
-                }
-                let parentDiv = star.parentNode;
-                parentDiv.classList.add('disabled');
-                let serviceId = parentDiv.getAttribute('data-serviceId');
-                console.log(rating);
-                jQuery.ajax({
-                    url: 'list/rating',
-                    method: 'POST',
-                    data: {
-                        rating : rating,
-                        serviceId : serviceId
-                        //Todo send user UserId
-                    },
-                    error: function(xhr, desc, err) {
-                        console.log(xhr);
-                        console.log("Details0: " + desc + "\nError:" + err);
+        let rateContainer = rateContainers[i];
+        let rating = rateContainer.getAttribute("data-avgRating");
+        let roundedRating = Math.round(rating);
+        if ($.inArray(rateContainer.getAttribute('data-serviceId'), ratedServiceIdList) !== -1){
+            rateContainer.classList.add('disabled');
+            let messageDiv = document.createElement("div");
+            let message = document.createTextNode("You have already rated this user!");
+            messageDiv.classList.add("hasRatedDiv");
+            messageDiv.appendChild(message);
+            rateContainer.parentNode.appendChild(messageDiv);
+            for (let j = 0; j < roundedRating; j++) {
+                stars[j].classList.add("checked")
+            }
+        } else {
+            for (let j = 0; j < stars.length; j++) {
+                let star = stars[j];
+                star.addEventListener('mouseenter', function (evt) {
+                    for (let k = 0; k <= j; k++) {
+                        stars[k].classList.add("checked")
                     }
                 });
-            });
+                star.addEventListener('mouseleave', function (evt) {
+                    for (let k = 0; k <= j; k++) {
+                        stars[k].classList.remove("checked")
+                    }
+                });
+                star.addEventListener('click', function (evt) {
+                    let rating = 0;
+                    for (let k = 0; k <= j; k++) {
+                        stars[k].classList.add("final_checked");
+                        rating++;
+                    }
+                    let parentDiv = star.parentNode;
+                    parentDiv.classList.add('disabled');
+                    let serviceId = parentDiv.getAttribute('data-serviceId');
+                    console.log(rating);
+                    jQuery.ajax({
+                        url: 'list/rating',
+                        method: 'POST',
+                        data: {
+                            rating: rating,
+                            serviceId: serviceId
+                            //Todo send user UserId
+                        },
+                        error: function (xhr, desc, err) {
+                            console.log(xhr);
+                            console.log("Details0: " + desc + "\nError:" + err);
+                        }
+                    });
+                });
 
 
+            }
         }
     }
 

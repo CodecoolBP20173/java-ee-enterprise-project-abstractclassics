@@ -27,7 +27,7 @@
             </div>
         </div>
     </div>
-    <div class="serviceContainer">
+    <div class="serviceContainer" th:attr="data-ratedServiceList=${ratedServiceList}">
         <div class="sort_row">
             <div class="sort_button button-1" th:text="${'Category'}">
                 item4
@@ -142,7 +142,7 @@
                                            item1
                                         </div>
                                         <div class="item item-2">
-                                            <div class="rate_container" th:attr="data-serviceId=${services[index].id}">
+                                            <div class="rate_container" th:attr="data-serviceId=${services[index].id}, data-avgRating=${services[index].getAverageRating()}">
                                                 <span class="fa fa-star"></span>
                                                 <span class="fa fa-star"></span>
                                                 <span class="fa fa-star"></span>

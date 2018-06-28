@@ -5,6 +5,7 @@ import com.codecool.labourent.repository.RatingRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -25,5 +26,15 @@ public class RatingService {
 
     public void saveRatingRelation(Integer userId, Integer serviceId) {
         ratingRepository.saveRating(userId, serviceId);
+    }
+
+    public List<Integer> getRatedServiceIdList(Integer userId){
+
+        List<Integer> serviceIdList = new ArrayList<>();
+        List<Rating> ratingList = ratingRepository.findAllByUseraccountId(userId);
+        for (Rating rating: ratingList) {
+            serviceIdList.add(rating.getService().getId());
+        }
+        return serviceIdList;
     }
 }
