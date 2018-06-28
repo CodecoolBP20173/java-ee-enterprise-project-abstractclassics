@@ -1,5 +1,6 @@
 package com.codecool.labourent.controllers;
 
+import com.codecool.labourent.service.RatingService;
 import com.codecool.labourent.service.UserDetailService;
 import com.codecool.labourent.service.ServiceCategoryService;
 import com.codecool.labourent.service.ServiceService;
@@ -7,6 +8,7 @@ import com.codecool.labourent.model.Service;
 import com.codecool.labourent.model.ServiceCategory;
 import com.codecool.labourent.model.UserDetail;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -16,6 +18,7 @@ import org.thymeleaf.context.WebContext;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -32,11 +35,18 @@ public class ListPageController {
     @Autowired
     private UserDetailService userDetailService;
 
+    @Autowired
+    private RatingService ratingService;
+
     @RequestMapping(value = "/list", method = RequestMethod.GET)
     public String listServices(Model model, HttpServletRequest request,
                                @RequestParam(value = "column", required=false) String columnName,
                                @RequestParam(value = "sort", required=false) String sortDirection,
                                @RequestParam(value = "categoryId", required=false) String categoryId) {
+
+        List<Integer> ratedServiceList = getRatedServiceIdList(request);
+        model.addAttribute("ratedServiceList", ratedServiceList);
+
         String queryString = request.getQueryString();
         List<ServiceCategory> serviceCategories = serviceCategoryService.getServiceCategories();
         model.addAttribute("serviceCategories", serviceCategories);
@@ -97,5 +107,12 @@ public class ListPageController {
             userDetailsList.add(userDetail);
         }
         return userDetailsList;
+    }
+
+    private List<Integer> getRatedServiceIdList(HttpServletRequest request) {
+        HttpSession session = request.getSession();
+        Integer userId = (Integer) session.getAttribute("userId");
+
+        return ratingService.getRatedServiceIdList(userId);
     }
 }
