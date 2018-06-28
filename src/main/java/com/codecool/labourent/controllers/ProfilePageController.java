@@ -61,8 +61,7 @@ public class ProfilePageController {
                                       @RequestParam("radioGender") String radioGender, @RequestParam("imageInput") String imageInput,
                                       @RequestParam("introTextarea") String introTextarea, @RequestParam("birthday") String birthday,
                                       HttpServletRequest request) {
-        //int userId = 1;
-        //TODO:int userId = (Integer) session.getAttribute("userId");
+
         HttpSession session = request.getSession();
         int userId = (Integer) session.getAttribute("userId");
 

@@ -32,7 +32,6 @@ public class ListPageController {
     @Autowired
     private UserDetailService userDetailService;
 
-
     @RequestMapping(value = "/list", method = RequestMethod.GET)
     public String listServices(Model model, HttpServletRequest request,
                                @RequestParam(value = "column", required=false) String columnName,
@@ -48,7 +47,6 @@ public class ListPageController {
         }
         return "listPage";
     }
-
 
     private void organizeTable(String columnName,
                                String sortDirection,
