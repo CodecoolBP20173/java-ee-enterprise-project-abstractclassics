@@ -22,6 +22,7 @@
                 <li><a href="/introduction">Introduction</a></li>
                 <li><a href="/list">Services</a></li>
                 <li><a href="/profile" th:if="${session.userId != null}">Profile</a></li>
+                <li><a href="/admin">Admin</a></li>
                 <li><a href="/registration" th:if="${session.userId == null}">Registration</a></li>
                 <li><a href="/login" th:if="${session.userId == null}">Login</a></li>
                 <li><a href="/logout" th:if="${session.userId != null}">Logout</a></li>
