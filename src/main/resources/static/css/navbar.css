@@ -42,10 +42,11 @@ nav li:hover {
 .logo {
     position: fixed;
     float: left;
-    margin: 16px 36px;
-    color: #fff;
+    margin: 16px 15px;
+    color: #f4521e;
     font-weight: bold;
-    font-size: 24px;
+    font-size: 35px;
+    overflow: hidden;
 }
 nav {
     position: fixed;
