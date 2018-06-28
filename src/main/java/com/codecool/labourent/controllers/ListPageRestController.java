@@ -17,11 +17,15 @@ import javax.servlet.http.HttpSession;
 @RestController
 public class ListPageRestController {
 
-    @Autowired
-    RatingService ratingService;
+    private final RatingService ratingService;
+
+    private final ServiceService serviceService;
 
     @Autowired
-    ServiceService serviceService;
+    public ListPageRestController(RatingService ratingService, ServiceService serviceService) {
+        this.ratingService = ratingService;
+        this.serviceService = serviceService;
+    }
 
     @RequestMapping(value = "/list/rating", method = RequestMethod.POST)
     public String getRating(@RequestParam("rating") Integer rating,

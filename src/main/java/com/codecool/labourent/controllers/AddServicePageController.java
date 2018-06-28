@@ -18,14 +18,18 @@ import java.util.List;
 @Controller
 public class AddServicePageController {
 
-    @Autowired
-    private ServiceCategoryService serviceCategoryService;
+    private final ServiceCategoryService serviceCategoryService;
+
+    private final ServiceService serviceService;
+
+    private final UserAccountService userAccountService;
 
     @Autowired
-    private ServiceService serviceService;
-
-    @Autowired
-    private UserAccountService userAccountService;
+    public AddServicePageController(ServiceCategoryService serviceCategoryService, ServiceService serviceService, UserAccountService userAccountService) {
+        this.serviceCategoryService = serviceCategoryService;
+        this.serviceService = serviceService;
+        this.userAccountService = userAccountService;
+    }
 
 
     @RequestMapping(value = "/add-service", method = RequestMethod.GET)

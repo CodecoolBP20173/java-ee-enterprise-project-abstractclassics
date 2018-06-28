@@ -26,17 +26,21 @@ import java.util.List;
 @Controller
 public class ListPageController {
 
-    @Autowired
-    private ServiceCategoryService serviceCategoryService;
+    private final ServiceCategoryService serviceCategoryService;
+
+    private final ServiceService serviceService;
+
+    private final UserDetailService userDetailService;
+
+    private final RatingService ratingService;
 
     @Autowired
-    private ServiceService serviceService;
-
-    @Autowired
-    private UserDetailService userDetailService;
-
-    @Autowired
-    private RatingService ratingService;
+    public ListPageController(ServiceCategoryService serviceCategoryService, ServiceService serviceService, UserDetailService userDetailService, RatingService ratingService) {
+        this.serviceCategoryService = serviceCategoryService;
+        this.serviceService = serviceService;
+        this.userDetailService = userDetailService;
+        this.ratingService = ratingService;
+    }
 
     @RequestMapping(value = "/list", method = RequestMethod.GET)
     public String listServices(Model model, HttpServletRequest request,

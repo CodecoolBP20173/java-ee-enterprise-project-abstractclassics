@@ -20,16 +20,19 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
         jsr250Enabled = true)
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
-    @Autowired
-    BCryptPasswordEncoder bCryptEncoder;
+    private final BCryptPasswordEncoder bCryptEncoder;
+
+    private final UserAccountService userAccountService;
+
+    private final CustomAuthenticationSuccessHandler successHandler;
 
     @Autowired
-    UserAccountService userAccountService;
+    public WebSecurityConfig(UserAccountService userAccountService, CustomAuthenticationSuccessHandler successHandler) {
+        this.bCryptEncoder = bCryptPasswordEncoder();
+        this.userAccountService = userAccountService;
+        this.successHandler = successHandler;
+    }
 
-    @Autowired
-    CustomAuthenticationSuccessHandler successHandler;
-
-    @Bean
     public BCryptPasswordEncoder bCryptPasswordEncoder() {
         return new BCryptPasswordEncoder();
     }

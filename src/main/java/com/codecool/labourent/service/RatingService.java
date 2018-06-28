@@ -11,9 +11,12 @@ import java.util.List;
 @Service
 public class RatingService {
 
-    @Autowired
-    RatingRepository ratingRepository;
+    private final RatingRepository ratingRepository;
 
+    @Autowired
+    public RatingService(RatingRepository ratingRepository) {
+        this.ratingRepository = ratingRepository;
+    }
 
 
     public boolean isRatingRelationPresent(Integer userId, Integer serviceId) {

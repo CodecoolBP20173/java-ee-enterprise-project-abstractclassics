@@ -17,11 +17,15 @@ import java.io.IOException;
 @Controller
 public class RegistrationPageController {
 
-    @Autowired
-    private UserAccountService userAccountService;
+    private final UserAccountService userAccountService;
+
+    private final UserDetailService userDetailService;
 
     @Autowired
-    private UserDetailService userDetailService;
+    public RegistrationPageController(UserAccountService userAccountService, UserDetailService userDetailService) {
+        this.userAccountService = userAccountService;
+        this.userDetailService = userDetailService;
+    }
 
     @RequestMapping(value = "/registration", method = RequestMethod.GET)
     public String showRegistrationForm() {
