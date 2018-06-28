@@ -19,8 +19,12 @@ import java.util.Collection;
 @Component
 public class CustomAuthenticationSuccessHandler implements AuthenticationSuccessHandler {
 
+    private final UserAccountService userAccountService;
+
     @Autowired
-    UserAccountService userAccountService;
+    public CustomAuthenticationSuccessHandler(UserAccountService userAccountService) {
+        this.userAccountService = userAccountService;
+    }
 
     @Override
     public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws IOException, ServletException {

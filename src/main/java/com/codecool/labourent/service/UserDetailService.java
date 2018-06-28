@@ -12,8 +12,12 @@ import javax.persistence.NoResultException;
 @Service
 public class UserDetailService {
 
+    private final UserDetailRepository userDetailRepository;
+
     @Autowired
-    private UserDetailRepository userDetailRepository;
+    public UserDetailService(UserDetailRepository userDetailRepository) {
+        this.userDetailRepository = userDetailRepository;
+    }
 
 
     /**

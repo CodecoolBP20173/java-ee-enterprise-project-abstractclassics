@@ -9,8 +9,12 @@ import java.util.List;
 @Service
 public class ServiceCategoryService {
 
+    private final ServiceCategoryRepository serviceCategoryRepository;
+
     @Autowired
-    private ServiceCategoryRepository serviceCategoryRepository;
+    public ServiceCategoryService(ServiceCategoryRepository serviceCategoryRepository) {
+        this.serviceCategoryRepository = serviceCategoryRepository;
+    }
 
 
     public void saveServiceCategory(ServiceCategory serviceCategory) {

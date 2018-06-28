@@ -8,8 +8,12 @@ import java.util.List;
 @org.springframework.stereotype.Service
 public class ServiceService {
 
+    private final ServiceRepository serviceRepository;
+
     @Autowired
-    private ServiceRepository serviceRepository;
+    public ServiceService(ServiceRepository serviceRepository) {
+        this.serviceRepository = serviceRepository;
+    }
 
     public List<Service> getAllRecordsFromTable(String column, String ascOrDesc){
         if (column.equals("rating") && ascOrDesc.equalsIgnoreCase("asc") ) {
