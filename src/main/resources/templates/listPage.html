@@ -120,7 +120,7 @@
                                     </div>
                                 </div>
                                 <button class="back_button" style="vertical-align:middle"><span>Back</span></button>
-                                <button class="contact_button" style="vertical-align:middle"><span>Contact</span></button>
+                                <button class="contact_button" style="vertical-align:middle" th:if="${session.role == 'USER' and session.userId > 0}"><span>Contact</span></button>
                             </div>
                             <div class="face tp">
                                 <div class="row">

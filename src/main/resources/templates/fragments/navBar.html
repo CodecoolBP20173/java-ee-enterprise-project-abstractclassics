@@ -21,11 +21,11 @@
             <ul>
                 <li><a href="/introduction">Introduction</a></li>
                 <li><a href="/list">Services</a></li>
-                <li><a href="/profile" th:if="${session.role == 'USER'}">Profile</a></li>
-                <li><a href="/admin" th:if="${session.role == 'ADMIN'}">Admin</a></li>
-                <li><a href="/registration" th:if="${session.userId == null}">Registration</a></li>
-                <li><a href="/login" th:if="${session.userId == null}">Login</a></li>
-                <li><a href="/logout" th:if="${session.userId != null}">Logout</a></li>
+                <li th:if="${session.role == 'USER'}"><a href="/profile">Profile</a></li>
+                <li th:if="${session.role == 'ADMIN'}"><a href="/admin" >Admin</a></li>
+                <li th:if="${session.userId == null}"><a href="/registration" >Registration</a></li>
+                <li th:if="${session.userId == null}"><a href="/login" >Login</a></li>
+                <li th:if="${session.userId != null}"><a href="/logout" >Logout</a></li>
             </ul>
         </div>
     </nav>
