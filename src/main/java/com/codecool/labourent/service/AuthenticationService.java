@@ -9,9 +9,9 @@ import java.util.Collection;
 import java.util.HashSet;
 
 public class AuthenticationService implements UserDetails{
-    private UserAccount userAccount;
+    private final UserAccount userAccount;
 
-    public AuthenticationService(UserAccount userAccount) {
+    AuthenticationService(UserAccount userAccount) {
         this.userAccount = userAccount;
     }
 

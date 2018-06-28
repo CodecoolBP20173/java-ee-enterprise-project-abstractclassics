@@ -32,11 +32,15 @@ import java.util.stream.Stream;
 @Controller
 public class ProfilePageController {
 
-    @Autowired
-    private UserDetailService userDetailService;
+    private final UserDetailService userDetailService;
+
+    private final UserAccountService userAccountService;
 
     @Autowired
-    private UserAccountService userAccountService;
+    public ProfilePageController(UserDetailService userDetailService, UserAccountService userAccountService) {
+        this.userDetailService = userDetailService;
+        this.userAccountService = userAccountService;
+    }
 
     @RequestMapping(value = "/profile", method = RequestMethod.GET)
     public String profilePageView(Model model, HttpServletRequest request) {

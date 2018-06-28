@@ -14,8 +14,12 @@ import java.util.List;
 @Controller
 public class AdminPageController {
 
+    private final ServiceCategoryService serviceCategoryService;
+
     @Autowired
-    ServiceCategoryService serviceCategoryService;
+    public AdminPageController(ServiceCategoryService serviceCategoryService) {
+        this.serviceCategoryService = serviceCategoryService;
+    }
 
     @RequestMapping(value = "/admin", method = RequestMethod.GET)
     public String adminPageView(Model model) {
