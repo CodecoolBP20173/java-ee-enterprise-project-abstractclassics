@@ -16,21 +16,25 @@
 
 <div th:replace="fragments/navBar :: topnav"></div>
 <h1>Admin page</h1>
-
-
-<div th:if="${not #arrays.isEmpty(serviceCategories)}">
-    <div>
-        <form>
+<div class="wrapper">
+    <fieldset>
+        <form method="post">
             <label for="nameCategory"><b>Category's name</b></label>
             <input type="text" placeholder="Enter name" id="nameCategory" name="nameCategory" required>
 
             <label for="descriptionCategory"><b>Description</b></label>
             <textarea placeholder="Enter Description" id="descriptionCategory" name="descriptionCategory" required></textarea>
 
-            <button type="submit">Login</button>
+            <button type="submit">Save service</button>
         </form>
-    </div>
-<div th:each="data: ${serviceCategories}" th:text="${data.getName()}">
+    </fieldset>
+<div th:if="${not #arrays.isEmpty(serviceCategories)}">
+    <fieldset th:each="data: ${serviceCategories}">
+        <div>
+            <div th:text="${data.getName()}"></div>
+            <div th:text="${data.getDescription()}"></div>
+        </div>
+    </fieldset>
 </div>
 </div>
 </body>
