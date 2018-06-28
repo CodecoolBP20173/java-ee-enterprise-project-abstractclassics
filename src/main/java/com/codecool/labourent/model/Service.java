@@ -22,12 +22,14 @@ public class Service {
     @ManyToOne
     private ServiceCategory serviceCategory;
 
-    private int numOfRatings;
 
-    private Double sumOfRating;
+    private Integer numOfRatings = 0;
+
+    private Double sumOfRating = 0.0;
 
     @Transient
     private Double averageRating;
+
 
     public Service() {
     }
@@ -39,7 +41,11 @@ public class Service {
     }
 
     public Double getAverageRating() {
-        return sumOfRating / numOfRatings;
+        Double noRatingCode = 6.0;
+        if (numOfRatings != 0) {
+            return sumOfRating / numOfRatings;
+        }
+        return noRatingCode;
     }
 
     public int getId() {
@@ -106,9 +112,8 @@ public class Service {
         this.price = prize;
     }
 
-    public Service(String name, Double price, Double averageRating) {
+    public Service(String name, Double price) {
         this.name = name;
         this.price = price;
-        this.averageRating = averageRating;
     }
 }

@@ -17,7 +17,7 @@ public class RatingService {
 
     public boolean isRatingRelationPresent(Integer userId, Integer serviceId) {
         List<Rating> ratings = ratingRepository.findByUseraccount(userId, serviceId);
-        if(ratings == null) {
+        if(ratings.size() == 0) {
             return false;
         }
         return true;

@@ -29,7 +29,7 @@
     </div>
     <div class="serviceContainer">
         <div class="sort_row">
-            <div class="sort_button button-4" th:text="${'Category'}">
+            <div class="sort_button button-1" th:text="${'Category'}">
                 item4
             </div>
             <div class="sort_button button-2" th:text="${'Provider Picture'}">
@@ -38,7 +38,7 @@
             <div class="sort_button button-3" >
                 <a th:href="@{/list(column='name', sort=${sortDirection}, categoryId=${categoryId})}">Service Name</a>
             </div>
-            <div class="sort_button button-1">
+            <div class="sort_button button-4">
                 <a th:href="@{/list(column='rating', sort=${sortDirection}, categoryId=${categoryId})}">Rating</a>
             </div>
             <div class="sort_button button-5" >
@@ -66,12 +66,19 @@
                                         <div class="item item-3" th:text="${services[index].name}">
                                             item3
                                         </div>
-                                        <div class="item item-4" th:attr="data-avgRating=${services[index].getAverageRating()}">
-                                            <span class="fa fa-star"></span>
-                                            <span class="fa fa-star"></span>
-                                            <span class="fa fa-star"></span>
-                                            <span class="fa fa-star"></span>
-                                            <span class="fa fa-star"></span>
+                                        <div class="item item-4">
+                                            <div th:if="${services[index].getAverageRating() != 6}">
+                                                <div class="starContainer" th:attr="data-avgRating=${services[index].getAverageRating()}">
+                                                    <span class="fa fa-star"></span>
+                                                    <span class="fa fa-star"></span>
+                                                    <span class="fa fa-star"></span>
+                                                    <span class="fa fa-star"></span>
+                                                    <span class="fa fa-star"></span>
+                                                </div>
+                                            </div>
+                                            <div th:unless="${services[index].getAverageRating() != 6}">
+                                                Not yet rated!
+                                            </div>
                                         </div>
                                         <div class="item item-5" th:text="${services[index].price}">
                                             item5
