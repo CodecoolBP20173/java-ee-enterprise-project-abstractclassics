@@ -9,6 +9,7 @@ import org.springframework.security.config.annotation.method.configuration.Enabl
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 @Configuration
@@ -38,7 +39,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         http
             .authorizeRequests()
             .antMatchers("/", "/introduction", "/login", "/registration", "/list").permitAll()
-            .antMatchers("/profile", "/add-service").hasRole("USER")
+            .antMatchers("/profile", "/add-service").hasAuthority("USER")
             .antMatchers("/admin").hasRole("ADMIN")
             .antMatchers("/css/**", "/script/**").permitAll()
             .anyRequest().authenticated()
