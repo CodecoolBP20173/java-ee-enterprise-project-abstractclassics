@@ -31,6 +31,6 @@ public class AdminPageController {
         serviceCategory.setName(nameCategory);
         serviceCategory.setDescription(descriptionCategory);
         serviceCategoryService.saveServiceCategory(serviceCategory);
-        return "redirect: adminPage";
+        return "redirect:/admin";
     }
 }
