@@ -42,10 +42,11 @@ nav li:hover {
 .logo {
     position: fixed;
     float: left;
-    margin: 16px 36px;
-    color: #fff;
+    margin: 16px 15px;
+    color: #f4521e;
     font-weight: bold;
-    font-size: 24px;
+    font-size: 35px;
+    overflow: hidden;
 }
 nav {
     position: fixed;
@@ -72,14 +73,16 @@ nav.black ul {
 }
 
 nav ul li {
-    display:  inline-block;
-    padding: 20px;
+    display: inline-block;
+    padding: 25px;
+    margin-left: -2px;
+    margin-right: -2px;
 }
 
 nav ul li a {
     text-decoration: none;
     color: #fff;
-    font-size: 20px;
+    font-size: 25px;
 }
 
 .menu-icon {
