@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Login</title>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.0/css/all.css" integrity="sha384-lKuwvrZot6UHsBSfcMvOkWwlCMgc0TaWr+30HWe3a4ltaBwTZhyTEggF5tJv8tbt" crossorigin="anonymous">
+    <link th:replace="fragments/navBar :: topnavcss">
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="script/navbar.js" defer></script>
+</head>
+<body>
+<div th:replace="fragments/navBar :: topnav"></div>
+<h1>Login</h1>
+
+    <form method="post">
+        <label for="email"><b>Email</b></label>
+        <input type="email" placeholder="Enter email" id="email" name="email" required>
+
+        <label for="password"><b>Password</b></label>
+        <input type="password" placeholder="Enter Password" id="password" name="password" required>
+
+        <button type="submit">Login</button>
+
+        <p th:if="${#httpServletRequest.getParameter('invalid') != null && #httpServletRequest.getParameter('invalid').equals('true')}">
+            Invalid username or password.
+        </p>
+    </form>
+</body>
+</html>
