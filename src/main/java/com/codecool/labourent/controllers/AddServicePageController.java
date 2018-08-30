@@ -31,7 +31,6 @@ public class AddServicePageController {
         this.userAccountService = userAccountService;
     }
 
-
     @RequestMapping(value = "/add-service", method = RequestMethod.GET)
     public String servicePageView(Model model) {
         List<ServiceCategory> serviceCategories = serviceCategoryService.getServiceCategories();

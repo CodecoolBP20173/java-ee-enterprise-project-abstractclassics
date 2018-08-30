@@ -23,7 +23,6 @@ public class ServiceCategory {
         this.description = description;
     }
 
-
     public int getId() {
         return id;
     }

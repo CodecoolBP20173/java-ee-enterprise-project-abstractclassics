@@ -27,10 +27,6 @@ public class Service {
 
     private Double sumOfRating = 0.0;
 
-    @Transient
-    private Double averageRating;
-
-
     public Service() {
     }
 

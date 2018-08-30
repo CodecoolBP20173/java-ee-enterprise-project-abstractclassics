@@ -1,7 +1,9 @@
 package com.codecool.labourent.service;
 
 import com.codecool.labourent.model.Service;
-import com.codecool.labourent.repository.ServiceRepository;
+import com.codecool.labourent.repository.serviceRepository.FilterServiceRepository;
+import com.codecool.labourent.repository.serviceRepository.RatingServiceRepository;
+import com.codecool.labourent.repository.serviceRepository.ServiceRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import java.util.List;
 
@@ -9,21 +11,25 @@ import java.util.List;
 public class ServiceService {
 
     private final ServiceRepository serviceRepository;
+    private final RatingServiceRepository ratingServiceRepository;
+    private final FilterServiceRepository filterServiceRepository;
 
     @Autowired
-    public ServiceService(ServiceRepository serviceRepository) {
+    public ServiceService(ServiceRepository serviceRepository, RatingServiceRepository ratingServiceRepository, FilterServiceRepository filterServiceRepository) {
         this.serviceRepository = serviceRepository;
+        this.ratingServiceRepository = ratingServiceRepository;
+        this.filterServiceRepository = filterServiceRepository;
     }
 
     public List<Service> getAllRecordsFromTable(String column, String ascOrDesc){
         if (column.equals("rating") && ascOrDesc.equalsIgnoreCase("asc") ) {
-            return serviceRepository.findAllByOrderByAverageRatingAsc();
+            return ratingServiceRepository.findAllByOrderByAverageRatingAsc();
         } else if (column.equals("name") && ascOrDesc.equalsIgnoreCase("asc")) {
             return serviceRepository.findAllByOrderByNameAsc();
         } else if (column.equals("price") && ascOrDesc.equalsIgnoreCase("asc")) {
             return serviceRepository.findAllByOrderByPriceAsc();
         } else if (column.equals("rating") && ascOrDesc.equalsIgnoreCase("desc")) {
-            return serviceRepository.findAllByOrderByAverageRatingDesc();
+            return ratingServiceRepository.findAllByOrderByAverageRatingDesc();
         } else if (column.equals("name") && ascOrDesc.equalsIgnoreCase("desc")) {
             return serviceRepository.findAllByOrderByNameDesc();
         } else if (column.equals("price") && ascOrDesc.equalsIgnoreCase("desc")) {
@@ -34,19 +40,19 @@ public class ServiceService {
 
     public List<Service> getFilteredRecordsFromTable(String column, String ascOrDesc, int servicecategoryId){
         if (column.equals("rating") && ascOrDesc.equalsIgnoreCase("asc") ) {
-            return serviceRepository.findByServiceCategoryIdOrderByAverageRatingAsc(servicecategoryId);
+            return ratingServiceRepository.findByServiceCategoryIdOrderByAverageRatingAsc(servicecategoryId);
         } else if (column.equals("name") && ascOrDesc.equalsIgnoreCase("asc")) {
-            return serviceRepository.findByServiceCategoryIdOrderByNameAsc(servicecategoryId);
+            return filterServiceRepository.findByServiceCategoryIdOrderByNameAsc(servicecategoryId);
         } else if (column.equals("price") && ascOrDesc.equalsIgnoreCase("asc")) {
-            return serviceRepository.findByServiceCategoryIdOrderByPriceAsc(servicecategoryId);
+            return filterServiceRepository.findByServiceCategoryIdOrderByPriceAsc(servicecategoryId);
         } else if (column.equals("rating") && ascOrDesc.equalsIgnoreCase("desc")) {
-            return serviceRepository.findByServiceCategoryIdOrderByAverageRatingDesc(servicecategoryId);
+            return ratingServiceRepository.findByServiceCategoryIdOrderByAverageRatingDesc(servicecategoryId);
         } else if (column.equals("name") && ascOrDesc.equalsIgnoreCase("desc")) {
-            return serviceRepository.findByServiceCategoryIdOrderByNameDesc(servicecategoryId);
+            return filterServiceRepository.findByServiceCategoryIdOrderByNameDesc(servicecategoryId);
         } else if (column.equals("price") && ascOrDesc.equalsIgnoreCase("desc")) {
-            return serviceRepository.findByServiceCategoryIdOrderByPriceDesc(servicecategoryId);
+            return filterServiceRepository.findByServiceCategoryIdOrderByPriceDesc(servicecategoryId);
         }
-        return serviceRepository.findByServiceCategoryIdOrderByIdAsc(servicecategoryId);
+        return filterServiceRepository.findByServiceCategoryIdOrderByIdAsc(servicecategoryId);
     }
 
     public void saveService(Service service) {
