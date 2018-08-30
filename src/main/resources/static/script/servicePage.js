@@ -1,53 +1,72 @@
-
 $(document).ready(function() {
-    let prismfeet = document.getElementsByClassName("face ft");
 
-    for (let i = 0; i < prismfeet.length; i++) {
-        prismfeet[i].addEventListener('click', function () {
-            let prismScene = prismfeet[i].parentNode.parentNode;
-            let con1 = prismScene.parentNode.parentNode;
-            prismScene.classList.add('scene_turn');
-            con1.classList.add('con1_turn')
 
-        })
-    }
-
-    let backButtons = document.getElementsByClassName("back_button");
-    for (let i = 0; i <backButtons.length; i++) {
-        backButtons[i].addEventListener('click', function () {
-            let prismScene = backButtons[i].parentNode.parentNode.parentNode;
-            let con1 = prismScene.parentNode.parentNode;
-            prismScene.classList.remove('scene_turn');
-            con1.classList.remove('con1_turn')
-        })
-    }
+    addOpenPrismEvent();
+    addClosePrismEvent();
     let contactButtons = document.getElementsByClassName("contact_button");
-    for (let i = 0; i < contactButtons.length; i++) {
-        contactButtons[i].addEventListener('click', function () {
-            let prismScene = contactButtons[i].parentNode.parentNode.parentNode;
-            prismScene.classList.add('scene_turn_left');
-        })
+    addContactEvent(contactButtons);
+    addBackToDetailsEvent(contactButtons);
+    showAverageRatingAsStars();
+
+
+    function addOpenPrismEvent() {
+        let prismfeet = document.getElementsByClassName("face ft");
+        for (let i = 0; i < prismfeet.length; i++) {
+            prismfeet[i].addEventListener('click', function () {
+                let prismScene = prismfeet[i].parentNode.parentNode;
+                let con1 = prismScene.parentNode.parentNode;
+                prismScene.classList.add('scene_turn');
+                con1.classList.add('con1_turn')
+
+            })
+        }
     }
 
-    let backFromContact = document.getElementsByClassName("back_to_deatils_button");
-    for (let i = 0; i < backFromContact.length; i++) {
-        backFromContact[i].addEventListener('click', function () {
-            let prismScene = contactButtons[i].parentNode.parentNode.parentNode;
-            prismScene.classList.remove('scene_turn_left');
-        })
+    function addClosePrismEvent() {
+        let backButtons = document.getElementsByClassName("back_button");
+        for (let i = 0; i < backButtons.length; i++) {
+
+            backButtons[i].addEventListener('click', function () {
+                let prismScene = backButtons[i].parentNode.parentNode.parentNode;
+                let con1 = prismScene.parentNode.parentNode;
+                prismScene.classList.remove('scene_turn');
+                con1.classList.remove('con1_turn')
+            })
+        }
     }
 
+    function addContactEvent(buttonlist) {
+        for (let i = 0; i < buttonlist.length; i++) {
 
-    let ratingDivs = document.getElementsByClassName("starContainer");
-    for (let i = 0; i < ratingDivs.length; i++) {
-        let ratingDiv = ratingDivs[i];
-        let rating = ratingDiv.getAttribute("data-avgRating");
-        let roundedRating = Math.round(rating);
+            buttonlist[i].addEventListener('click', function () {
+                let prismScene = buttonlist[i].parentNode.parentNode.parentNode;
+                prismScene.classList.add('scene_turn_left');
+            })
 
-        let stars= ratingDiv.getElementsByClassName("fa fa-star");
-        console.log(rating);
-        for( let i = 0; i < roundedRating; i++) {
-            stars[i].classList.add("checked");
+        }
+    }
+
+    function addBackToDetailsEvent(buttons) {
+        let backFromContact = document.getElementsByClassName("back_to_deatils_button");
+        for (let i = 0; i < backFromContact.length; i++) {
+            backFromContact[i].addEventListener('click', function () {
+                let prismScene = buttons[i].parentNode.parentNode.parentNode;
+                prismScene.classList.remove('scene_turn_left');
+            })
+
+        }
+    }
+
+    function showAverageRatingAsStars() {
+        let ratingDivs = document.getElementsByClassName("starContainer");
+        for (let i = 0; i < ratingDivs.length; i++) {
+            let ratingDiv = ratingDivs[i];
+            let rating = ratingDiv.getAttribute("data-avgRating");
+            let roundedRating = Math.round(rating);
+            let stars = ratingDiv.getElementsByClassName("fa fa-star");
+            for (let i = 0; i < roundedRating; i++) {
+                stars[i].classList.add("checked");
+            }
         }
     }
 
@@ -97,7 +116,6 @@ $(document).ready(function() {
                         data: {
                             rating: rating,
                             serviceId: serviceId
-                            //Todo send user UserId
                         },
                         error: function (xhr, desc, err) {
                             console.log(xhr);
