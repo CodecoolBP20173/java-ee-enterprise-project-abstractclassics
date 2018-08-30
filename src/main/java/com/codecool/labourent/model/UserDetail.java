@@ -170,7 +170,6 @@ public class UserDetail {
         return simpleDateFormat.format(dateOfBirth);
     }
 
-
     @Override
     public boolean equals(Object obj) {
         if (obj == null) return false;
