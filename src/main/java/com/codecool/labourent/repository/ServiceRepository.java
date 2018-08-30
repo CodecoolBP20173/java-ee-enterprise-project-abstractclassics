@@ -11,13 +11,14 @@ public interface ServiceRepository extends JpaRepository<Service, Integer> {
     List<Service> findAllByOrderByIdAsc();
     List<Service> findAllByOrderByIdDesc();
 
-    @Query(value = "SELECT *, AVG(sumofrating/numofratings) as averageRating\n" +
+
+    @Query(value = "SELECT *, AVG(sumofrating/nullif(numofratings, 0)) as averageRating\n" +
             "FROM service\n" +
             "group by id\n" +
             "order by averageRating asc", nativeQuery = true)
     List<Service> findAllByOrderByAverageRatingAsc();
 
-    @Query(value = "SELECT *, AVG(sumofrating/numofratings) as averageRating\n" +
+    @Query(value = "SELECT *, AVG(sumofrating/nullif(numofratings, 0)) as averageRating\n" +
             "FROM service\n" +
             "group by id\n" +
             "order by averageRating desc", nativeQuery = true)
@@ -32,7 +33,7 @@ public interface ServiceRepository extends JpaRepository<Service, Integer> {
 
 
 
-    @Query(value = "select *, AVG(sumofrating/numofratings) as averageRating\n" +
+    @Query(value = "select *, AVG(sumofrating/nullif(numofratings, 0)) as averageRating\n" +
             "from service\n" +
             "  where servicecategory_id=:servicecategoryid\n" +
             "group by id\n" +
@@ -41,7 +42,7 @@ public interface ServiceRepository extends JpaRepository<Service, Integer> {
 
 
 
-    @Query(value = "select *, AVG(sumofrating/numofratings) as averageRating\n" +
+    @Query(value = "select *, AVG(sumofrating/nullif(numofratings, 0)) as averageRating\n" +
             "from service\n" +
             "  where servicecategory_id=:servicecategoryid\n" +
             "group by id\n" +
